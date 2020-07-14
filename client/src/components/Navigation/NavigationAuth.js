@@ -1,71 +1,73 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import SignOutButton from "../SignOut/index";
-import { makeStyles } from "@material-ui/core/styles";
+import SignOut from "../SignOut/index";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    border: 0,
-    color: "white",
-    height: 48,
-    padding: "0px 20px",
-    borderRadius: "30px",
-    margin: "0px 10px",
-    width: "120px",
-    "&:hover": {
-      background: "#0286AD",
-    },
-  },
-  title: {
-    flexGrow: 1,
-  },
-  menuLink: {
-    underline: "none",
-    color: "white",
-    textDecoration: "none",
-  },
-}));
+import useStyles from "./NavigationStyles";
+import Typography from "@material-ui/core/Typography";
 
 const NavigationAuth = () => {
   const classes = useStyles();
   return (
-    <AppBar position="sticky">
-      <Toolbar>
-        <Typography variant="h6">
-          <Link to={ROUTES.LANDING} className={classes.menuLink}>
-            <Button color="inherit" className={classes.menuButton}>
-              Landing
-            </Button>
-          </Link>
+    <div className={classes.root}>
+      {/* <AppBar position="static">
+        <Toolbar>
           <Link to={ROUTES.HOME} className={classes.menuLink}>
             <Button color="inherit" className={classes.menuButton}>
               Home
             </Button>
           </Link>
-          <Link to={ROUTES.ACCOUNT} className={classes.menuLink}>
-            <Button color="inherit" className={classes.menuButton}>
+
+
+          <div className>
+            <Link to={ROUTES.ACCOUNT}>
+              <Button color="inherit">Account</Button>
+            </Link>
+            <SignOutButton />
+          </div>
+        </Toolbar>
+      </AppBar>
+       */}
+      <AppBar position="static">
+        <Toolbar>
+          {/* <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton> */}
+          {/* <Typography variant="h6" className={classes.title}> */}
+          <Link to={ROUTES.HOME} className={classes.title}>
+            <Button color="inherit" className={classes.title}>
+              <Typography variant="h6" className={classes.title}>
+                Home Logo
+              </Typography>
+            </Button>
+          </Link>
+          <Link to={ROUTES.ACCOUNT}>
+            <Button color="inherit" className={classes.right}>
               Account
             </Button>
           </Link>
-          <Link to={ROUTES.ADMIN} className={classes.menuLink}>
-            <Button color="inherit" className={classes.menuButton}>
-              Admin
+          {/* <SignOut>
+            <Button color="inherit" className={classes.right}>
+              Logout
             </Button>
-          </Link>
-          <SignOutButton />
-        </Typography>
-      </Toolbar>
-    </AppBar>
+          </SignOut> */}
+          <SignOut>
+            <div className="navbar-item">
+              <p>Log Out</p>
+            </div>
+          </SignOut>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 };
 

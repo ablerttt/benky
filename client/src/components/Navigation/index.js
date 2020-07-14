@@ -1,7 +1,5 @@
 import React from "react";
 
-import SignOutButton from "../SignOut";
-import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../Session";
 import NavigationAuth from "./NavigationAuth";
 import NavigationNoAuth from "./NavigationNoAuth";

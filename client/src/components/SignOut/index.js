@@ -1,9 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
+import * as ROUTES from "../../constants/routes";
 
-const SignOutButton = ({ firebase }) => (
-  <Link onClick={firebase.doSignOut}>Logout</Link>
-);
+function SignOut(props) {
+  return (
+    <div
+      className="signout"
+      onClick={() => {
+        props.firebase.doSignOut().then(() => {
+          props.history.push(ROUTES.LANDING);
+        });
+      }}
+    >
+      {props.children}
+    </div>
+  );
+}
 
-export default withFirebase(SignOutButton);
+export default compose(withRouter, withFirebase)(SignOut);
