@@ -8,29 +8,31 @@ import { withAuthorization } from "../Session";
 import { SignUpLink } from "../SignUp";
 // import { NewSetMessage } from "../NewSet";
 import { useStyles } from "./index";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+import * as ROUTES from "../../constants/routes";
 
 function Option(props) {
   let classes = useStyles();
   return (
     <div>
       <Card className={classes.card}>
-        <CardActionArea>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              {props.title}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              test
-            </Typography>
-            <Typography variant="body2" component="p">
-              well meaning and kindly.
+        <Link href={props.connect} style={{ textDecoration: "none" }}>
+          <CardActionArea>
+            <CardContent>
+              <Typography variant="h5" component="h2">
+                {props.title}
+              </Typography>
+              <Typography className={classes.pos} color="textSecondary">
+                Do something amazing.
+              </Typography>
               <br />
-              {'"a benevolent smile"'}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+              <br />
+              <Typography variant="body2" component="p">
+                Put your knowledge to the test.
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Link>
       </Card>
     </div>
   );
