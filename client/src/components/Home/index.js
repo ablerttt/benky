@@ -40,6 +40,16 @@ function HomePage(props) {
   const [spacing] = React.useState(2);
   const options = ["Create a new set.", "Review.", "Test."];
   const links = [ROUTES.NEW_SET, ROUTES.NEW_SET, ROUTES.NEW_SET];
+  const descriptions = [
+    "Apply your knowledge of material to a new set.",
+    "Practice your newfound knowledge to achieve memorization.",
+    "You can do it! Try solving your questions and see how you do.",
+  ];
+  const inspo = [
+    "Bring your ideas to life.",
+    "Refresh.",
+    "Put your knowledge to the test.",
+  ];
 
   return (
     <div class="container">
@@ -51,7 +61,13 @@ function HomePage(props) {
           <Grid container justify="center" spacing={spacing}>
             {[0, 1, 2].map((value) => (
               <Grid key={value} className={classes.option}>
-                <Option title={options[value]} className={classes.paper} connect={links[value]} />
+                <Option
+                  title={options[value]}
+                  className={classes.paper}
+                  connect={links[value]}
+                  description={descriptions[value]}
+                  inspo={inspo[value]}
+                />
               </Grid>
             ))}
           </Grid>

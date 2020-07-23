@@ -45,8 +45,6 @@ class NewSetForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
         <CardInputs cards={cards} />
-        {/* <NextInput onClick={this.handleNewInput} /> */}
-        <TextField onClick={this.addCard} placeholder="Next..." />
         <Button onClick={this.addCard}>
           <AddIcon />
         </Button>
