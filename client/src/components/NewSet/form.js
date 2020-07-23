@@ -1,6 +1,9 @@
 import React from "react";
 import CardInputs from "./input";
 import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import NextInput from "./inputNext";
 
 class NewSetForm extends React.Component {
   state = {
@@ -23,6 +26,16 @@ class NewSetForm extends React.Component {
     }));
   };
 
+  handleNewInput = (e) => {
+    this.setState((prevState) => ({
+      cards: [...prevState.cards, { name: "", def: "" }],
+    }));
+  };
+
+  removeCard = (e) => {
+    e.preventDefault();
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -32,11 +45,16 @@ class NewSetForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
         <CardInputs cards={cards} />
-        {/* <button onClick={this.addCard}>+</button> */}
-        <AddIcon onClick={this.addCard} />
+        {/* <NextInput onClick={this.handleNewInput} /> */}
+        <TextField onClick={this.addCard} placeholder="Next..." />
+        <Button onClick={this.addCard}>
+          <AddIcon />
+        </Button>
+        <br />
         <input type="submit" value="Submit" />
       </form>
     );
   }
 }
+
 export default NewSetForm;

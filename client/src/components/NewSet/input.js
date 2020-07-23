@@ -1,6 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles({
   root: {
@@ -10,17 +13,17 @@ const useStyles = makeStyles({
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     color: "white",
     height: 48,
-    padding: "0 30px",
+    // padding: "0 30px",
   },
   input: {
-    margin: "0 30px",
+    // margin: "0 30px",
   },
   term: {
-    margin: "0 30px",
-    width: "30%",
+    // margin: "0 30px",
+    width: "20%",
   },
   def: {
-    margin: "0 30px",
+    // margin: "0 30px",
     width: "30%",
   },
 });
@@ -50,6 +53,12 @@ const CardInputs = (props) => {
           // value={props.cards[idx].def}
           label="Definition"
         />
+        <Button
+          // onClick={}
+        >
+          <CloseIcon />
+        </Button>
+        {/* <CloseIcon onClick={props.delete}/> */}
       </div>
     );
   });
