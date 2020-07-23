@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const StudyList = new Schema(
+const StudySet = new Schema(
   {
     name: { type: String, required: true },
     definition: { type: [String], required: true },
@@ -9,4 +9,4 @@ const StudyList = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("studyList", StudyList);
+module.exports = mongoose.model("studySet", StudySet);
