@@ -4,7 +4,8 @@ const api = axios.create({
   baseURL: "http://localhost:3000/api",
 });
 
-export const insertStudySet = (payload) => api.post(`/set`, payload);
+export const insertStudySet = (setTitle, completeSet) =>
+  api.post(`/set`, { title: setTitle, set: completeSet });
 export const getAllStudySets = () => api.get(`/sets`);
 export const updateStudySetById = (id, payload) =>
   api.put(`/set/${id}`, payload);

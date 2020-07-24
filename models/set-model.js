@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const StudySet = new Schema(
   {
+    title: { type: String, required: true },
     name: { type: String, required: true },
     definition: { type: [String], required: true },
   },

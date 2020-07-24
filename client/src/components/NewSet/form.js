@@ -4,9 +4,13 @@ import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import NextInput from "./inputNext";
+import api from "../../api";
+import Typography from "@material-ui/core/Typography";
+import { useStyles } from "./index";
 
 class NewSetForm extends React.Component {
   state = {
+    title: "",
     cards: [{ name: "", def: "" }],
   };
 
@@ -36,14 +40,35 @@ class NewSetForm extends React.Component {
     e.preventDefault();
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
+    const { completeSet } = this.state;
+
+    await api.insertStudySet(completeSet).then((res) => {
+      window.alert("Inserted successfully.");
+      this.setState({ cards: [{ name: "", def: "" }] });
+    });
     e.preventDefault();
   };
 
   render() {
-    let { cards } = this.state;
+    let { title, cards } = this.state;
+    let classes = useStyles();
     return (
       <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+        <Typography variant="h1">
+          <TextField
+            id="with-placeholder"
+            placeholder="Untitled Set"
+            InputProps={{
+              classes: {
+                input: classes.resize,
+              },
+            }}
+            className={classes.textField}
+            // margin="normal"
+            autoFocus={true}
+          />
+        </Typography>
         <CardInputs cards={cards} />
         <Button onClick={this.addCard}>
           <AddIcon />

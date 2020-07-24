@@ -27,22 +27,7 @@ function NewSetPage() {
   let classes = useStyles();
   return (
     <div>
-      <Typography variant="h1">
-        <TextField
-          id="with-placeholder"
-          placeholder="Untitled Set"
-          InputProps={{
-            classes: {
-              input: classes.resize,
-            },
-          }}
-          className={classes.textField}
-          // margin="normal"
-          autoFocus={true}
-        />
-      </Typography>
       <NewSetForm />
-      {/* <NextEmptyForm /> */}
     </div>
   );
 }
@@ -54,4 +39,4 @@ const NewSetMessage = () => (
 );
 
 export default NewSetPage;
-export { NewSetMessage };
+export { NewSetMessage, useStyles };
