@@ -3,7 +3,7 @@ import CardInputs from "./input";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import NextInput from "./inputNext";
+// import NextInput from "./inputNext";
 import api from "../../api";
 import Typography from "@material-ui/core/Typography";
 import { useStyles } from "./index";

@@ -36,7 +36,7 @@ function NewSetPage() {
 
 const NewSetMessage = () => (
   <p>
-    <Link to={ROUTES.NEW_SET}>Create a new set here.</Link>
+    <Link to={ROUTES.NEW_LIST}>Create a new set here.</Link>
   </p>
 );
 

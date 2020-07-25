@@ -1,13 +1,47 @@
-const express = require("express");
+const StudySet = require("../models/set-model");
 
-const StudySetCtrl = require("../controllers/studyset-ctrl.js");
+insertStudySet = (req, res) => {
+  console.log(`Input req is ${req}`);
+  const body = req.body;
+  console.log(`Input body is ${body} and ${body[0]} and ${body[1]}`);
 
-const router = express.Router();
+  if (!body) {
+    console.log(`Invalid set detected.`);
+    return res.status(400).json({
+      success: false,
+      error: "Invalid set detected.",
+    });
+  }
 
-router.post("/set", StudySetCtrl.createStudySet);
-router.put("/set/:id", StudySetCtrl.updateStudySet);
-router.delete("/set/:id", StudySetCtrl.deleteStudySet);
-router.get("/set/:id", StudySetCtrl.getStudySetById);
-router.get("/sets", StudySetCtrl.getStudySets);
+  const studySet = new StudySet(body);
 
-module.exports = router;
+  if (!studySet) {
+    console.log("Study set is not a study set ");
+    return res.status(400).json({ success: false, error: err });
+  }
+  console.log("ready to save");
+
+  studySet
+    .save()
+    .then(() => {
+      return res.status(201).json({
+        success: true,
+        id: studySet._id,
+        message: "Study Set successfully created!",
+      });
+    })
+    .catch((error) => {
+      console.log(`Caught error at the end! the error was ${error}`);
+      // window.alert(`Study set not created`);
+      return res.status(400).json({
+        error,
+        message: "Study Set was not created!",
+      });
+    });
+
+  console.log("successfully called controller");
+};
+
+module.exports = {
+  insertStudySet,
+};

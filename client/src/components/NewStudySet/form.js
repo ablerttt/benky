@@ -4,12 +4,14 @@ import TextField from "@material-ui/core/TextField";
 import { Typography } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
+import API from "../../api";
 
 class Form extends React.Component {
   state = {
     title: "",
-    cards: [{ name: "", age: "" }],
+    cards: [{ term: "", description: "" }],
   };
+
   handleChange = (e) => {
     if (["name", "age"].includes(e.target.className)) {
       let cards = [...this.state.cards];
@@ -25,27 +27,25 @@ class Form extends React.Component {
     currentCards.splice(i, 1);
     this.setState({ cards: currentCards });
   };
+
   addCard = (e) => {
     this.setState((prevState) => ({
       cards: [...prevState.cards, { name: "", age: "" }],
     }));
   };
+
   handleSubmit = (e) => {
+    // alert("A name was submitted: " + this.state.title);
+    console.log("submission");
+    const { title, cards } = this.state;
+    API.createStudySet(title, cards);
     e.preventDefault();
   };
+
   render() {
     let { title, cards } = this.state;
     return (
       <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-        {/* <label htmlFor="name">Owner</label>
-        <input type="text" name="owner" id="owner" value={owner} />
-        <label htmlFor="description">Description</label>
-        <input
-          type="text"
-          name="description"
-          id="description"
-          value={description}
-        /> */}
         <Typography variant="h1">
           <TextField
             name="title"
@@ -59,9 +59,11 @@ class Form extends React.Component {
           <AddIcon />
         </Button>
         <br />
-        <Button>Save</Button>
+        {/* <Button onClick={this.handleSubmit}>Save</Button> */}
+        <input type="submit" value="Submit" />
       </form>
     );
   }
 }
+
 export default Form;

@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SetEntry = new Schema({
-  name: { type: String, required: true },
-  def: { type: [String], required: true },
+  term: { type: String, required: true },
+  description: { type: [String], required: true },
 });
 
 const StudySet = new Schema(
   {
     title: { type: String, required: true },
-    studySet: [SetEntry],
+    cards: [SetEntry],
   },
   { timestamps: true }
 );
