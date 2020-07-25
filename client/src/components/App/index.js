@@ -9,7 +9,8 @@ import PasswordForgetPage from "../PasswordForget";
 import HomePage from "../Home";
 import AccountPage from "../Account";
 import AdminPage from "../Admin";
-import NewSet from "../NewSet";
+// import NewSet from "../NewSet";
+import NewStudySet from "../NewStudySet";
 
 import * as ROUTES from "../../constants/routes";
 import { withAuthentification } from "../Session";
@@ -26,7 +27,7 @@ const App = () => (
         <Route path={ROUTES.HOME} component={HomePage} />
         <Route path={ROUTES.ACCOUNT} component={AccountPage} />
         <Route path={ROUTES.ADMIN} component={AdminPage} />
-        <Route path={ROUTES.NEW_SET} component={NewSet} />
+        <Route path={ROUTES.NEW_SET} component={NewStudySet} />
       </div>
     </div>
   </Router>
