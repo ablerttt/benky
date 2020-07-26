@@ -2,13 +2,9 @@ import React from "react";
 import "./home.css";
 import { withAuthorization } from "../Session";
 import { SignUpLink } from "../SignUp";
-import { NewSetMessage } from "../NewSet";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Option from "./test";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
 import * as ROUTES from "../../constants/routes";
 
 const useStyles = makeStyles((theme) => ({

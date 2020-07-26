@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Redirect, Route, Switch, BrowserRouter } from "react-router-dom";
 // import { AuthUserContext } from "../Session";
 import Navigation from "../Navigation";
 import LandingPage from "../Landing";
@@ -9,8 +9,7 @@ import PasswordForgetPage from "../PasswordForget";
 import HomePage from "../Home";
 import AccountPage from "../Account";
 import AdminPage from "../Admin";
-// import NewSet from "../NewSet";
-// import NewStudySet from "../NewStudySet";
+import NotFoundPage from "../../pages/404";
 import { StudySetInsert, StudySetUpdate } from "../NewList";
 import ViewList from "../ViewList";
 
@@ -18,10 +17,10 @@ import * as ROUTES from "../../constants/routes";
 import { withAuthentification } from "../Session";
 
 const App = () => (
-  <Router>
+  <BrowserRouter>
     <div>
       <Navigation />
-      <div>
+      <Switch>
         <Route exact path={ROUTES.LANDING} component={LandingPage} />
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
         <Route path={ROUTES.SIGN_IN} component={SignInPage} />
@@ -32,9 +31,10 @@ const App = () => (
         <Route path={ROUTES.NEW_LIST} exact component={StudySetInsert} />
         <Route path={ROUTES.SHOW_LIST} exact component={ViewList} />
         <Route path={ROUTES.UPDATE_LIST} exact component={StudySetUpdate} />
-      </div>
+        <Route path="*" component={NotFoundPage} />
+      </Switch>
     </div>
-  </Router>
+  </BrowserRouter>
 );
 
 export default withAuthentification(App);
