@@ -44,7 +44,7 @@ class StudySetInsert extends Component {
 
     this.state = {
       title: "",
-      cards: [{ term: "", def: "" }],
+      cards: [{ term: "", description: "" }],
     };
   }
 
@@ -61,7 +61,7 @@ class StudySetInsert extends Component {
     const def = event.target.value;
     let cards = [...this.state.cards];
     let newCard = { ...cards[idx] };
-    newCard.def = def;
+    newCard.description = def;
     cards[idx] = newCard;
     this.setState({ cards });
   };
@@ -76,11 +76,11 @@ class StudySetInsert extends Component {
     this.setState({ time });
   };
 
-  handleInsertStudySet = async () => {
+  handleInsertStudySet = () => {
     let { title, cards } = this.state;
     window.alert(`Insert with title ${title} and cards ${cards}`);
-    await api.insertStudySet(title, cards).then((res) => {
-      window.alert(`StudySet inserted successfully`);
+    api.insertStudySet(title, cards).then((res) => {
+      window.alert(`StudySet inserted successfully with response ${res}`);
       this.setState({
         title: "",
         cards: [{ term: "", description: "" }],

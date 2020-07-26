@@ -5,7 +5,6 @@ const api = axios.create({
 });
 
 export const insertStudySet = (title, cards) => {
-  window.alert(`insert api with title = ${title} and cards = ${cards}`);
   return api
     .post(`/set`, { title: title, cards: cards })
     .then((res) => {
@@ -17,6 +16,7 @@ export const insertStudySet = (title, cards) => {
       window.alert(`error received: ${err}`);
     });
 };
+
 export const getAllStudySets = () => api.get(`/sets`);
 export const updateStudySetById = (id, payload) =>
   api.put(`/set/${id}`, payload);

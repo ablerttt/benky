@@ -39,7 +39,7 @@ function HomePage(props) {
   const classes = useStyles();
   const [spacing] = React.useState(2);
   const options = ["Create a new set.", "Review.", "Test."];
-  const links = [ROUTES.NEW_LIST, ROUTES.NEW_LIST, ROUTES.NEW_LIST];
+  const links = [ROUTES.NEW_LIST, ROUTES.SHOW_LIST, ROUTES.NEW_LIST];
   const descriptions = [
     "Apply your knowledge of material to a new set.",
     "Practice your newfound knowledge to achieve memorization.",

@@ -1,9 +1,7 @@
 const StudySet = require("../models/set-model");
 
 insertStudySet = (req, res) => {
-  console.log(`Input req is ${req}`);
   const body = req.body;
-  console.log(`Input body is ${body} and ${body[0]} and ${body[1]}`);
 
   if (!body) {
     console.log(`Invalid set detected.`);
@@ -26,22 +24,36 @@ insertStudySet = (req, res) => {
     .then(() => {
       return res.status(201).json({
         success: true,
-        id: studySet._id,
-        message: "Study Set successfully created!",
+        id: movie._id,
+        message: "Movie created!",
       });
     })
     .catch((error) => {
-      console.log(`Caught error at the end! the error was ${error}`);
-      // window.alert(`Study set not created`);
       return res.status(400).json({
         error,
-        message: "Study Set was not created!",
+        message: "Movie not created!",
       });
     });
 
-  console.log("successfully called controller");
+  console.log("over");
+};
+
+getAllStudySets = async (req, res) => {
+  console.log("get all study sets called from controller");
+  await StudySet.find({}, (err, studysets) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: err });
+    }
+    if (!studysets.length) {
+      return res
+        .status(404)
+        .json({ success: false, error: `Study Sets not found` });
+    }
+    return res.status(200).json({ success: true, data: studysets });
+  }).catch((err) => console.log(err));
 };
 
 module.exports = {
   insertStudySet,
+  getAllStudySets,
 };

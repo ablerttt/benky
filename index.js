@@ -14,10 +14,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
 app.use("/api", setRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));

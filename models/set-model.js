@@ -9,7 +9,7 @@ const SetEntry = new Schema({
 const StudySet = new Schema(
   {
     title: { type: String, required: true },
-    cards: [SetEntry],
+    cards: { type: [SetEntry], required: true },
   },
   { timestamps: true }
 );
