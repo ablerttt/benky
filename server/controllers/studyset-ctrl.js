@@ -41,7 +41,6 @@ insertStudySet = (req, res) => {
 getAllStudySets = (req, res) => {
   console.log("get all study sets called from controller");
   StudySet.find({}, (err, studysets) => {
-    console.log("found somethings");
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
@@ -50,7 +49,6 @@ getAllStudySets = (req, res) => {
         .status(404)
         .json({ success: false, error: `Study Sets not found` });
     }
-    console.log(`got result with a length of ${studysets.length}`);
     return res.status(200).json({ success: true, data: studysets });
   }).catch((err) => console.log(err));
   console.log("...done");

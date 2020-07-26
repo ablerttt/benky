@@ -86,7 +86,6 @@ class StudySetInsert extends Component {
         cards: [{ term: "", description: "" }],
       });
     });
-    window.alert(`after insert`);
   };
 
   deleteCard = (i) => {

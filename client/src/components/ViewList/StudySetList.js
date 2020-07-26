@@ -1,93 +1,92 @@
 import React, { Component } from "react";
-import ReactTable from "react-table";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import api from "../../api";
+import { sizing } from "@material-ui/system";
+import Card from "@material-ui/core/Card";
+import Paper from "@material-ui/core/Paper";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+// import styles from "./styles";
 
-import styled from "styled-components";
-import { Typography } from "@material-ui/core";
-
-// import "react-table/react-table.css";
-
-const Wrapper = styled.div`
-  padding: 0 40px 40px 40px;
-`;
-
-const Update = styled.div`
-  color: #ef9b0f;
-  cursor: pointer;
-`;
-
-const Delete = styled.div`
-  color: #ff0000;
-  cursor: pointer;
-`;
+const styles = (theme) => ({
+  "@global": {
+    body: {
+      backgroundColor: "white",
+    },
+  },
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
+});
 
 class StudySetList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      cards: [{ term: "", def: "" }],
+      items: [],
     };
   }
 
   componentDidMount = async () => {
-    // this.setState({ isLoading: true });
-
-    await api.getAllStudySets().then((movies) => {
+    await api.getAllStudySets().then((res) => {
+      var items = res.data.data;
       this.setState({
-        movies: movies.data.data,
+        items,
       });
     });
   };
 
-  render() {
-    const { title, cards } = this.state;
-
-    const columns = [
-      {
-        Header: "ID",
-        accessor: "_id",
-        filterable: true,
-      },
-      {
-        Header: "Name",
-        accessor: "name",
-        filterable: true,
-      },
-      {
-        Header: "Rating",
-        accessor: "rating",
-        filterable: true,
-      },
-      {
-        Header: "Time",
-        accessor: "time",
-        Cell: (props) => <span>{props.value.join(" / ")}</span>,
-      },
-    ];
-
-    let showTable = true;
-    if (!cards.length) {
-      showTable = false;
-    }
-
+  createCard = (item, classes) => {
     return (
       <div>
-        <Typography variant='h1'>{title}</Typography>
-        {/* <Wrapper>
-          {showTable && (
-            <ReactTable
-              data={cards}
-              columns={columns}
-              defaultPageSize={10}
-              showPageSizeOptions={true}
-              minRows={0}
-            />
-          )}
-        </Wrapper> */}
+        <Grid key={item} className={classes.listCard}>
+          <Card className={classes.listCard}>
+            <CardContent>
+              <Typography variant="h5">{item.title}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
       </div>
+    );
+  };
+
+  render() {
+    const { items } = this.state;
+    const { classes } = this.props;
+
+    return (
+      <Container component="main" maxWidth="lg">
+        <div className={classes.root}>
+          <Typography variant="h1">Your Lists</Typography>
+          <br />
+          <Grid container spacing={3}>
+            {items.map((item) => {
+              return (
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card className={classes.listCard}>
+                    <CardContent>
+                      <Typography variant="h5">{item.title}</Typography>
+                      <br />
+                      <Typography variant="body2">
+                        Last modified {item.updatedAt}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </div>
+      </Container>
     );
   }
 }
 
-export default StudySetList;
+export default withStyles(styles)(StudySetList);

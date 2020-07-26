@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     width: "300px",
-    // margin: "30px 0",
-    // display: "inline"
   },
   option: {
     margin: "10px",
