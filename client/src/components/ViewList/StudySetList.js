@@ -8,6 +8,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import Button from "@material-ui/core/Button";
+import CardActions from "@material-ui/core/CardActions";
 // import styles from "./styles";
 
 const styles = (theme) => ({
@@ -78,6 +81,17 @@ class StudySetList extends Component {
                         Last modified {item.updatedAt}
                       </Typography>
                     </CardContent>
+                    <CardActions>
+                      <Button size="medium" color="primary">
+                        Edit
+                      </Button>
+                      <Button size="medium" color="primary">
+                        Practice
+                      </Button>
+                      <Button size="medium" color="primary">
+                        Remove
+                      </Button>
+                    </CardActions>
                   </Card>
                 </Grid>
               );

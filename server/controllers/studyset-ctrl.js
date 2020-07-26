@@ -39,7 +39,6 @@ insertStudySet = (req, res) => {
 };
 
 getAllStudySets = (req, res) => {
-  console.log("get all study sets called from controller");
   StudySet.find({}, (err, studysets) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
@@ -51,10 +50,21 @@ getAllStudySets = (req, res) => {
     }
     return res.status(200).json({ success: true, data: studysets });
   }).catch((err) => console.log(err));
-  console.log("...done");
+};
+
+getStudySetById = (req, res) => {
+  console.log(`input id is ${req.params.id}`);
+  StudySet.findOne({ _id: req.params.id }, (err, studyset) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: err });
+    }
+
+    return res.status(200).json({ success: true, data: studyset });
+  }).catch((err) => console.log(err));
 };
 
 module.exports = {
   insertStudySet,
   getAllStudySets,
+  getStudySetById,
 };

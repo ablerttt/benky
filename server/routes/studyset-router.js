@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.post("/set", StudySetCtrl.insertStudySet);
 router.get("/setlist", StudySetCtrl.getAllStudySets);
+router.get("/set/:id", StudySetCtrl.getStudySetById);
 
 module.exports = router;

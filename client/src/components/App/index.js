@@ -2,19 +2,19 @@ import React from "react";
 import { Redirect, Route, Switch, BrowserRouter } from "react-router-dom";
 // import { AuthUserContext } from "../Session";
 import Navigation from "../Navigation";
-import LandingPage from "../Landing";
-import SignUpPage from "../SignUp";
-import SignInPage from "../SignIn";
-import PasswordForgetPage from "../PasswordForget";
-import HomePage from "../Home";
-import AccountPage from "../Account";
-import AdminPage from "../Admin";
+import LandingPage from "../../pages/Landing";
+import SignUpPage from "../../auth/SignUp";
+import SignInPage from "../../auth/SignIn";
+import PasswordForgetPage from "../../auth/PasswordForget";
+import HomePage from "../../pages/Home";
+import AccountPage from "../../auth/Account";
+import AdminPage from "../../auth/Admin";
 import NotFoundPage from "../../pages/404";
-import { StudySetInsert, StudySetUpdate } from "../NewList";
-import ViewList from "../ViewList";
+import { StudySetInsert, StudySetUpdate } from "../../components/NewList";
+import ViewList from "../../components/ViewList";
 
 import * as ROUTES from "../../constants/routes";
-import { withAuthentification } from "../Session";
+import { withAuthentification } from "../../auth/Session";
 
 const App = () => (
   <BrowserRouter>

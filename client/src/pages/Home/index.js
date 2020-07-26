@@ -1,7 +1,7 @@
 import React from "react";
 import "./home.css";
-import { withAuthorization } from "../Session";
-import { SignUpLink } from "../SignUp";
+import { withAuthorization } from "../../auth/Session";
+import { SignUpLink } from "../../auth/SignUp";
 import { makeStyles } from "@material-ui/core/styles";
 import Option from "./test";
 import Grid from "@material-ui/core/Grid";
