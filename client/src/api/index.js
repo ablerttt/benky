@@ -17,7 +17,7 @@ export const insertStudySet = (title, cards) => {
     });
 };
 
-export const getAllStudySets = () => api.get(`/sets`);
+export const getAllStudySets = () => api.get(`/setlist`);
 export const updateStudySetById = (id, payload) =>
   api.put(`/set/${id}`, payload);
 export const deleteStudySetById = (id) => api.delete(`/set/${id}`);
