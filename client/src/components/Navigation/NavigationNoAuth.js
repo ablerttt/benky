@@ -34,18 +34,18 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
   },
   paper: {
-    padding: theme.spacing.unit,
+    // padding: theme.spacing.unit,
     textAlign: "center",
-    marginBottom: theme.spacing.unit,
+    // marginBottom: theme.spacing.unit,
     background: "pink",
   },
   divider: {
-    margin: `${theme.spacing.unit * 2}px 0`,
+    // margin: `${theme.spacing.unit * 2}px 0`,
   },
   container: {
     display: "grid",
     gridTemplateColumns: "repeat(12, 1fr)",
-    gridGap: `${theme.spacing.unit * 3}px`,
+    // gridGap: `${theme.spacing.unit * 3}px`,
   },
 }));
 
@@ -54,7 +54,7 @@ const NavigationNoAuth = () => {
   return (
     <AppBar style={{ margin: 0 }} position="static">
       <Toolbar>
-        <Grid container spacing={24}>
+        <Grid container spacing={2}>
           <Grid item xs={11}>
             <Typography type="title" color="inherit">
               <Grid item xs={6}>

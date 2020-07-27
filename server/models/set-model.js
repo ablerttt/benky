@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const SetEntry = new Schema({
   term: { type: String, required: true },
-  description: { type: [String], required: true },
+  description: { type: String, required: true },
 });
 
 const StudySet = new Schema(

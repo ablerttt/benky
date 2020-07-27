@@ -32,7 +32,7 @@ class EditList extends React.Component {
     if (this.state.valid) {
       return <EditListPage id={this.props.match.params.id} />;
     } else {
-      return <NotFoundPage />;  
+      return <NotFoundPage />;
     }
   }
 }

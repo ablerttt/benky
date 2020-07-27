@@ -41,9 +41,7 @@ class StudySetInsert extends Component {
 
   handleInsertStudySet = () => {
     let { title, cards } = this.state;
-    window.alert(`Insert with title ${title} and cards ${cards}`);
     api.insertStudySet(title, cards).then((res) => {
-      window.alert(`StudySet inserted successfully with response ${res}`);
       this.setState({
         title: "",
         cards: [{ term: "", description: "" }],
@@ -59,7 +57,7 @@ class StudySetInsert extends Component {
 
   addCard = (e) => {
     this.setState((prevState) => ({
-      cards: [...prevState.cards, { name: "", age: "" }],
+      cards: [...prevState.cards, { term: "", description: "" }],
     }));
   };
 

@@ -14,7 +14,7 @@ const CardInputs = (props) => {
           name={cardId}
           dataid={idx}
           id={cardId}
-          inputProps={props.cards[idx].name}
+          // inputProps={props.cards[idx].name}
           className="name"
           onChange={(e) => props.changeTerm(e, idx)}
         />
@@ -23,7 +23,7 @@ const CardInputs = (props) => {
           name={desId}
           dataid={idx}
           id={desId}
-          inputProps={props.cards[idx].des}
+          // inputProps={props.cards[idx].des}
           className="des"
           onChange={(e) => props.changeDef(e, idx)}
         />
@@ -34,4 +34,5 @@ const CardInputs = (props) => {
     );
   });
 };
+
 export default CardInputs;

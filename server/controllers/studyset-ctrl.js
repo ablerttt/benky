@@ -66,6 +66,44 @@ checkIdExists = async (req, res) => {
   });
 };
 
+updateStudySetById = async (req, res) => {
+  const body = req.body;
+
+  if (!body) {
+    return res.status(400).json({
+      sucess: false,
+      error: "Invalid body detected while trying to update a set.",
+    });
+  }
+
+  StudySet.findOne({ _id: req.params.id }, (err, studyset) => {
+    if (err) {
+      return res.status(404).json({
+        err,
+        message: "Study set was not found.",
+      });
+    }
+
+    studyset.title = body.title;
+    studyset.cards = body.cards;
+    studyset
+      .save()
+      .then(() => {
+        return res.status(200).json({
+          success: true,
+          id: studyset._id,
+          message: "Successfully updated the study set.",
+        });
+      })
+      .catch((e) => {
+        return res.status(404).json({
+          e,
+          message: "Did not update the study set.",
+        });
+      });
+  });
+};
+
 getStudySetById = (req, res) => {
   console.log(`input id is ${req.params.id}`);
   StudySet.findOne({ _id: req.params.id }, (err, studyset) => {
@@ -81,4 +119,5 @@ module.exports = {
   getAllStudySets,
   getStudySetById,
   checkIdExists,
+  updateStudySetById
 };

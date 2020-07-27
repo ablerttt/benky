@@ -8,5 +8,6 @@ router.post("/set", StudySetCtrl.insertStudySet);
 router.get("/setlist", StudySetCtrl.getAllStudySets);
 router.get("/set/:id", StudySetCtrl.getStudySetById);
 router.get("/validset/:id", StudySetCtrl.checkIdExists);
+router.put("/set/:id", StudySetCtrl.updateStudySetById);
 
 module.exports = router;
