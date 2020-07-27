@@ -26,7 +26,6 @@ const styles = (theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary,
   },
 });
 
@@ -68,7 +67,7 @@ class StudySetList extends Component {
     return (
       <Container component="main" maxWidth="lg">
         <div className={classes.root}>
-          <Typography variant="h1">Your Lists</Typography>
+          <Typography variant="h3">Your Lists</Typography>
           <br />
           <Grid container spacing={3}>
             {items.map((item) => {

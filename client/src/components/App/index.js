@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route, Switch, BrowserRouter } from "react-router-dom";
-// import { AuthUserContext } from "../Session";
+import Container from "@material-ui/core/Container";
 import Navigation from "../Navigation";
 import LandingPage from "../../pages/Landing";
 import SignUpPage from "../../auth/SignUp";
@@ -13,30 +13,50 @@ import NotFoundPage from "../../pages/404";
 import { StudySetInsert, StudySetUpdate } from "../../components/NewList";
 import ViewList from "../../components/ViewList";
 import EditList from "../../components/EditList";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import * as ROUTES from "../../constants/routes";
 import { withAuthentification } from "../../auth/Session";
 
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+  },
+});
+
 const App = () => (
-  <BrowserRouter>
-    <div>
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
       <Navigation />
-      <Switch>
-        <Route exact path={ROUTES.LANDING} component={LandingPage} />
-        <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-        <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-        <Route path={ROUTES.HOME} component={HomePage} />
-        <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-        <Route path={ROUTES.ADMIN} component={AdminPage} />
-        <Route path={ROUTES.NEW_LIST} exact component={StudySetInsert} />
-        <Route path={ROUTES.SHOW_LIST} exact component={ViewList} />
-        {/* <Route path={ROUTES.UPDATE_LIST} exact component={StudySetUpdate} /> */}
-        <Route path={ROUTES.UPDATE_LIST} exact component={EditList} />
-        <Route path="*" component={NotFoundPage} />
-      </Switch>
-    </div>
-  </BrowserRouter>
+      <Container maxWidth="md">
+        <Switch>
+          <Route exact path={ROUTES.LANDING} component={LandingPage} />
+          <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+          <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+          <Route path={ROUTES.HOME} component={HomePage} />
+          <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+          <Route path={ROUTES.ADMIN} component={AdminPage} />
+          <Route path={ROUTES.NEW_LIST} exact component={StudySetInsert} />
+          <Route path={ROUTES.SHOW_LIST} exact component={ViewList} />
+          {/* <Route path={ROUTES.UPDATE_LIST} exact component={StudySetUpdate} /> */}
+          <Route path={ROUTES.UPDATE_LIST} exact component={EditList} />
+          <Route path="*" component={NotFoundPage} />
+        </Switch>
+      </Container>
+    </BrowserRouter>
+  </ThemeProvider>
 );
 
 export default withAuthentification(App);

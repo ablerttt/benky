@@ -1,7 +1,6 @@
 import React from "react";
-import "./home.css";
 import { withAuthorization } from "../../auth/Session";
-import { SignUpLink } from "../../auth/SignUp";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Option from "./test";
 import Grid from "@material-ui/core/Grid";
@@ -11,27 +10,22 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  control: {
-    padding: theme.spacing(2),
-  },
-
+  // control: {
+  //   padding: theme.spacing(2),
+  // },
   title: {
     fontSize: 14,
   },
   pos: {
     marginBottom: 12,
   },
-  card: {
-    width: "300px",
-  },
-  option: {
-    margin: "10px",
+  intro: {
+    margin: "30px 0",
   },
 }));
 
 function HomePage(props) {
   const classes = useStyles();
-  const [spacing] = React.useState(2);
   const options = ["Create a new set.", "Review.", "Test."];
   const links = [ROUTES.NEW_LIST, ROUTES.SHOW_LIST, ROUTES.NEW_LIST];
   const descriptions = [
@@ -46,26 +40,40 @@ function HomePage(props) {
   ];
 
   return (
-    <div class="container">
-      <h1>Welcome back.</h1>
-      <p>What great thing will you do today?</p>
-      <br />
-      <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={spacing}>
-            {[0, 1, 2].map((value) => (
-              <Grid key={value} className={classes.option}>
-                <Option
-                  title={options[value]}
-                  className={classes.paper}
-                  connect={links[value]}
-                  description={descriptions[value]}
-                  inspo={inspo[value]}
-                />
-              </Grid>
-            ))}
+    <div>
+      <div className={classes.intro}>
+        <Typography variant="h3" gutterBottom>
+          Welcome back.
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          What great thing will you do today?
+        </Typography>
+      </div>
+      <Grid
+        container
+        className={classes.root}
+        justify="center"
+        spacing={3}
+        alignItems="stretch"
+      >
+        {[0, 1, 2].map((value) => (
+          <Grid
+            item
+            key={value}
+            className={classes.option}
+            lg={4}
+            sm={6}
+            xs={12}
+          >
+            <Option
+              title={options[value]}
+              className={classes.paper}
+              connect={links[value]}
+              description={descriptions[value]}
+              inspo={inspo[value]}
+            />
           </Grid>
-        </Grid>
+        ))}
       </Grid>
     </div>
   );
