@@ -12,6 +12,7 @@ import AdminPage from "../../auth/Admin";
 import NotFoundPage from "../../pages/404";
 import { StudySetInsert, StudySetUpdate } from "../../components/NewList";
 import ViewList from "../../components/ViewList";
+import EditList from "../../components/EditList";
 
 import * as ROUTES from "../../constants/routes";
 import { withAuthentification } from "../../auth/Session";
@@ -30,7 +31,8 @@ const App = () => (
         <Route path={ROUTES.ADMIN} component={AdminPage} />
         <Route path={ROUTES.NEW_LIST} exact component={StudySetInsert} />
         <Route path={ROUTES.SHOW_LIST} exact component={ViewList} />
-        <Route path={ROUTES.UPDATE_LIST} exact component={StudySetUpdate} />
+        {/* <Route path={ROUTES.UPDATE_LIST} exact component={StudySetUpdate} /> */}
+        <Route path={ROUTES.UPDATE_LIST} exact component={EditList} />
         <Route path="*" component={NotFoundPage} />
       </Switch>
     </div>

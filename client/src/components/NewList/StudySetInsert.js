@@ -4,39 +4,7 @@ import CardInputs from "./CardInputs";
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
-// import Button from "@material-ui/core/Button";
-
-const Title = styled.h1.attrs({
-  className: "h1",
-})``;
-
-const Wrapper = styled.div.attrs({
-  className: "form-group",
-})`
-  margin: 0 30px;
-`;
-
-const Label = styled.label`
-  margin: 5px;
-`;
-
-const InputText = styled.input.attrs({
-  className: "form-control",
-})`
-  margin: 5px;
-`;
-
-const Button = styled.button.attrs({
-  className: `btn btn-primary`,
-})`
-  margin: 15px 15px 15px 5px;
-`;
-
-const CancelButton = styled.a.attrs({
-  className: `btn btn-danger`,
-})`
-  margin: 15px 15px 15px 5px;
-`;
+import Button from "@material-ui/core/Button";
 
 class StudySetInsert extends Component {
   constructor(props) {
@@ -71,11 +39,6 @@ class StudySetInsert extends Component {
     this.setState({ title });
   };
 
-  handleChangeInputTime = async (event) => {
-    const time = event.target.value;
-    this.setState({ time });
-  };
-
   handleInsertStudySet = () => {
     let { title, cards } = this.state;
     window.alert(`Insert with title ${title} and cards ${cards}`);
@@ -103,16 +66,14 @@ class StudySetInsert extends Component {
   render() {
     let { title, cards } = this.state;
     return (
-      <Wrapper>
-        <Title>
-          <TextField
-            onChange={this.handleChangeInputName}
-            name="title"
-            id="title"
-            value={title}
-            placeholder="Untitled List"
-          />
-        </Title>
+      <div>
+        <TextField
+          onChange={this.handleChangeInputName}
+          name="title"
+          id="title"
+          value={title}
+          placeholder="Untitled List"
+        />
 
         <CardInputs
           cards={cards}
@@ -125,8 +86,7 @@ class StudySetInsert extends Component {
         </Button>
 
         <Button onClick={this.handleInsertStudySet}>Add StudySet</Button>
-        {/* <CancelButton href={"/home"}>Cancel</CancelButton> */}
-      </Wrapper>
+      </div>
     );
   }
 }

@@ -52,13 +52,26 @@ getAllStudySets = (req, res) => {
   }).catch((err) => console.log(err));
 };
 
+checkIdExists = async (req, res) => {
+  await StudySet.countDocuments({ _id: req.params.id }, (err, count) => {
+    if (count > 0) {
+      return res.status(200).json({ success: true, valid: true, count: count });
+    } else {
+      return res
+        .status(200)
+        .json({ success: true, valid: false, count: count });
+    }
+  }).catch((err) => {
+    console.log(err);
+  });
+};
+
 getStudySetById = (req, res) => {
   console.log(`input id is ${req.params.id}`);
   StudySet.findOne({ _id: req.params.id }, (err, studyset) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
-
     return res.status(200).json({ success: true, data: studyset });
   }).catch((err) => console.log(err));
 };
@@ -67,4 +80,5 @@ module.exports = {
   insertStudySet,
   getAllStudySets,
   getStudySetById,
+  checkIdExists,
 };

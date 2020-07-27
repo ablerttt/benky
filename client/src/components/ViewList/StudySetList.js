@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
+import { EditLink } from "../EditList";
 // import styles from "./styles";
 
 const styles = (theme) => ({
@@ -83,7 +84,7 @@ class StudySetList extends Component {
                     </CardContent>
                     <CardActions>
                       <Button size="medium" color="primary">
-                        Edit
+                        <EditLink id={item._id} />
                       </Button>
                       <Button size="medium" color="primary">
                         Practice
