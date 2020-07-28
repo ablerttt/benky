@@ -45,7 +45,7 @@ class EditLink extends React.Component {
   };
 
   render() {
-    return <Button onClick={this.updateSet}>Edit</Button>;
+    return <Button onClick={this.updateSet} size={this.props.size} color={this.props.color}>Edit</Button>;
   }
 }
 

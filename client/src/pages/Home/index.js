@@ -1,31 +1,30 @@
 import React from "react";
 import { withAuthorization } from "../../auth/Session";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Option from "./test";
 import Grid from "@material-ui/core/Grid";
 import * as ROUTES from "../../constants/routes";
+import styles from "./styles";
+import { compose } from "recompose";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  // control: {
-  //   padding: theme.spacing(2),
-  // },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  intro: {
-    margin: "30px 0",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   title: {
+//     fontSize: 14,
+//   },
+//   pos: {
+//     marginBottom: 12,
+//   },
+//   intro: {
+//     margin: "30px 0",
+//   },
+// }));
 
-function HomePage(props) {
-  const classes = useStyles();
+const HomePage = (props) => {
+  const { classes } = props;
   const options = ["Create a new set.", "Review.", "Test."];
   const links = [ROUTES.NEW_LIST, ROUTES.SHOW_LIST, ROUTES.NEW_LIST];
   const descriptions = [
@@ -66,6 +65,7 @@ function HomePage(props) {
             xs={12}
           >
             <Option
+              classes={styles}
               title={options[value]}
               className={classes.paper}
               connect={links[value]}
@@ -77,10 +77,11 @@ function HomePage(props) {
       </Grid>
     </div>
   );
-}
+};
 
 const condition = (authUser) => !!authUser;
 
-export { useStyles };
-
-export default withAuthorization(condition)(HomePage);
+export default compose(
+  withAuthorization(condition),
+  withStyles(styles)
+)(HomePage);
