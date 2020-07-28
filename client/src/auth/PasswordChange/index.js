@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const INITIAL_STATE = {
   passwordOne: "",
@@ -41,30 +43,30 @@ class PasswordChangeForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <TextField
           name="currentPassword"
           value={this.state.currentPassword}
           onChange={this.onChange}
           type="password"
           placeholder="Original Password"
         />
-        <input
+        <TextField
           name="passwordOne"
           value={this.state.passwordOne}
           onChange={this.onChange}
           type="password"
           placeholder="New Password"
         />
-        <input
+        <TextField
           name="passwordTwo"
           value={this.state.passwordTwo}
           onChange={this.onChange}
           type="password"
           placeholder="Confirm New Password"
         />
-        <button disabled={isInvalid} type="submit">
+        <Button disabled={isInvalid} type="submit">
           Reset Password
-        </button>
+        </Button>
 
         {error && <p>{error.message}</p>}
       </form>

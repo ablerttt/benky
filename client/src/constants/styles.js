@@ -7,7 +7,7 @@ const styles = (theme) => ({
   title: {
     fontSize: 14,
   },
-  pos: {
+  pos:  {
     marginBottom: 12,
   },
   intro: {

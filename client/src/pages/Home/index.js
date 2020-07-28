@@ -8,21 +8,6 @@ import * as ROUTES from "../../constants/routes";
 import styles from "./styles";
 import { compose } from "recompose";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   title: {
-//     fontSize: 14,
-//   },
-//   pos: {
-//     marginBottom: 12,
-//   },
-//   intro: {
-//     margin: "30px 0",
-//   },
-// }));
-
 const HomePage = (props) => {
   const { classes } = props;
   const options = ["Create a new set.", "Review.", "Test."];
