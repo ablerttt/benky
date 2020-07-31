@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import { EditLink } from "../EditList";
 import styles from "../../constants/styles";
+import RemoveList from "../RemoveList";
 
 class ViewList extends Component {
   constructor(props) {
@@ -42,6 +43,13 @@ class ViewList extends Component {
     );
   };
 
+  handleRemoveSet = (keyVal) => {
+    console.log(`handle remove set for key ${keyVal}`);
+    let current = [...this.state.items];
+    current.splice(keyVal, 1);
+    this.setState({ items: current });
+  };
+
   render() {
     const { items } = this.state;
     const { classes } = this.props;
@@ -54,9 +62,9 @@ class ViewList extends Component {
           </Typography>
           <br />
           <Grid container spacing={3}>
-            {items.map((item) => {
+            {items.map((item, val) => {
               return (
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={12} sm={6} md={4} key={val}>
                   <Card className={classes.listCard}>
                     <CardContent>
                       <Typography variant="h5">{item.title}</Typography>
@@ -70,9 +78,12 @@ class ViewList extends Component {
                       <Button size="medium" color="primary">
                         Practice
                       </Button>
-                      <Button size="medium" color="primary">
-                        Remove
-                      </Button>
+                      <RemoveList
+                        id={item._id}
+                        onRemoveSet={this.handleRemoveSet}
+                        onChange={this.handleRemoveSet}
+                        keyVal={val}
+                      />
                     </CardActions>
                   </Card>
                 </Grid>

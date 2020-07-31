@@ -17,21 +17,22 @@ insertStudySet = (req, res) => {
     console.log("Study set is not a study set ");
     return res.status(400).json({ success: false, error: err });
   }
-  console.log("ready to save");
 
   studySet
     .save()
     .then(() => {
+      console.log("Success! Study set was created");
       return res.status(201).json({
         success: true,
-        id: movie._id,
-        message: "Movie created!",
+        id: studySet._id,
+        message: "Study set created!",
       });
     })
     .catch((error) => {
+      console.log(`Fail! Study set not created with error ${error}`);
       return res.status(400).json({
         error,
-        message: "Movie not created!",
+        message: "Study set not created!",
       });
     });
 
@@ -105,11 +106,28 @@ updateStudySetById = async (req, res) => {
 };
 
 getStudySetById = (req, res) => {
-  console.log(`input id is ${req.params.id}`);
   StudySet.findOne({ _id: req.params.id }, (err, studyset) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
+    return res.status(200).json({ success: true, data: studyset });
+  }).catch((err) => console.log(err));
+};
+
+removeStudySetById = (req, res) => {
+  StudySet.findOneAndDelete({ _id: req.params.id }, (err, studyset) => {
+    if (err) {
+      console.log(`Failed to find the study set to delete.`);
+      return re.status(400).json({ success: false, error: err });
+    }
+
+    if (!studyset) {
+      console.log(`Not a studyset!`);
+      return res
+        .status(404)
+        .json({ success: false, error: `Study set was not found.` });
+    }
+    console.log("Success!");
     return res.status(200).json({ success: true, data: studyset });
   }).catch((err) => console.log(err));
 };
@@ -119,5 +137,6 @@ module.exports = {
   getAllStudySets,
   getStudySetById,
   checkIdExists,
-  updateStudySetById
+  updateStudySetById,
+  removeStudySetById,
 };
