@@ -10,9 +10,10 @@ import HomePage from "../../pages/Home";
 import AccountPage from "../../auth/Account";
 import AdminPage from "../../auth/Admin";
 import NotFoundPage from "../../pages/404";
-import { StudySetInsert, StudySetUpdate } from "../../components/NewList";
+import StudySetInsert from "../../components/NewList";
 import ViewList from "../../components/ViewList";
 import EditList from "../../components/EditList";
+import PracticeList from "../../components/PracticeList";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import * as ROUTES from "../../constants/routes";
@@ -49,10 +50,10 @@ const App = () => (
           <Route path={ROUTES.ACCOUNT} component={AccountPage} />
           <Route path={ROUTES.ADMIN} component={AdminPage} />
           <Route path={ROUTES.NEW_LIST} exact component={StudySetInsert} />
-          <Route path={ROUTES.SHOW_LIST} exact component={ViewList} />
-          {/* <Route path={ROUTES.UPDATE_LIST} exact component={StudySetUpdate} /> */}
+          <Route path={ROUTES.SHOW_LIST} component={ViewList} />
           <Route path={ROUTES.UPDATE_LIST} exact component={EditList} />
-          <Route path="*" component={NotFoundPage} />
+          <Route path={ROUTES.PRACTICE_LIST} component={PracticeList} />
+          <Route component={NotFoundPage} />
         </Switch>
       </Container>
     </BrowserRouter>

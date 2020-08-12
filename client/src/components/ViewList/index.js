@@ -11,6 +11,7 @@ import CardActions from "@material-ui/core/CardActions";
 import { EditLink } from "../EditList";
 import styles from "../../constants/styles";
 import RemoveList from "../RemoveList";
+import { PracticeLink } from "../PracticeList";
 
 class ViewList extends Component {
   constructor(props) {
@@ -75,9 +76,11 @@ class ViewList extends Component {
                     </CardContent>
                     <CardActions>
                       <EditLink id={item._id} size="medium" color="primary" />
-                      <Button size="medium" color="primary">
-                        Practice
-                      </Button>
+                      <PracticeLink
+                        id={item._id}
+                        size="medium"
+                        color="primary"
+                      />
                       <RemoveList
                         id={item._id}
                         onRemoveSet={this.handleRemoveSet}

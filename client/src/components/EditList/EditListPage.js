@@ -4,12 +4,14 @@ import CardInputs from "./CardInputs";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
+import LoadingPage from "./LoadingList";
 
 class EditListPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      render: false,
       id: props.id,
       title: "",
       cards: [],
@@ -29,6 +31,8 @@ class EditListPage extends React.Component {
       .catch((e) => {
         console.log(e);
       });
+
+    this.setState({ render: true });
   };
 
   deleteCard = (i) => {
@@ -74,33 +78,38 @@ class EditListPage extends React.Component {
   };
 
   render() {
-    const { title, cards } = this.state;
-    return (
-      <div>
-        <TextField
-          varient="outlined"
-          onChange={this.handleChangeInputName}
-          name="title"
-          id="title"
-          value={title}
-          placeholder="Untitled List"
-        />
-        <br />
+    const { title, cards, render } = this.state;
+    let returnedState = <LoadingPage />;
+    if (render) {
+      returnedState = (
+        <div>
+          <TextField
+            varient="outlined"
+            onChange={this.handleChangeInputName}
+            name="title"
+            id="title"
+            value={title}
+            placeholder="Untitled List"
+          />
+          <br />
 
-        <CardInputs
-          cards={cards}
-          removeItem={this.deleteCard}
-          changeTerm={this.handleChangeCardTerm}
-          changeDef={this.handleChangeCardDef}
-        />
+          <CardInputs
+            cards={cards}
+            removeItem={this.deleteCard}
+            changeTerm={this.handleChangeCardTerm}
+            changeDef={this.handleChangeCardDef}
+          />
 
-        <Button onClick={this.addCard}>
-          <AddIcon />
-        </Button>
+          <Button onClick={this.addCard}>
+            <AddIcon />
+          </Button>
 
-        <Button onClick={this.handleUpdateStudySet}>Update StudySet</Button>
-      </div>
-    );
+          <Button onClick={this.handleUpdateStudySet}>Update StudySet</Button>
+        </div>
+      );
+    }
+
+    return returnedState;
   }
 }
 

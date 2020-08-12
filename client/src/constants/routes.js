@@ -8,3 +8,4 @@ export const PASSWORD_FORGET = "/pw-forget";
 export const NEW_LIST = "/set";
 export const SHOW_LIST = "/sets";
 export const UPDATE_LIST = "/set/:id";
+export const PRACTICE_LIST = "/p/:id";
