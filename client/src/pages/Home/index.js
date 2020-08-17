@@ -11,7 +11,7 @@ import { compose } from "recompose";
 const HomePage = (props) => {
   const { classes } = props;
   const options = ["Create a new set.", "Review.", "Test."];
-  const links = [ROUTES.NEW_LIST, ROUTES.SHOW_LIST, ROUTES.NEW_LIST];
+  const links = [ROUTES.NEW_LIST, ROUTES.SHOW_LIST, ROUTES.TEST_LIST];
   const descriptions = [
     "Apply your knowledge of material to a new set.",
     "Practice your newfound knowledge to achieve memorization.",

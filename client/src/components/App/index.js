@@ -14,6 +14,7 @@ import StudySetInsert from "../../components/NewList";
 import ViewList from "../../components/ViewList";
 import EditList from "../../components/EditList";
 import PracticeList from "../../components/PracticeList";
+import TestSet from "../../components/TestList";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import * as ROUTES from "../../constants/routes";
@@ -53,6 +54,7 @@ const App = () => (
           <Route path={ROUTES.SHOW_LIST} component={ViewList} />
           <Route path={ROUTES.UPDATE_LIST} exact component={EditList} />
           <Route path={ROUTES.PRACTICE_LIST} component={PracticeList} />
+          <Route path={ROUTES.TEST_LIST} component={TestSet} />
           <Route component={NotFoundPage} />
         </Switch>
       </Container>
