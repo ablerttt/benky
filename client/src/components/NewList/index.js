@@ -6,7 +6,14 @@ import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import styles from "../../constants/styles";
 import Typography from "@material-ui/core/Typography";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from "@material-ui/core/styles";
+import { withRouter } from "react-router-dom";
+import { compose } from "recompose";
 
 class StudySetInsert extends React.Component {
   constructor(props) {
@@ -15,6 +22,7 @@ class StudySetInsert extends React.Component {
     this.state = {
       title: "",
       cards: [{ term: "", description: "" }],
+      showDialog: false,
     };
   }
 
@@ -45,9 +53,10 @@ class StudySetInsert extends React.Component {
     let { title, cards } = this.state;
     api.insertStudySet(title, cards).then((res) => {
       this.setState({
-        title: "",
-        cards: [{ term: "", description: "" }],
+        id: res.data.id,
+        showDialog: true,
       });
+      console.log(res);
     });
   };
 
@@ -63,8 +72,18 @@ class StudySetInsert extends React.Component {
     }));
   };
 
+  handleContinue = () => {
+    console.log("continue was clicked");
+    this.props.history.push(`/set/${this.state.id}`);
+  };
+
+  handlePractice = () => {
+    console.log("practice was clicked");
+    this.props.history.push("/sets");
+  };
+
   render() {
-    const { title, cards } = this.state;
+    const { title, cards, showDialog } = this.state;
     const { classes } = this.props;
     return (
       <div>
@@ -93,9 +112,31 @@ class StudySetInsert extends React.Component {
         </Button>
 
         <Button onClick={this.handleInsertStudySet}>Add StudySet</Button>
+        <Dialog
+          open={showDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Remove this set?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Once you remove this set, it cannot be recovered.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleContinue} color="primary">
+              Continue Editing
+            </Button>
+            <Button onClick={this.handlePractice} color="primary" autoFocus>
+              Practice
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(StudySetInsert);
+export default compose(withStyles(styles), withRouter)(StudySetInsert);

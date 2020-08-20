@@ -1,11 +1,14 @@
 import React from "react";
-import EditListPage from "./EditListPage";
-import Button from "@material-ui/core/Button";
 import api from "../../api";
+import Button from "@material-ui/core/Button";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
+import LoadingPage from "../EditList/LoadingList";
 import NotFoundPage from "../../pages/404";
-import LoadingPage from "./LoadingList";
 
-class EditList extends React.Component {
+class Test extends React.Component {
   constructor(props) {
     super(props);
 
@@ -37,7 +40,7 @@ class EditList extends React.Component {
   render() {
     let renderContainer = <LoadingPage />;
     if (this.state.valid) {
-      renderContainer = <EditListPage id={this.props.match.params.id} />;
+      renderContainer = <div>Hellowuuwuwuwuuw</div>;
     } else if (!this.state.valid && this.state.checked) {
       renderContainer = <NotFoundPage />;
     }
@@ -46,26 +49,28 @@ class EditList extends React.Component {
   }
 }
 
-class EditLink extends React.Component {
-  updateSet = (e) => {
-    e.preventDefault();
+const updateSet = (e) => {
+  e.preventDefault();
 
-    window.location.href = `/set/${this.props.id}`;
-  };
+  window.location.href = `/set/${this.props.id}`;
+};
 
+const TestLink = (props) => ({
   render() {
     return (
-      <Button
-        onClick={this.updateSet}
-        size={this.props.size}
-        color={this.props.color}
-      >
-        Edit
-      </Button>
+      <CardActionArea component={Link} to={`/test/${props.id}`}>
+        <CardContent>
+          <Typography variant="h5">{props.title}</Typography>
+          <br />
+          <Typography variant="body" gutterBottom>
+            Last edited {props.updatedAt}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     );
-  }
-}
+  },
+});
 
-export default EditList;
+export { TestLink };
 
-export { EditLink };
+export default Test;
