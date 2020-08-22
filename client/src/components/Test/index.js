@@ -7,6 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import LoadingPage from "../EditList/LoadingList";
 import NotFoundPage from "../../pages/404";
+import EmptySet from "../../pages/EmptySet";
+import styles from "../../constants/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 class Test extends React.Component {
   constructor(props) {
@@ -22,13 +25,18 @@ class Test extends React.Component {
 
   componentDidMount = async () => {
     await api
-      .checkValidId(this.state.id)
+      .getStudySetById(this.state.id)
       .then((res) => {
         if (res.data.success && res.data.valid) {
-          this.setState({ valid: true });
+          this.setState({
+            valid: true,
+            title: res.data.data.title,
+            cards: res.data.data.cards,
+          });
         } else {
           this.setState({ valid: false });
         }
+        console.log(res);
       })
       .catch((e) => {
         console.log(e);
@@ -39,9 +47,21 @@ class Test extends React.Component {
 
   render() {
     let renderContainer = <LoadingPage />;
-    if (this.state.valid) {
-      renderContainer = <div>Hellowuuwuwuwuuw</div>;
-    } else if (!this.state.valid && this.state.checked) {
+    const { classes } = this.props;
+    const { valid, cards, title, checked, id } = this.state;
+    if (valid) {
+      renderContainer = (
+        <div>
+          <Typography className={classes.intro} variant="h3">
+            Test: {title}
+          </Typography>
+          {cards.length == 0 && <EmptySet id={id} />}
+          {cards.length > 0 && <Typography variant="h2">Testing!!!</Typography>}
+        </div>
+      );
+    } else if (valid) {
+      renderContainer = <EmptySet title={title} />;
+    } else if (!valid && checked) {
       renderContainer = <NotFoundPage />;
     }
 
@@ -73,4 +93,4 @@ const TestLink = (props) => ({
 
 export { TestLink };
 
-export default Test;
+export default withStyles(styles)(Test);

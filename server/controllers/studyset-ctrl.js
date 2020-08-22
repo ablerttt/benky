@@ -67,6 +67,20 @@ checkIdExists = async (req, res) => {
   });
 };
 
+getStudySetById = (req, res) => {
+  StudySet.findOne({ _id: req.params.id }, (err, studyset) => {
+    if (err) {
+      return res.status(400).json({ success: false, valid: false, error: err });
+    }
+
+    if (!studyset) {
+      return res.status(400).json({ success: true, valid: false });
+    }
+
+    return res.status(200).json({ success: true, valid: true, data: studyset });
+  }).catch((err) => console.log(err));
+};
+
 updateStudySetById = async (req, res) => {
   const body = req.body;
 
@@ -103,15 +117,6 @@ updateStudySetById = async (req, res) => {
         });
       });
   });
-};
-
-getStudySetById = (req, res) => {
-  StudySet.findOne({ _id: req.params.id }, (err, studyset) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
-    return res.status(200).json({ success: true, data: studyset });
-  }).catch((err) => console.log(err));
 };
 
 removeStudySetById = (req, res) => {

@@ -118,11 +118,11 @@ class StudySetInsert extends React.Component {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {"Remove this set?"}
+            {"Successfully created!"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Once you remove this set, it cannot be recovered.
+              You can choose to continue editing or start practicing!
             </DialogContentText>
           </DialogContent>
           <DialogActions>

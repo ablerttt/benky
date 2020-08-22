@@ -23,6 +23,7 @@ class TestSet extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { items } = this.state;
     return (
       <div>
         <Typography variant="h3" gutterBottom>
@@ -31,7 +32,7 @@ class TestSet extends React.Component {
         <Typography variant="h6" gutterBottom>
           I want to die
         </Typography>
-        <TestOptions set={this.state.items} />
+        <TestOptions set={items} />
       </div>
     );
   }

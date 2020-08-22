@@ -64,18 +64,17 @@ const TestOptions = (props) => {
     <Grid container spacing={3}>
       {items.map((item, i) => {
         return (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            // md={4}
-            key={item._id}
-            direction="row"
-            justify="flex-start"
-            alignItems="flex-start"
-          >
+          <Grid item xs={12} sm={6} key={item._id}>
             <Card>
-              <TestLink id={item._id} title={item.id} updatedAt={item.updatedAt} title={item.title}/>
+              <CardActionArea component={Link} to={`/test/${item._id}`}>
+                <CardContent>
+                  <Typography variant="h5">{item.title}</Typography>
+                  <br />
+                  <Typography variant="body1" gutterBottom>
+                    Last edited {item.updatedAt}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
               <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
                   <FavoriteIcon fontSize="small" />
