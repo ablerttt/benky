@@ -17,9 +17,9 @@ import PracticeList from "../../components/PracticeList";
 import TestSet from "../../components/TestList";
 import Test from "../../components/Test";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-
 import * as ROUTES from "../../constants/routes";
 import { withAuthentification } from "../../auth/Session";
+import { purple } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   typography: {
@@ -35,6 +35,19 @@ const theme = createMuiTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(","),
+  },
+  palette: {
+    primary: {
+      main: "#38598f",
+      light: "#436cab",
+      dark: "#223757",
+    },
+    secondary: {
+      main: "#89c6d9",
+    },
+    error: {
+      main: "#d67665",
+    },
   },
 });
 

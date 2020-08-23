@@ -4,16 +4,16 @@ import Typography from "@material-ui/core/Typography";
 import api from "../../api";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
-import ViewCards from "./ViewCards";
 import { Redirect } from "react-router-dom";
-import PracticeContainer from "./PracticeContainer"
+import PracticeContainer from "./PracticeContainer";
+import NotFoundPage from "../../pages/404";
 
 class PracticeSet extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: this.props.match.params.id,
+      id: props.match.params.id,
       checked: false,
     };
   }
@@ -22,12 +22,12 @@ class PracticeSet extends React.Component {
     await api
       .getStudySetById(this.state.id)
       .then((res) => {
-        console.log("Response is: " + res);
+        console.log(res);
         if (res.data.success && res.data.data != null) {
           this.setState({
             valid: true,
-            title: res.data.title,
-            cards: res.data.cards,
+            title: res.data.data.title,
+            cards: res.data.data.cards,
             checked: true,
           });
         } else {
@@ -35,7 +35,7 @@ class PracticeSet extends React.Component {
         }
       })
       .catch((e) => {
-        console.log("Error is " + e);
+        // console.log("Error is " + e);
         this.setState({ valid: false, checked: true });
       });
   };
@@ -45,16 +45,16 @@ class PracticeSet extends React.Component {
     let renderContainer = <div>Loading!</div>;
 
     if (checked && valid) {
-      renderContainer = <PracticeContainer title={title} cards={cards} />
+      renderContainer = <PracticeContainer title={title} cards={cards} />;
     } else if (checked && !valid) {
-      renderContainer = <Redirect to="/404" />;
+      renderContainer = <NotFoundPage />;
     }
 
     return renderContainer;
   }
 }
 
-class PracticeLink extends React.Component {
+class PracticeLinkBase extends React.Component {
   practiceSet = (e) => {
     e.preventDefault();
 
@@ -62,17 +62,23 @@ class PracticeLink extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <Button
-        onClick={this.practiceSet}
-        size={this.props.size}
-        color={this.props.color}
-      >
-        Practice
-      </Button>
+      <div>
+        <Button
+          onClick={this.practiceSet}
+          color="secondary"
+          className={classes.button}
+          variant="contained"
+        >
+          Practice
+        </Button>
+      </div>
     );
   }
 }
+
+const PracticeLink = withStyles(styles)(PracticeLinkBase);
 
 export { PracticeLink };
 

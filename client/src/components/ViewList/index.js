@@ -75,12 +75,8 @@ class ViewList extends Component {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <EditLink id={item._id} size="medium" color="primary" />
-                      <PracticeLink
-                        id={item._id}
-                        size="medium"
-                        color="primary"
-                      />
+                      <EditLink id={item._id} />
+                      <PracticeLink id={item._id} />
                       <RemoveList
                         id={item._id}
                         onRemoveSet={this.handleRemoveSet}

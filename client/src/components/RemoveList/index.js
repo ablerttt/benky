@@ -6,8 +6,13 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import api from "../../api";
+import styles from "../../constants/styles";
+import { withStyles } from "@material-ui/core/styles";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+import { purple } from "@material-ui/core/colors";
 
-export default function RemoveList(props) {
+const RemoveList = (props) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -28,10 +33,16 @@ export default function RemoveList(props) {
     props.onRemoveSet(props.keyVal);
   };
 
+  const { classes } = props;
+
   return (
     <div>
-      <Button color="primary" onClick={handleClickOpen}>
-        Remove
+      <Button
+        className={`${classes.button} ${classes.warning}`}
+        variant="contained"
+        onClick={handleClickOpen}
+      >
+        <DeleteIcon />
       </Button>
       <Dialog
         open={open}
@@ -56,4 +67,6 @@ export default function RemoveList(props) {
       </Dialog>
     </div>
   );
-}
+};
+
+export default withStyles(styles)(RemoveList);

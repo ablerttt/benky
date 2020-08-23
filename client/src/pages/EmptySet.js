@@ -3,6 +3,7 @@ import styles from "../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import { EditLink } from "../components/EditList";
 
 const EmptySet = (props) => {
   const { classes, id } = props;
@@ -14,7 +15,7 @@ const EmptySet = (props) => {
       <Typography gutterBottom variant="body1">
         Consider adding a few terms to continue.
       </Typography>
-      <Button href={`/set/${id}`}>Add Terms</Button>
+      <EditLink id={id} color="b3f0a7" />
     </div>
   );
 };

@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 import api from "../../api";
 import NotFoundPage from "../../pages/404";
 import LoadingPage from "./LoadingList";
+import styles from "../../constants/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 class EditList extends React.Component {
   constructor(props) {
@@ -46,7 +48,7 @@ class EditList extends React.Component {
   }
 }
 
-class EditLink extends React.Component {
+class EditLinkBase extends React.Component {
   updateSet = (e) => {
     e.preventDefault();
 
@@ -54,18 +56,23 @@ class EditLink extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <Button
-        onClick={this.updateSet}
-        size={this.props.size}
-        color={this.props.color}
-      >
-        Edit
-      </Button>
+      <div>
+        <Button
+          onClick={this.updateSet}
+          color="primary"
+          className={classes.button}
+          variant="contained"
+        >
+          Edit
+        </Button>
+      </div>
     );
   }
 }
 
 export default EditList;
 
+const EditLink = withStyles(styles)(EditLinkBase);
 export { EditLink };

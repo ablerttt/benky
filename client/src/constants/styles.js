@@ -7,15 +7,24 @@ const styles = (theme) => ({
   title: {
     fontSize: 14,
   },
-  pos:  {
+  pos: {
     marginBottom: 12,
   },
   intro: {
     margin: "30px 0",
   },
-  titleTextField: {
-    
-  }
+  button: {
+    margin: theme.spacing(0.5),
+    borderRadius: "3em",
+    textTransform: "none",
+  },
+  warning: {
+    backgroundColor: "#d095db",
+    color: "white",
+  },
+  listCard: {
+    borderRadius: "0.5em",
+  },
 });
 
 export default styles;
