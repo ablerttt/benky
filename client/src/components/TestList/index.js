@@ -2,6 +2,8 @@ import React from "react";
 import api from "../../api";
 import Typography from "@material-ui/core/Typography";
 import TestOptions from "./TestOptions";
+import styles from "../../constants/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 class TestSet extends React.Component {
   constructor(props) {
@@ -13,7 +15,6 @@ class TestSet extends React.Component {
 
   componentDidMount = async () => {
     await api.getAllStudySets().then((res) => {
-      console.log("Response: " + res);
       var items = res.data.data;
       this.setState({
         items,
@@ -22,11 +23,11 @@ class TestSet extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { items } = this.state;
+    const { classes } = this.props;
     return (
       <div>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h3" className={classes.intro} gutterBottom>
           Test your knowledge.
         </Typography>
         <Typography variant="h6" gutterBottom>
@@ -38,4 +39,4 @@ class TestSet extends React.Component {
   }
 }
 
-export default TestSet;
+export default withStyles(styles)(TestSet);

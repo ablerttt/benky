@@ -6,14 +6,9 @@ import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import styles from "../../constants/styles";
 import Typography from "@material-ui/core/Typography";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from "@material-ui/core/styles";
-import { withRouter } from "react-router-dom";
-import { compose } from "recompose";
+import CreateDialog from "./CreateDialog";
+import InvalidDialog from "./InvalidDialog";
 
 class StudySetInsert extends React.Component {
   constructor(props) {
@@ -23,8 +18,35 @@ class StudySetInsert extends React.Component {
       title: "",
       cards: [{ term: "", description: "" }],
       showDialog: false,
+      showInvalidDialog: false,
+      id: "",
     };
   }
+
+  checkValid = (title, cards) => {
+    var terms = [];
+    var errs = [];
+    if (title === "") {
+      errs.push("a");
+    }
+    for (let i = 0; i < cards.length; i++) {
+      var cardError = `${i}`;
+      if (cards[i].term === "") {
+        cardError += "t";
+      }
+      if (cards[i].description === "") {
+        cardError += "d";
+      }
+      if (terms.includes(cards[i].term)) {
+        cardError += "m";
+      }
+      if (cardError !== `${i}`) {
+        errs.push(cardError);
+      }
+      terms.push(cards[i].term);
+    }
+    return errs;
+  };
 
   handleChangeCardTerm = async (event, idx) => {
     const term = event.target.value;
@@ -49,15 +71,39 @@ class StudySetInsert extends React.Component {
     this.setState({ title });
   };
 
-  handleInsertStudySet = () => {
+  trimWhiteSpace = () => {
     let { title, cards } = this.state;
-    api.insertStudySet(title, cards).then((res) => {
-      this.setState({
-        id: res.data.id,
-        showDialog: true,
+    title = title.trim();
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].term = cards[i].term.trim();
+      cards[i].description = cards[i].description.trim();
+    }
+    this.setState({ title: title, cards: cards });
+  };
+
+  handleInsertStudySet = () => {
+    this.trimWhiteSpace();
+    let { title, cards } = this.state;
+    let errors = this.checkValid(title, cards);
+    console.log(errors);
+    if (errors.length > 0) {
+      console.log("Invalid!!!");
+      this.setState({ showInvalidDialog: true, errors: errors });
+      return;
+    }
+
+    api
+      .insertStudySet(title, cards)
+      .then((res) => {
+        this.setState({
+          id: res.data.id,
+          showDialog: true,
+        });
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
       });
-      console.log(res);
-    });
   };
 
   deleteCard = (i) => {
@@ -72,71 +118,73 @@ class StudySetInsert extends React.Component {
     }));
   };
 
-  handleContinue = () => {
-    console.log("continue was clicked");
-    this.props.history.push(`/set/${this.state.id}`);
-  };
-
-  handlePractice = () => {
-    console.log("practice was clicked");
-    this.props.history.push("/sets");
+  closeInvalid = () => {
+    this.setState({ showInvalidDialog: false });
   };
 
   render() {
-    const { title, cards, showDialog } = this.state;
+    const {
+      title,
+      cards,
+      showDialog,
+      showInvalidDialog,
+      id,
+      errors,
+    } = this.state;
     const { classes } = this.props;
     return (
       <div>
         <Typography variant="h3" className={classes.intro} gutterBottom>
           Create a New Set
         </Typography>
-        <Typography variant="h5">
-          <TextField
-            className={classes.titleTextField}
-            onChange={this.handleChangeInputName}
-            name="title"
-            id="title"
-            value={title}
-            placeholder="Untitled List"
-          />
-        </Typography>
-
+        <TextField
+          className={classes.titleTextField}
+          onChange={this.handleChangeInputName}
+          name="title"
+          id="title"
+          autoFocus={true}
+          InputProps={{
+            classes: {
+              input: classes.titleResize,
+            },
+          }}
+          variant="filled"
+          label="title"
+          value={title}
+          placeholder="Untitled List"
+        />
+        <br />
         <CardInputs
           cards={cards}
           removeItem={this.deleteCard}
           changeTerm={this.handleChangeCardTerm}
           changeDef={this.handleChangeCardDef}
         />
-        <Button onClick={this.addCard}>
+        <Button
+          onClick={this.addCard}
+          className={`${classes.button} ${classes.secondaryButton}`}
+          variant="contained"
+        >
           <AddIcon />
         </Button>
-
-        <Button onClick={this.handleInsertStudySet}>Add StudySet</Button>
-        <Dialog
-          open={showDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+        <Button
+          onClick={this.handleInsertStudySet}
+          className={classes.button}
+          variant="contained"
         >
-          <DialogTitle id="alert-dialog-title">
-            {"Successfully created!"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              You can choose to continue editing or start practicing!
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleContinue} color="primary">
-              Continue Editing
-            </Button>
-            <Button onClick={this.handlePractice} color="primary" autoFocus>
-              Practice
-            </Button>
-          </DialogActions>
-        </Dialog>
+          Create
+        </Button>
+
+        <CreateDialog showDialog={showDialog} id={id} />
+        <InvalidDialog
+          showDialog={showInvalidDialog}
+          closeInvalidDialog={this.closeInvalid}
+          errors={errors}
+          cards={cards}
+        />
       </div>
     );
   }
 }
 
-export default compose(withStyles(styles), withRouter)(StudySetInsert);
+export default withStyles(styles)(StudySetInsert);

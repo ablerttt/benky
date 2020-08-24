@@ -2,11 +2,10 @@ import React from "react";
 import styles from "../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import { EditLink } from "../components/EditList";
 
 const EmptySet = (props) => {
-  const { classes, id } = props;
+  const { id } = props;
   return (
     <div>
       <Typography gutterBottom variant="h6">

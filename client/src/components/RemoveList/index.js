@@ -9,8 +9,6 @@ import api from "../../api";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
-import IconButton from "@material-ui/core/IconButton";
-import { purple } from "@material-ui/core/colors";
 
 const RemoveList = (props) => {
   const [open, setOpen] = React.useState(false);

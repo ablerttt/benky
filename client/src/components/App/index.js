@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, Switch, BrowserRouter } from "react-router-dom";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Navigation from "../Navigation";
 import LandingPage from "../../pages/Landing";
@@ -19,7 +19,6 @@ import Test from "../../components/Test";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import * as ROUTES from "../../constants/routes";
 import { withAuthentification } from "../../auth/Session";
-import { purple } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   typography: {
@@ -47,6 +46,7 @@ const theme = createMuiTheme({
     },
     error: {
       main: "#d67665",
+      light: "fcc2d4",
     },
   },
 });

@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "../../constants/styles";
 import api from "../../api";
 import Typography from "@material-ui/core/Typography";
 
@@ -8,7 +7,7 @@ class ViewCards extends React.Component {
     super(props);
 
     this.state = { id: props.id, title: "", cards: [] };
-  }
+  }   
 
   componentDidMount = async () => {
     await api

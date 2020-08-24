@@ -1,6 +1,5 @@
 import React from "react";
 import api from "../../api";
-import Button from "@material-ui/core/Button";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -55,7 +54,7 @@ class Test extends React.Component {
           <Typography className={classes.intro} variant="h3">
             Test: {title}
           </Typography>
-          {cards.length == 0 && <EmptySet id={id} />}
+          {cards.length === 0 && <EmptySet id={id} />}
           {cards.length > 0 && <Typography variant="h2">Testing!!!</Typography>}
         </div>
       );
@@ -68,12 +67,6 @@ class Test extends React.Component {
     return renderContainer;
   }
 }
-
-const updateSet = (e) => {
-  e.preventDefault();
-
-  window.location.href = `/set/${this.props.id}`;
-};
 
 const TestLink = (props) => ({
   render() {

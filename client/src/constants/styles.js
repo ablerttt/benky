@@ -25,6 +25,27 @@ const styles = (theme) => ({
   listCard: {
     borderRadius: "0.5em",
   },
+  titleTextField: {
+    width: "85%",
+    marginBottom: "4%",
+  },
+  titleResize: {
+    fontSize: 24,
+  },
+  termTextField: {
+    width: "35%",
+    marginRight: "3%",
+    marginBottom: "4%",
+  },
+  defTextField: {
+    width: "35%",
+    marginRight: "3%",
+  },
+  secondaryButton: {
+    // width: "3%",
+    backgroundColor: "#436cab",
+    color: "white",
+  },
 });
 
 export default styles;

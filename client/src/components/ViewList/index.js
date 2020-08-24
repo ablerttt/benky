@@ -6,7 +6,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import { EditLink } from "../EditList";
 import styles from "../../constants/styles";
