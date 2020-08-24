@@ -5,8 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import styles from "../../constants/styles";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+
 import CreateDialog from "./CreateDialog";
 import InvalidDialog from "./InvalidDialog";
 
@@ -42,8 +43,9 @@ class StudySetInsert extends React.Component {
       }
       if (cardError !== `${i}`) {
         errs.push(cardError);
+      } else {
+        terms.push(cards[i].term);
       }
-      terms.push(cards[i].term);
     }
     return errs;
   };
@@ -99,7 +101,6 @@ class StudySetInsert extends React.Component {
           id: res.data.id,
           showDialog: true,
         });
-        console.log(res);
       })
       .catch((e) => {
         console.log(e);

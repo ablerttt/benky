@@ -5,6 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import LoadingPage from "./LoadingList";
+import styles from "../../constants/styles";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import CreateDialog from "./CreateDialog";
+import InvalidDialog from "./InvalidDialog";
 
 class EditListPage extends React.Component {
   constructor(props) {
@@ -15,8 +20,54 @@ class EditListPage extends React.Component {
       id: props.id,
       title: "",
       cards: [],
+      showDialog: false,
+      showInvalidDialog: false,
     };
   }
+
+  checkValid = (title, cards) => {
+    var terms = [];
+    var errs = [];
+    if (title === "") {
+      errs.push("a");
+    }
+    for (let i = 0; i < cards.length; i++) {
+      var cardError = `${i}`;
+      if (cards[i].term === "") {
+        cardError += "t";
+      }
+      if (cards[i].description === "") {
+        cardError += "d";
+      }
+      if (terms.includes(cards[i].term)) {
+        cardError += "m";
+      }
+      if (cardError !== `${i}`) {
+        errs.push(cardError);
+      } else {
+        terms.push(cards[i].term);
+      }
+    }
+    return errs;
+  };
+
+  trimWhiteSpace = () => {
+    let { title, cards } = this.state;
+    title = title.trim();
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].term = cards[i].term.trim();
+      cards[i].description = cards[i].description.trim();
+    }
+    this.setState({ title: title, cards: cards });
+  };
+
+  closeInvalid = () => {
+    this.setState({ showInvalidDialog: false });
+  };
+
+  closeValid = () => {
+    this.setState({ showDialog: false });
+  };
 
   componentDidMount = async () => {
     await api
@@ -71,46 +122,96 @@ class EditListPage extends React.Component {
   };
 
   handleUpdateStudySet = () => {
+    this.trimWhiteSpace();
     let { id, title, cards } = this.state;
-    api.updateStudySetById(id, title, cards).then((res) => {
-      window.alert(`StudySet updated successfully with response ${res}`);
-    });
+    let errors = this.checkValid(title, cards);
+    console.log(errors);
+    if (errors.length > 0) {
+      console.log("Invalid!!!");
+      this.setState({ showInvalidDialog: true, errors: errors });
+      return;
+    }
+    api
+      .updateStudySetById(id, title, cards)
+      .then((res) => {
+        this.setState({ showDialog: true });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   render() {
-    const { title, cards, render } = this.state;
+    const {
+      title,
+      cards,
+      render,
+      showDialog,
+      showInvalidDialog,
+      id,
+      errors,
+    } = this.state;
+    const { classes } = this.props;
     let returnedState = <LoadingPage />;
     if (render) {
       returnedState = (
         <div>
+          <Typography variant="h3" className={classes.intro} gutterBottom>
+            Edit set
+          </Typography>
           <TextField
-            varient="outlined"
+            className={classes.titleTextField}
             onChange={this.handleChangeInputName}
             name="title"
             id="title"
+            autoFocus={true}
+            InputProps={{
+              classes: {
+                input: classes.titleResize,
+              },
+            }}
+            variant="filled"
+            label="title"
             value={title}
             placeholder="Untitled List"
           />
           <br />
-
           <CardInputs
             cards={cards}
             removeItem={this.deleteCard}
             changeTerm={this.handleChangeCardTerm}
             changeDef={this.handleChangeCardDef}
           />
-
-          <Button onClick={this.addCard}>
+          <Button
+            onClick={this.addCard}
+            className={`${classes.button} ${classes.secondaryButton}`}
+            variant="contained"
+          >
             <AddIcon />
           </Button>
-
-          <Button onClick={this.handleUpdateStudySet}>Update StudySet</Button>
+          <Button
+            onClick={this.handleUpdateStudySet}
+            className={classes.button}
+            variant="contained"
+          >
+            Update
+          </Button>
+          <CreateDialog
+            showDialog={showDialog}
+            closeDialog={this.closeValid}
+            id={id}
+          />
+          <InvalidDialog
+            showDialog={showInvalidDialog}
+            closeInvalidDialog={this.closeInvalid}
+            errors={errors}
+            cards={cards}
+          />
         </div>
       );
     }
-
     return returnedState;
   }
 }
 
-export default EditListPage;
+export default withStyles(styles)(EditListPage);
