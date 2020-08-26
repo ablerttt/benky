@@ -11,19 +11,22 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 const ErrorCard = (props) => {
   const code = props.code;
+  var term = "";
+  var err = "";
   const errCode = code.search(/[tdm]/);
   const index = parseInt(code.substring(0, errCode));
-  var term =
-    "Term " +
-    (parseInt(code.substring(0, index)) + 1) +
-    ": " +
-    (props.cards[index].term === "" ? "[Empty]" : props.cards[index].term);
-  var err = "";
-  if (props.code === "a") {
+
+  if (props.code === "a" || props.code === "e") {
     term = "Title";
-    err = "Empty Set Title";
+    err =
+      props.code === "a" ? "Empty title" : "Current title is already in use";
   } else {
-    for (let i = errCode; i < code.length; i++) {
+    term =
+      "Term " +
+      (parseInt(code.substring(0, index)) + 1) +
+      ": " +
+      (props.cards[index].term === "" ? "[Empty]" : props.cards[index].term);
+    for (let i = 1; i < code.length; i++) {
       if (code[i] === "t") {
         err = "Empty term";
       }

@@ -36,7 +36,7 @@ const RemoveList = (props) => {
   return (
     <div>
       <Button
-        className={`${classes.button} ${classes.warning}`}
+        className={classes.primaryDarkButton}
         variant="contained"
         onClick={handleClickOpen}
       >
@@ -55,10 +55,19 @@ const RemoveList = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button
+            onClick={handleClose}
+            className={classes.cancelButton}
+            variant="outlined"
+            autofocus
+          >
             Cancel
           </Button>
-          <Button onClick={handleRemoveSetButton} color="primary" autoFocus>
+          <Button
+            onClick={handleRemoveSetButton}
+            variant="contained"
+            className={classes.warningButton}
+          >
             Remove
           </Button>
         </DialogActions>

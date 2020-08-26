@@ -83,13 +83,35 @@ class StudySetInsert extends React.Component {
     this.setState({ title: title, cards: cards });
   };
 
-  handleInsertStudySet = () => {
+  validateSet = async (title) => {
+    console.log("Check validate set with " + title);
+    let valid = true;
+    await api
+      .checkTitleExists(title)
+      .then((res) => {
+        console.log(res);
+        if (res.data.valid && res.data.success) {
+        } else {
+          valid = false;
+        }
+      })
+      .catch((error) => {
+        console.log("Error while validating set title: " + error);
+        valid = false;
+      });
+    return valid;
+  };
+
+  handleInsertStudySet = async () => {
     this.trimWhiteSpace();
     let { title, cards } = this.state;
     let errors = this.checkValid(title, cards);
-    console.log(errors);
+    let validateResult = await this.validateSet(title);
+    if (!validateResult) {
+      errors.unshift("e");
+    }
+
     if (errors.length > 0) {
-      console.log("Invalid!!!");
       this.setState({ showInvalidDialog: true, errors: errors });
       return;
     }
@@ -143,14 +165,14 @@ class StudySetInsert extends React.Component {
           onChange={this.handleChangeInputName}
           name="title"
           id="title"
-          autoFocus={true}
+          autoFocus
           InputProps={{
             classes: {
               input: classes.titleResize,
             },
           }}
           variant="filled"
-          label="title"
+          label="Title"
           value={title}
           placeholder="Untitled List"
         />

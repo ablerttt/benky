@@ -6,12 +6,16 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import styles from "../../constants/styles";
+import { compose } from "recompose";
 
 const handlePractice = (props) => {
   props.history.push("/sets");
 };
 
 const CreateDialog = (props) => {
+  const { classes } = props;
   return (
     <Dialog
       open={props.showDialog}
@@ -19,7 +23,7 @@ const CreateDialog = (props) => {
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {"Successfully created!"}
+        {"Successfully updated!"}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
@@ -27,10 +31,18 @@ const CreateDialog = (props) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.closeDialog} color="primary">
+        <Button
+          onClick={props.closeDialog}
+          className={classes.primaryDarkButton}
+          variant="contained"
+        >
           Continue Editing
         </Button>
-        <Button onClick={() => handlePractice(props)} color="primary" autoFocus>
+        <Button
+          onClick={() => handlePractice(props)}
+          className={classes.primaryDarkButton}
+          variant="contained"
+        >
           Practice
         </Button>
       </DialogActions>
@@ -38,4 +50,4 @@ const CreateDialog = (props) => {
   );
 };
 
-export default withRouter(CreateDialog);
+export default compose(withRouter, withStyles(styles))(CreateDialog);

@@ -12,6 +12,8 @@ export const checkValidId = (id) => api.get(`/validset/${id}`);
 export const updateStudySetById = (id, title, cards) =>
   api.put(`/set/${id}`, { title, cards });
 export const deleteStudySetById = (id) => api.delete(`/set/${id}`);
+export const checkTitleExists = (title) =>
+  api.get(`/existingset`, { params: { title: title } });
 
 const apis = {
   insertStudySet,
@@ -20,6 +22,7 @@ const apis = {
   deleteStudySetById,
   getStudySetById,
   checkValidId,
+  checkTitleExists,
 };
 
 export default apis;

@@ -36,14 +36,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SampleTerms = (props) => {
   const limited = props.cards.slice(0, 5);
-  for (let i = 0; i < limited.length; i++) {
-    console.log("Title: ", limited[i].term);
-  }
-
-  return limited.map(function (item, i) {
-    console.log("Title: ", item.term);
+  return limited.map((item, i) => {
     return (
-      <Button variant="outlined" className={props.t.button}>
+      <Button key={`sample-${i}`} variant="outlined" className={props.t.button}>
         {item.term}
       </Button>
     );

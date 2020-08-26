@@ -8,6 +8,7 @@ import LoadingPage from "../EditList/LoadingList";
 import NotFoundPage from "../../pages/404";
 import EmptySet from "../../pages/EmptySet";
 import styles from "../../constants/styles";
+import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
 class Test extends React.Component {
@@ -84,6 +85,32 @@ const TestLink = (props) => ({
   },
 });
 
-export { TestLink };
+class TestLinkBase extends React.Component {
+  testSet = (e) => {
+    e.preventDefault();
+
+    window.location.href = `/test/${this.props.id}`;
+  };
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div>
+        <Button
+          onClick={this.testSet}
+          color="primary"
+          className={classes.primaryLightButton}
+          variant="contained"
+        >
+          Test
+        </Button>
+      </div>
+    );
+  }
+}
+
+const TestsLink = withStyles(styles)(TestLinkBase);
+
+export { TestLink, TestsLink };
 
 export default withStyles(styles)(Test);

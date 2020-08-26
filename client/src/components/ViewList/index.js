@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
+import styles from "../../constants/styles";
 import api from "../../api";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,9 +9,11 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import CardActions from "@material-ui/core/CardActions";
 import { EditLink } from "../EditList";
-import styles from "../../constants/styles";
 import RemoveList from "../RemoveList";
 import { PracticeLink } from "../PracticeList";
+import { TestsLink } from "../Test";
+import IconButton from "@material-ui/core/IconButton";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 class ViewList extends Component {
   constructor(props) {
@@ -64,7 +67,7 @@ class ViewList extends Component {
           <Grid container spacing={3}>
             {items.map((item, val) => {
               return (
-                <Grid item xs={12} sm={6} md={4} key={val}>
+                <Grid item xs={12} sm={6} key={val} className={classes.root}>
                   <Card className={classes.listCard}>
                     <CardContent>
                       <Typography variant="h5">{item.title}</Typography>
@@ -74,14 +77,18 @@ class ViewList extends Component {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <EditLink id={item._id} />
+                      <EditLink id={item._id} className={classes.left}/>
                       <PracticeLink id={item._id} />
+                      <TestsLink id={item._id} />
                       <RemoveList
                         id={item._id}
                         onRemoveSet={this.handleRemoveSet}
                         onChange={this.handleRemoveSet}
                         keyVal={val}
                       />
+                      <IconButton>
+                        <ExpandMoreIcon />
+                      </IconButton>
                     </CardActions>
                   </Card>
                 </Grid>

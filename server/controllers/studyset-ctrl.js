@@ -1,8 +1,27 @@
 const StudySet = require("../models/set-model");
 
+checkTitleExists = (req, res) => {
+  // console.log(req);
+  const title = req.query.title;
+
+  StudySet.findOne({ title: title }, (err, existingSet) => {
+    if (err) {
+      return res.status(400).json({ success: false, valid: false, error: err });
+    }
+    console.log("Existing Set: " + existingSet);
+    if (existingSet) {
+      return res.status(200).json({ success: true, valid: false });
+    } else {
+      return res.status(200).json({ success: true, valid: true });
+    }
+  }).catch((error) => {
+    console.log(error);
+    return res.status(400).json({ success: false, valid: false, error: error });
+  });
+};
+
 insertStudySet = (req, res) => {
   const body = req.body;
-
   if (!body) {
     console.log(`Invalid set detected.`);
     return res.status(400).json({
@@ -12,6 +31,7 @@ insertStudySet = (req, res) => {
   }
 
   const studySet = new StudySet(body);
+  console.log(studySet);
 
   if (!studySet) {
     console.log("Study set is not a study set ");
@@ -35,8 +55,6 @@ insertStudySet = (req, res) => {
         message: "Study set not created!",
       });
     });
-
-  console.log("over");
 };
 
 getAllStudySets = (req, res) => {
@@ -138,6 +156,7 @@ removeStudySetById = (req, res) => {
 };
 
 module.exports = {
+  checkTitleExists,
   insertStudySet,
   getAllStudySets,
   getStudySetById,
