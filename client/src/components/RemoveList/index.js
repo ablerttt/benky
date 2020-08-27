@@ -59,7 +59,7 @@ const RemoveList = (props) => {
             onClick={handleClose}
             className={classes.cancelButton}
             variant="outlined"
-            autofocus
+            autoFocus
           >
             Cancel
           </Button>

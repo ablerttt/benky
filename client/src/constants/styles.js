@@ -86,6 +86,13 @@ const styles = (theme) => ({
     textTransform: "none",
     color: "black",
   },
+  cardHeading: {
+    // textAlign: "center",
+    title: {
+      variant: "h1",
+      backgroundColor: "pink",
+    },
+  },
 });
 
 export default styles;

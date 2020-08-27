@@ -138,21 +138,16 @@ updateStudySetById = async (req, res) => {
 };
 
 removeStudySetById = (req, res) => {
-  StudySet.findOneAndDelete({ _id: req.params.id }, (err, studyset) => {
+  StudySet.findOneAndDelete({ _id: req.params.id }, (err) => {
     if (err) {
       console.log(`Failed to find the study set to delete.`);
       return re.status(400).json({ success: false, error: err });
     }
-
-    if (!studyset) {
-      console.log(`Not a studyset!`);
-      return res
-        .status(404)
-        .json({ success: false, error: `Study set was not found.` });
-    }
     console.log("Success!");
-    return res.status(200).json({ success: true, data: studyset });
-  }).catch((err) => console.log(err));
+    return res.status(200).json({ success: true });
+  }).catch((err) => {
+    console.log("Error found: " + err);
+  });
 };
 
 module.exports = {
