@@ -87,11 +87,24 @@ const styles = (theme) => ({
     color: "black",
   },
   cardHeading: {
-    // textAlign: "center",
     title: {
       variant: "h1",
       backgroundColor: "pink",
     },
+  },
+  tabs: {
+    textTransform: "none",
+    borderRight: `1px solid ${theme.palette.divider}`,
+  },
+  accountRoot: {
+    textTransform: "none",
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: "flex",
+    height: 224,
+  },
+  tabPanel: {
+    width: "70%",
   },
 });
 
