@@ -3,29 +3,51 @@ import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 // import Paper from "@material-ui/core/Paper";
+// import Card from "@material-ui/core/Card";
+// import Collapse from "@material-ui/core/Collapse";
 // import Fade from "@material-ui/core/Fade";
-// import Switch from "@material-ui/core/Switch";
+import Switch from "@material-ui/core/Switch";
+// import Slide from "@material-ui/core/Slide";
+// import Fab from "@material-ui/core/Fab";
+// import NavigationIcon from "@material-ui/icons/Navigation";
+import Terms from "./Term";
 
-const Terms = (props) => {
-  const { cards } = props;
-  // cards.map((item) => {
-  //   console.log(item);
-  // });
-  // return <div>Hello this is the Terms</div>;
+class PracticeContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: props.title,
+      cards: props.cards,
+      shuffle: false,
+    };
+  }
 
-  return cards.map((item, id) => <div>{item.term}</div>);
-};
+  handleShuffleOption = (e) => {
+    const { shuffle } = this.state;
+    this.setState({ shuffle: !shuffle });
+  };
 
-const PracticeContainer = (props) => {
-  const { classes, title, cards } = props;
-  return (
-    <div>
-      <Typography className={classes.intro} variant="h3">
-        Practice Container: {title}
-      </Typography>
-      <Terms cards={cards} />
-    </div>
-  );
-};
+  render() {
+    const { classes } = this.props;
+    const { title, cards, shuffle } = this.state;
+    return (
+      <div>
+        <Typography className={classes.intro} variant="h5">
+          Practice: {title}
+        </Typography>
+        <div>
+          Shuffle
+          <Switch
+            checked={shuffle}
+            onChange={this.handleShuffleOption}
+            name="shuffleOption"
+            inputProps={{ "aria-label": "shuffle-option" }}
+          />
+        </div>
+        <Terms cards={cards} shuffle={shuffle} />
+      </div>
+    );
+  }
+}
 
 export default withStyles(styles)(PracticeContainer);

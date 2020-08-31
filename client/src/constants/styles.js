@@ -20,6 +20,7 @@ const styles = (theme) => ({
   },
   listCard: {
     borderRadius: "0.5em",
+    backgroundColor: "#e3fbfc",
     flexGrow: 1,
   },
   titleTextField: {
@@ -55,7 +56,8 @@ const styles = (theme) => ({
   },
   primaryDarkButton: {
     backgroundColor: theme.palette.primary.dark,
-    margin: theme.spacing(0.5),
+    // margin: theme.spacing(0.5),
+    margin: "auto",
     borderRadius: "3em",
     textTransform: "none",
     color: "white",
@@ -105,6 +107,36 @@ const styles = (theme) => ({
   },
   tabPanel: {
     width: "70%",
+  },
+  practiceLeftFab: {
+    position: "absolute",
+    left: theme.spacing(5),
+    bottom: "30%",
+    transform: "rotate(-90deg)",
+  },
+  practiceRightFab: {
+    position: "absolute",
+    padding: "auto 0",
+    right: theme.spacing(5),
+    bottom: "30%",
+    transform: "rotate(90deg)",
+  },
+  cardBox: {
+    padding: "100px 0",
+  },
+  practiceCard: {
+    backgroundColor: "#e3fbfc",
+    display: "flex",
+    justifyContent: "center",
+    margin: theme.spacing(0.5),
+    height: "100%",
+    borderRadius: "3em",
+  },
+  practiceCardTerm: {
+    // margin: "auto",
+  },
+  practiceRevealDescription: {
+    border: "4em",
   },
 });
 

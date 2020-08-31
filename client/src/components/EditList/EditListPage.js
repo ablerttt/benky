@@ -19,6 +19,7 @@ class EditListPage extends React.Component {
       render: false,
       id: props.id,
       title: "",
+      oldtitle: "",
       cards: [],
       showDialog: false,
       showInvalidDialog: false,
@@ -76,6 +77,7 @@ class EditListPage extends React.Component {
         var set = res.data.data;
         this.setState({
           title: set.title,
+          oldtitle: set.title,
           cards: set.cards,
         });
       })
@@ -123,11 +125,16 @@ class EditListPage extends React.Component {
 
   validateSet = async (title) => {
     let valid = true;
+    const oldtitle = this.state.oldtitle;
     await api
       .checkTitleExists(title)
       .then((res) => {
         console.log(res);
-        if (res.data.valid && res.data.success) {
+        if (
+          (res.data.valid && res.data.success) ||
+          (res.data.success && !res.data.valid && title === oldtitle)
+        ) {
+          valid = true;
         } else {
           valid = false;
         }

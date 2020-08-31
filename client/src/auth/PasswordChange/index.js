@@ -19,7 +19,7 @@ class PasswordChangeForm extends Component {
   }
 
   onSubmit = (event) => {
-    const { passwordOne, passwordTwo, currentPassword } = this.state;
+    const { passwordOne, passwordTwo } = this.state;
 
     if (passwordOne !== passwordTwo) {
       this.setState({
@@ -64,7 +64,7 @@ class PasswordChangeForm extends Component {
   };
 
   render() {
-    const { passwordOne, passwordTwo, error } = this.state;
+    const { error } = this.state;
     const { classes } = this.props;
     return (
       <div>
