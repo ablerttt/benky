@@ -127,16 +127,19 @@ const styles = (theme) => ({
   practiceCard: {
     backgroundColor: "#e3fbfc",
     display: "flex",
+    alignItems: "center",
     justifyContent: "center",
     margin: theme.spacing(0.5),
     height: "100%",
     borderRadius: "3em",
   },
-  practiceCardTerm: {
-    // margin: "auto",
-  },
-  practiceRevealDescription: {
-    border: "4em",
+  practiceCardButton: {
+    backgroundColor: theme.palette.primary.light,
+    borderRadius: "3em",
+    textTransform: "none",
+    display: "flex",
+    margin: "auto",
+    color: "white",
   },
 });
 

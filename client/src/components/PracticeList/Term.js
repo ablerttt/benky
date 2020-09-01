@@ -9,6 +9,7 @@ import Slide from "@material-ui/core/Slide";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import TermCard from "./TermCard";
 
 function shuffleList(array) {
   array.sort(() => Math.random() - 0.5);
@@ -103,25 +104,7 @@ class TermView extends React.Component {
           <NavigationIcon />
         </Fab>
         <Box height="60vh">
-          <Paper variant="elevation" className={classes.practiceCard}>
-            <div style={{ margin: "auto" }}>
-              <Typography
-                variant="h3"
-                align="justify"
-                gutterBottom
-                className={classes.practiceCardTerm}
-              >
-                {cards[indices[index]].term}
-              </Typography>
-
-              <Button
-                className={`${classes.primaryLightButton} ${classes.practiceRevealDescription}`}
-                variant="contained"
-              >
-                Description
-              </Button>
-            </div>
-          </Paper>
+          <TermCard cards={cards} indices={indices} index={index} />
         </Box>
       </div>
     );

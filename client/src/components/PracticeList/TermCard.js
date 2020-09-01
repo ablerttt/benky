@@ -4,24 +4,24 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 
 const TermCard = (props) => {
+  const { classes, cards, indices, index } = props;
   return (
     <Paper variant="elevation" className={classes.practiceCard}>
-      <div style={{ margin: "auto" }}>
-        <Typography
-          variant="h3"
-          align="justify"
-          gutterBottom
-          className={classes.practiceCardTerm}
-        >
+      <div
+        styles={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h3" gutterBottom>
           {cards[indices[index]].term}
         </Typography>
 
-        <Button
-          className={`${classes.primaryLightButton} ${classes.practiceRevealDescription}`}
-          variant="contained"
-        >
+        <Button className={classes.practiceCardButton} variant="contained">
           Description
         </Button>
       </div>
