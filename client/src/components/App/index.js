@@ -1,4 +1,4 @@
-  import React from "react";
+import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Navigation from "../Navigation";
@@ -39,6 +39,7 @@ const theme = createMuiTheme({
     primary: {
       main: "#38598f",
       light: "#436cab",
+      lightHover: "#96b4e0",
       dark: "#223757",
     },
     secondary: {

@@ -49,6 +49,9 @@ const styles = (theme) => ({
   },
   primaryLightButton: {
     backgroundColor: theme.palette.primary.light,
+    "&:hover": {
+      background: theme.palette.primary.lightHover,
+    },
     margin: theme.spacing(0.5),
     borderRadius: "3em",
     textTransform: "none",

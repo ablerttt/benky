@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
 
 const TermCard = (props) => {
   const { classes, cards, indices, index } = props;
