@@ -2,12 +2,7 @@ import React from "react";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Card from "@material-ui/core/Card";
-import Collapse from "@material-ui/core/Collapse";
-import Fade from "@material-ui/core/Fade";
 import Switch from "@material-ui/core/Switch";
-import Slide from "@material-ui/core/Slide";
 import Fab from "@material-ui/core/Fab";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import Box from "@material-ui/core/Box";
@@ -26,6 +21,7 @@ class PracticeContainer extends React.Component {
     this.state = {
       title: props.title,
       cards: props.cards,
+      len: len,
       shuffle: false,
       indices: Array.from({ length: len }, (_, index) => index),
       index: 0,
@@ -33,8 +29,35 @@ class PracticeContainer extends React.Component {
     };
   }
 
-  handleShuffleOption = (e) => {
-    e.preventDefault();
+  logKeyDown = (e) => {
+    const { index, len, flipped, shuffle } = this.state;
+    if (e.key === "ArrowLeft" && index > 0) {
+      this.decreaseIndex();
+    } else if (e.key === "ArrowRight" && index < len - 1) {
+      this.increaseIndex();
+    } else if (e.key === " ") {
+      this.toggleFlip(index);
+    } else if (e.key === "ArrowDown" && !flipped[index]) {
+      this.toggleFlip(index);
+    } else if (e.key === "ArrowUp" && flipped[index]) {
+      this.toggleFlip(index);
+    } else if (e.key === "r" && !(index === 0 && shuffle)) {
+      this.reset();
+    } else if (e.key === "s") {
+      this.handleShuffleOption();
+    }
+  };
+
+  componentDidMount() {
+    window.addEventListener("keydown", this.logKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.logKeyDown);
+  }
+
+  handleShuffleOption = () => {
+    // e.preventDefault();
     const { shuffle, cards } = this.state;
     const len = cards.length;
 
@@ -80,7 +103,6 @@ class PracticeContainer extends React.Component {
   };
 
   toggleFlip = (i) => {
-    console.log("Toggle Flip for index " + i);
     var { flipped } = this.state;
     flipped[i] = !flipped[i];
     this.setState({ flipped });
@@ -90,6 +112,11 @@ class PracticeContainer extends React.Component {
     const { classes } = this.props;
     const { title, cards, shuffle, index } = this.state;
     var { indices, flipped } = this.state;
+
+    // const leftPress = useKeyPress("arrowLeft");
+    // const rightPress = useKeyPress("arrowRight");
+    // const spacePress = useKeyPress(" ");
+
     return (
       <div>
         <Typography className={classes.intro} variant="h5">
@@ -107,12 +134,11 @@ class PracticeContainer extends React.Component {
             className={classes.primaryLightButton}
             onClick={this.reset}
             variant="contained"
+            disabled={index === 0 && !shuffle}
           >
             Reset
           </Button>
         </div>
-        {indices}
-        Current index: {index}
         <Fab
           color="primary"
           aria-label="add"
@@ -133,7 +159,7 @@ class PracticeContainer extends React.Component {
         >
           <NavigationIcon />
         </Fab>
-        <Box height="60vh">
+        <Box height="65vh">
           <TermCard
             cards={cards}
             indices={indices}

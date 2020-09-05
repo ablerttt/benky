@@ -114,14 +114,14 @@ const styles = (theme) => ({
   practiceLeftFab: {
     position: "absolute",
     left: theme.spacing(5),
-    bottom: "30%",
+    bottom: "45%",
     transform: "rotate(-90deg)",
   },
   practiceRightFab: {
     position: "absolute",
     padding: "auto 0",
     right: theme.spacing(5),
-    bottom: "30%",
+    bottom: "45%",
     transform: "rotate(90deg)",
   },
   cardBox: {
