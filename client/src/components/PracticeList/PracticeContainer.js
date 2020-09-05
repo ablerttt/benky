@@ -22,26 +22,23 @@ class PracticeContainer extends React.Component {
   constructor(props) {
     super(props);
     var len = props.cards.length;
-    var unsortedindices = [];
-    for (let i = 0; i < len; i++) {
-      unsortedindices.push(i);
-    }
+
     this.state = {
       title: props.title,
       cards: props.cards,
       shuffle: false,
-      indices: unsortedindices,
+      indices: Array.from({ length: len }, (_, index) => index),
       index: 0,
+      flipped: Array(len).fill(false),
     };
   }
 
   handleShuffleOption = (e) => {
+    e.preventDefault();
     const { shuffle, cards } = this.state;
+    const len = cards.length;
 
-    var ind = [];
-    for (let i = 0; i < cards.length; i++) {
-      ind.push(i);
-    }
+    var ind = Array.from({ length: len }, (_, index) => index);
 
     if (!shuffle) {
       shuffleList(ind);
@@ -50,7 +47,11 @@ class PracticeContainer extends React.Component {
       this.setState({ indices: ind });
     }
 
-    this.setState({ shuffle: !shuffle, index: 0 });
+    this.setState({
+      shuffle: !shuffle,
+      index: 0,
+      flipped: Array(len).fill(false),
+    });
     this.forceUpdate();
   };
 
@@ -67,15 +68,28 @@ class PracticeContainer extends React.Component {
   };
 
   reset = () => {
-    this.setState((state) => {
-      return { index: 0 };
+    const len = this.state.cards.length;
+    this.setState(() => {
+      return {
+        index: 0,
+        flipped: Array(len).fill(false),
+        shuffle: false,
+        indices: Array.from({ length: len }, (_, index) => index),
+      };
     });
+  };
+
+  toggleFlip = (i) => {
+    console.log("Toggle Flip for index " + i);
+    var { flipped } = this.state;
+    flipped[i] = !flipped[i];
+    this.setState({ flipped });
   };
 
   render() {
     const { classes } = this.props;
     const { title, cards, shuffle, index } = this.state;
-    var { indices } = this.state;
+    var { indices, flipped } = this.state;
     return (
       <div>
         <Typography className={classes.intro} variant="h5">
@@ -120,7 +134,13 @@ class PracticeContainer extends React.Component {
           <NavigationIcon />
         </Fab>
         <Box height="60vh">
-          <TermCard cards={cards} indices={indices} index={index} />
+          <TermCard
+            cards={cards}
+            indices={indices}
+            index={index}
+            showDef={flipped[index]}
+            toggleFlip={() => this.toggleFlip(index)}
+          />
         </Box>
       </div>
     );

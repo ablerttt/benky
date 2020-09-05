@@ -31,7 +31,7 @@ class TestSet extends React.Component {
           Test your knowledge.
         </Typography>
         <Typography variant="h6" gutterBottom>
-          I want to die
+          You've got this!
         </Typography>
         <TestOptions set={items} />
       </div>

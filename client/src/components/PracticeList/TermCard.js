@@ -4,9 +4,15 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
+import Fade from "@material-ui/core/Fade";
+import Grow from "@material-ui/core/Grow";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const TermCard = (props) => {
-  const { classes, cards, indices, index } = props;
+  const { classes, cards, indices, index, showDef, toggleFlip } = props;
+  const [checked, setChecked] = React.useState(false);
+
   return (
     <Paper variant="elevation" className={classes.practiceCard}>
       <div
@@ -19,10 +25,18 @@ const TermCard = (props) => {
         <Typography variant="h3" gutterBottom>
           {cards[indices[index]].term}
         </Typography>
-
-        <Button className={classes.practiceCardButton} variant="contained">
-          Description
-        </Button>
+        <div className={classes.practiceCardControl}>
+          <FormControlLabel
+            className={classes.practiceCardControl}
+            control={<Switch checked={showDef} onChange={toggleFlip} />}
+            label="Show"
+          />
+        </div>
+        <Grow in={showDef}>
+          <Paper elevation={4} className={classes.practiceCardDescription}>
+            {cards[indices[index]].description}
+          </Paper>
+        </Grow>
       </div>
     </Paper>
   );

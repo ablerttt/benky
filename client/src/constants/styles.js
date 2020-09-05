@@ -138,11 +138,23 @@ const styles = (theme) => ({
   },
   practiceCardButton: {
     backgroundColor: theme.palette.primary.light,
+    "&:hover": {
+      background: theme.palette.primary.lightHover,
+    },
     borderRadius: "3em",
     textTransform: "none",
     display: "flex",
     margin: "auto",
     color: "white",
+  },
+  practiceCardControl: {
+    display: "flex",
+    margin: "auto",
+  },
+  practiceCardDescription: {
+    display: "flex",
+    margin: "auto",
+    // width: "400px",
   },
 });
 
