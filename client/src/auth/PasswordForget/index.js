@@ -4,7 +4,9 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
-import TextField from "@material-ui/core/TextField";
+import { compose } from "recompose";
+import { withStyles } from "@material-ui/core/styles";
+import styles from "../../constants/styles";
 
 const PasswordForgetPage = () => (
   <div>
@@ -25,45 +27,34 @@ class PasswordForgetFormBase extends Component {
   }
 
   onSubmit = (event) => {
-    const { email } = this.state;
-
-    this.props.firebase
-      .doPasswordReset(email)
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-      })
-      .catch((error) => {
-        this.setState({ error });
-      });
+    this.props.firebase.doPasswordReset().catch((error) => {
+      this.setState({ error });
+    });
 
     event.preventDefault();
   };
 
-  onChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
-
   render() {
-    const { email, error } = this.state;
-
-    const isInvalid = email === "";
+    const { error } = this.state;
+    const { classes } = this.props;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <TextField
-          name="email"
-          value={this.state.email}
-          onChange={this.onChange}
-          placeholder="Email Address"
-        />
-        <Button disabled={isInvalid} type="submit">
-          Reset Password
-        </Button>
+      <div>
+        Send a verification email so you can reset your password.
+        <br />
+        <br />
+        <form onSubmit={this.onSubmit}>
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.primaryLightButton}
+          >
+            Reset Password
+          </Button>
 
-        {error && <p>{error.message}</p>}
-      </form>
+          {error && <p>{error.message}</p>}
+        </form>
+      </div>
     );
   }
 }
@@ -76,6 +67,9 @@ const PasswordForgetLink = () => (
 
 export default PasswordForgetPage;
 
-const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
+const PasswordForgetForm = compose(
+  withStyles(styles),
+  withFirebase
+)(PasswordForgetFormBase);
 
 export { PasswordForgetForm, PasswordForgetLink };

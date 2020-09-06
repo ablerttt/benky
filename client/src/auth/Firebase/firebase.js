@@ -27,7 +27,8 @@ class Firebase {
 
   doSignOut = () => this.auth.signOut();
 
-  doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
+  doPasswordReset = () =>
+    this.auth.sendPasswordResetEmail(this.auth.currentUser.email);
 
   doCurrentPasswordVerification = async (currentPassword) => {
     const credential = this.auth.app.firebase_.auth.EmailAuthProvider.credential(
@@ -41,19 +42,15 @@ class Firebase {
     await this.auth.currentUser.updatePassword(password);
   };
 
-  doDeleteUser = () => {
-    var user = this.auth.currentUser;
-    user
-      .delete()
-      .then(() => {
-        console.log("User successfully deleted.");
-      })
-      .catch((e) => {
-        console.log(
-          "An error happened trying to delete the current user: " + e
-        );
-      });
+  doVerifyEmail = (email) => {
+    return email === this.auth.currentUser.email;
   };
+
+  doUpdateEmail = async (newEmail) => {
+    await this.auth.currentUser.updateEmail(newEmail);
+  };
+
+  doDeleteUser = () => this.auth.currentUser.delete();
 
   user = (uid) => this.db.ref(`users/${uid}`);
 

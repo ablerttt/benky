@@ -83,10 +83,12 @@ class PasswordChangeForm extends Component {
       error,
       success,
     } = this.state;
+    const isInvalid =
+      currentPassword === "" || passwordOne === "" || passwordTwo === "";
     const { classes } = this.props;
     return (
       <div>
-        <div>Change your password.</div>
+        Change your password.
         <br />
         <form onSubmit={this.onSubmit}>
           <TextField
@@ -118,6 +120,7 @@ class PasswordChangeForm extends Component {
             type="submit"
             className={classes.primaryLightButton}
             variant="contained"
+            disabled={isInvalid}
           >
             Reset Password
           </Button>
