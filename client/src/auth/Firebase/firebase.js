@@ -29,38 +29,16 @@ class Firebase {
 
   doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
 
-  doPasswordUpdate = async (password) => {
-    let error = "";
-    await this.auth.currentUser
-      .updatePassword(password)
-      .then((res) => {
-        console.log("RES " + res);
-      })
-      .catch((e) => {
-        console.log("ERR " + e.message);
-        error = e.message;
-      });
-    console.log("Error message? is " + error);
-    return error;
-  };
-
-  doCurrentPasswordVerification = (currentPassword) => {
+  doCurrentPasswordVerification = async (currentPassword) => {
     const credential = this.auth.app.firebase_.auth.EmailAuthProvider.credential(
       this.auth.currentUser.email,
       currentPassword
     );
-    this.auth.currentUser
-      .reauthenticateWithCredential(credential)
-      .then((res) => {
-        console.log("res: reauntheticate with credential");
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(
-          "An error happened trying to authentificate the current user: " + e
-        );
-        // throw e
-      });
+    await this.auth.currentUser.reauthenticateWithCredential(credential);
+  };
+
+  doPasswordUpdate = async (password) => {
+    await this.auth.currentUser.updatePassword(password);
   };
 
   doDeleteUser = () => {

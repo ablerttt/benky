@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 import { compose } from "recompose";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "../../constants/styles";
-import { exception } from "console";
 
 const INITIAL_STATE = {
   passwordOne: "",
@@ -17,41 +16,57 @@ const INITIAL_STATE = {
 class PasswordChangeForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...INITIAL_STATE, updated: false };
+    this.state = { ...INITIAL_STATE, updated: false, success: "" };
   }
 
-  // onSubmit = (event) => {
-  //   const { passwordOne, passwordTwo, currentPassword } = this.state;
-  //   event.preventDefault();
+  verifyCurrentPassword = async (currentPassword) => {
+    await this.props.firebase.doCurrentPasswordVerification(currentPassword);
+  };
 
-  //   this.props.firebase
-  //     .doPasswordUpdate(passwordOne)
-  //     .then(() => {
-  //       this.setState({ ...INITIAL_STATE });
-  //     })
-  //     .catch((error) => {
-  //       this.setState({ error });
-  //     });
+  updateCurrentPassword = async (password) => {
+    await this.props.firebase.doPasswordUpdate(password);
+  };
 
-  //   // event.preventDefault();
-  // };
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
-
+    // this.setState({ error: "" });
     const { passwordOne, passwordTwo, currentPassword } = this.state;
-
+    this.setState({ error: "" });
     if (passwordOne !== passwordTwo) {
       this.setState({
-        error: { message: "The two passwords are different from each other." },
+        error: "The two passwords are different from each other.",
       });
       return;
     }
 
-    let updateErr = this.props.firebase.doPasswordUpdate(passwordOne);
-    console.log(updateErr);
-    if (updateErr) {
-      this.setState({ error: updateErr });
-    }
+    await this.verifyCurrentPassword(currentPassword)
+      .then((res) => {
+        console.log(res);
+        this.updateCurrentPassword(passwordOne)
+          .then((res) => {
+            console.log("PASSWORD UPDATE RES");
+            console.log(res);
+          })
+          .catch((e) => {
+            console.log("PASSWORD UPDATE ERR");
+            console.log(e);
+            this.setState({ error: e.message, success: "" });
+          });
+
+        this.setState({
+          success: "Successfully updated password!",
+          passwordOne: "",
+          passwordTwo: "",
+          currentPassword: "",
+          error: "",
+        });
+      })
+      .catch((e) => {
+        console.log("PASSWORD VERIFY ERR");
+        console.log(e);
+        this.setState({ error: e.message, success: "" });
+        return;
+      });
   };
 
   onChange = (event) => {
@@ -61,14 +76,17 @@ class PasswordChangeForm extends Component {
   };
 
   render() {
-    const { currentPassword, passwordOne, passwordTwo, error } = this.state;
+    const {
+      currentPassword,
+      passwordOne,
+      passwordTwo,
+      error,
+      success,
+    } = this.state;
     const { classes } = this.props;
     return (
       <div>
-        <div>
-          Change the email that your account is linked to. If you forget your
-          password, you'll receive any emails from this email instead.
-        </div>
+        <div>Change your password.</div>
         <br />
         <form onSubmit={this.onSubmit}>
           <TextField
@@ -104,7 +122,8 @@ class PasswordChangeForm extends Component {
             Reset Password
           </Button>
 
-          {error && <p>{error.message}</p>}
+          {error && <p>{error}</p>}
+          {success && <p>{success}</p>}
         </form>
       </div>
     );
