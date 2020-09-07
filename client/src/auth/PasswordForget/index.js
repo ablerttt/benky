@@ -33,6 +33,7 @@ class PasswordForgetFormBase extends Component {
 
     event.preventDefault();
   };
+  
 
   render() {
     const { error } = this.state;
