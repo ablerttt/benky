@@ -1,21 +1,21 @@
 {
-  "name": "flare",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.20.0",
-    "console": "^0.7.2",
-    "firebase": "^7.19.1",
+    "cra-template": "1.0.3",
+    "elliptic": "^6.5.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
-    "recompose": "^0.30.0"
+    "react-notifications": "^1.6.0",
+    "react-router": "^5.2.0",
+    "react-scripts": "^3.4.3",
+    "react-table": "^7.3.2",
+    "serialize-javascript": "^4.0.0",
+    "styled-components": "^5.1.1",
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "start": "export PORT=8000 && react-scripts start",

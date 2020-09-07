@@ -4,9 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
-import { compose } from "recompose";
-import { withStyles } from "@material-ui/core/styles";
-import styles from "../../constants/styles";
+import TextField from "@material-ui/core/TextField";
 
 const PasswordForgetPage = () => (
   <div>
@@ -27,61 +25,57 @@ class PasswordForgetFormBase extends Component {
   }
 
   onSubmit = (event) => {
-    this.props.firebase.doPasswordReset().catch((error) => {
-      this.setState({ error });
-    });
+    const { email } = this.state;
+
+    this.props.firebase
+      .doPasswordReset(email)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE });
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
 
     event.preventDefault();
   };
-  
+
+  onChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
 
   render() {
-    const { error } = this.state;
-    const { classes } = this.props;
+    const { email, error } = this.state;
+
+    const isInvalid = email === "";
 
     return (
-      <div>
-        Send a verification email so you can reset your password.
-        <br />
-        <br />
-        <form onSubmit={this.onSubmit}>
-          <Button
-            type="submit"
-            variant="contained"
-            className={classes.primaryLightButton}
-          >
-            Reset Password
-          </Button>
+      <form onSubmit={this.onSubmit}>
+        <TextField
+          name="email"
+          value={this.state.email}
+          onChange={this.onChange}
+          placeholder="Email Address"
+        />
+        <Button disabled={isInvalid} type="submit">
+          Reset Password
+        </Button>
 
-          {error && <p>{error.message}</p>}
-        </form>
-      </div>
+        {error && <p>{error.message}</p>}
+      </form>
     );
   }
 }
 
-const PasswordForgetLinkBase = (props) => {
-  // <p>
-  //   <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
-  // </p>
-  const { classes } = props;
-  return (
-    <p>
-      Forgot password? Send a verification email and get it reset
-      <Button className={classes.primaryLightButton} variant="contained">
-        here
-      </Button>
-      .
-    </p>
-  );
-};
+const PasswordForgetLink = () => (
+  <p>
+    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
+  </p>
+);
 
 export default PasswordForgetPage;
 
-const PasswordForgetForm = compose(
-  withStyles(styles),
-  withFirebase
-)(PasswordForgetFormBase);
+const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
 
-const PasswordForgetLink = withStyles(styles)(PasswordForgetLinkBase);
 export { PasswordForgetForm, PasswordForgetLink };

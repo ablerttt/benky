@@ -9,18 +9,9 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./NavigationStyles";
-import { withRouter } from "react-router-dom";
-import { compose } from "recompose";
 
 const NavigationAuth = (props) => {
   const { classes } = props;
-
-  const routeToAccount = (e) => {
-    e.preventDefault();
-
-    props.history.push("/account");
-  };
-
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appbar}>
@@ -31,15 +22,13 @@ const NavigationAuth = (props) => {
                 <strong>LOGO</strong>
               </Typography>
             </Link>
-            <Button
-              variant="contained"
-              className={classes.right}
-              onClick={routeToAccount}
-            >
-              Account
-            </Button>
+            <Link to={ROUTES.ACCOUNT}>
+              <Button color="inherit" className={classes.right}>
+                Account
+              </Button>
+            </Link>
             <SignOut>
-              <Button variant="contained" className={classes.right}>
+              <Button color="inherit" className={classes.right}>
                 Log Out
               </Button>
             </SignOut>
@@ -50,4 +39,4 @@ const NavigationAuth = (props) => {
   );
 };
 
-export default compose(withRouter, withStyles(styles))(NavigationAuth);
+export default withStyles(styles)(NavigationAuth);

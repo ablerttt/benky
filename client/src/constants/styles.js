@@ -114,14 +114,14 @@ const styles = (theme) => ({
   practiceLeftFab: {
     position: "absolute",
     left: theme.spacing(5),
-    bottom: "40%",
+    bottom: "45%",
     transform: "rotate(-90deg)",
   },
   practiceRightFab: {
     position: "absolute",
     padding: "auto 0",
     right: theme.spacing(5),
-    bottom: "40%",
+    bottom: "45%",
     transform: "rotate(90deg)",
   },
   cardBox: {
@@ -130,31 +130,31 @@ const styles = (theme) => ({
   practiceCard: {
     backgroundColor: "#e3fbfc",
     display: "flex",
-    flexDirection: "column",
-    width: "100%",
+    alignItems: "center",
     justifyContent: "center",
+    margin: theme.spacing(0.5),
     height: "100%",
     borderRadius: "3em",
   },
-  practiceCardTitle: {
-    width: "100%",
-    textAlign: "center",
+  practiceCardButton: {
+    backgroundColor: theme.palette.primary.light,
+    "&:hover": {
+      background: theme.palette.primary.lightHover,
+    },
+    borderRadius: "3em",
+    textTransform: "none",
+    display: "flex",
+    margin: "auto",
+    color: "white",
   },
-  practiceCardContent: {
+  practiceCardControl: {
     display: "flex",
     margin: "auto",
   },
   practiceCardDescription: {
-    width: "50%",
+    display: "flex",
     margin: "auto",
-    padding: "1rem",
-    justifyContent: "center",
-    borderRadius: "2em",
-    textAlign: "center",
-  },
-  logInText: {
-    width: "40%",
-    margin: theme.spacing(1),
+    // width: "400px",
   },
 });
 

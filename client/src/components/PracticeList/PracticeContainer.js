@@ -8,7 +8,6 @@ import NavigationIcon from "@material-ui/icons/Navigation";
 import Box from "@material-ui/core/Box";
 import TermCard from "./TermCard";
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 
 function shuffleList(array) {
   array.sort(() => Math.random() - 0.5);
@@ -114,32 +113,32 @@ class PracticeContainer extends React.Component {
     const { title, cards, shuffle, index } = this.state;
     var { indices, flipped } = this.state;
 
+    // const leftPress = useKeyPress("arrowLeft");
+    // const rightPress = useKeyPress("arrowRight");
+    // const spacePress = useKeyPress(" ");
+
     return (
       <div>
-        <Grid container justify="space-between">
-          <Typography className={classes.intro} variant="h5">
-            Practice: {title}
-          </Typography>
-          <div className={classes.intro}>
-            Shuffle
-            <Switch
-              checked={shuffle}
-              onChange={this.handleShuffleOption}
-              name="shuffleOption"
-              inputProps={{ "aria-label": "shuffle-option" }}
-            />
-            <Button
-              style={{ align: "right" }}
-              className={classes.primaryLightButton}
-              onClick={this.reset}
-              variant="contained"
-              disabled={index === 0 && !shuffle && !flipped.includes(true)}
-            >
-              Reset
-            </Button>
-          </div>
-        </Grid>
-        <br />
+        <Typography className={classes.intro} variant="h5">
+          Practice: {title}
+        </Typography>
+        <div>
+          Shuffle
+          <Switch
+            checked={shuffle}
+            onChange={this.handleShuffleOption}
+            name="shuffleOption"
+            inputProps={{ "aria-label": "shuffle-option" }}
+          />
+          <Button
+            className={classes.primaryLightButton}
+            onClick={this.reset}
+            variant="contained"
+            disabled={index === 0 && !shuffle}
+          >
+            Reset
+          </Button>
+        </div>
         <Fab
           color="primary"
           aria-label="add"

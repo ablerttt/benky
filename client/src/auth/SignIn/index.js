@@ -1,35 +1,31 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-import { withStyles } from "@material-ui/core/styles";
-import styles from "../../constants/styles";
 import { SignUpLink } from "../SignUp";
 import { PasswordForgetLink } from "../PasswordForget";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 
-const SignInPage = (props) => {
-  const { classes } = props;
-  return (
-    <div>
-      <Typography variant="h3" className={classes.intro}>
-        Sign In
-      </Typography>
-      <SignInForm />
-      <PasswordForgetLink />
-      <SignUpLink />
-    </div>
-  );
+const SignInPage = () => (
+  <div>
+    <h1>SignIn</h1>
+    <SignInForm />
+    <PasswordForgetLink />
+    <SignUpLink />
+  </div>
+);
+
+const INITIAL_STATE = {
+  email: "",
+  password: "",
+  error: null,
 };
 
 class SignInFormBase extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { email: "", password: "", error: null };
+    this.state = { ...INITIAL_STATE };
   }
 
   onSubmit = (event) => {
@@ -38,7 +34,7 @@ class SignInFormBase extends Component {
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        this.setState({ email: "", password: "", error: null });
+        this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.HOME);
       })
       .catch((error) => {
@@ -54,39 +50,28 @@ class SignInFormBase extends Component {
 
   render() {
     const { email, password, error } = this.state;
-    const { classes } = this.props;
 
     const isInvalid = password === "" || email === "";
 
     return (
       <form onSubmit={this.onSubmit}>
-        <TextField
+        <input
           name="email"
           value={email}
           onChange={this.onChange}
-          label="Email Address"
-          variant="filled"
-          className={classes.logInText}
+          type="text"
+          placeholder="Email Address"
         />
-        <br />
-        <TextField
+        <input
           name="password"
           value={password}
           onChange={this.onChange}
           type="password"
-          variant="filled"
-          label="Password"
-          className={classes.logInText}
+          placeholder="Password"
         />
-        <br />
-        <Button
-          disabled={isInvalid}
-          type="submit"
-          className={classes.primaryLightButton}
-          variant="contained"
-        >
+        <button disabled={isInvalid} type="submit">
           Sign In
-        </Button>
+        </button>
 
         {error && <p>{error.message}</p>}
       </form>
@@ -94,12 +79,8 @@ class SignInFormBase extends Component {
   }
 }
 
-const SignInForm = compose(
-  withRouter,
-  withFirebase,
-  withStyles(styles)
-)(SignInFormBase);
+const SignInForm = compose(withRouter, withFirebase)(SignInFormBase);
 
-export default withStyles(styles)(SignInPage);
+export default SignInPage;
 
 export { SignInForm };
