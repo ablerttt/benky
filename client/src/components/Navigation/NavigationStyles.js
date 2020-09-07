@@ -1,4 +1,4 @@
-const styles = {
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -8,14 +8,28 @@ const styles = {
     color: "white",
   },
   right: {
-    underline: "none",
     color: "white",
-    textDecoration: "none",
-    margin: "0 2vw",
+    textTransform: "none",
+    margin: theme.spacing(2),
+    borderRadius: "3em",
+    backgroundColor: theme.palette.primary.light,
+    "&:hover": {
+      background: theme.palette.primary.lightHover,
+    },
   },
   appbar: {
     backgroundColor: "#2E3B55",
   },
-};
+  primaryLightButton: {
+    backgroundColor: theme.palette.primary.light,
+    "&:hover": {
+      background: theme.palette.primary.lightHover,
+    },
+    margin: theme.spacing(0.5),
+    borderRadius: "3em",
+    textTransform: "none",
+    color: "white",
+  },
+});
 
 export default styles;

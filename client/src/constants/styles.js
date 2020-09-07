@@ -152,6 +152,10 @@ const styles = (theme) => ({
     borderRadius: "2em",
     textAlign: "center",
   },
+  logInText: {
+    width: "40%",
+    margin: theme.spacing(1),
+  },
 });
 
 export default styles;

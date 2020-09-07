@@ -59,11 +59,21 @@ class PasswordForgetFormBase extends Component {
   }
 }
 
-const PasswordForgetLink = () => (
-  <p>
-    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
-  </p>
-);
+const PasswordForgetLinkBase = (props) => {
+  // <p>
+  //   <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
+  // </p>
+  const { classes } = props;
+  return (
+    <p>
+      Forgot password? Send a verification email and get it reset
+      <Button className={classes.primaryLightButton} variant="contained">
+        here
+      </Button>
+      .
+    </p>
+  );
+};
 
 export default PasswordForgetPage;
 
@@ -72,4 +82,5 @@ const PasswordForgetForm = compose(
   withFirebase
 )(PasswordForgetFormBase);
 
+const PasswordForgetLink = withStyles(styles)(PasswordForgetLinkBase);
 export { PasswordForgetForm, PasswordForgetLink };

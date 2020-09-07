@@ -1,20 +1,29 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-
+import { withStyles } from "@material-ui/core/styles";
+import styles from "../../constants/styles";
 import { SignUpLink } from "../SignUp";
 import { PasswordForgetLink } from "../PasswordForget";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
-const SignInPage = () => (
-  <div>
-    <h1>SignIn</h1>
-    <SignInForm />
-    <PasswordForgetLink />
-    <SignUpLink />
-  </div>
-);
+const SignInPage = (props) => {
+  const { classes } = props;
+  return (
+    <div>
+      <Typography variant="h3" className={classes.intro}>
+        Sign In
+      </Typography>
+      <SignInForm />
+      <PasswordForgetLink />
+      <SignUpLink />
+    </div>
+  );
+};
 
 class SignInFormBase extends Component {
   constructor(props) {
@@ -45,28 +54,39 @@ class SignInFormBase extends Component {
 
   render() {
     const { email, password, error } = this.state;
+    const { classes } = this.props;
 
     const isInvalid = password === "" || email === "";
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <TextField
           name="email"
           value={email}
           onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
+          label="Email Address"
+          variant="filled"
+          className={classes.logInText}
         />
-        <input
+        <br />
+        <TextField
           name="password"
           value={password}
           onChange={this.onChange}
           type="password"
-          placeholder="Password"
+          variant="filled"
+          label="Password"
+          className={classes.logInText}
         />
-        <button disabled={isInvalid} type="submit">
+        <br />
+        <Button
+          disabled={isInvalid}
+          type="submit"
+          className={classes.primaryLightButton}
+          variant="contained"
+        >
           Sign In
-        </button>
+        </Button>
 
         {error && <p>{error.message}</p>}
       </form>
@@ -74,8 +94,12 @@ class SignInFormBase extends Component {
   }
 }
 
-const SignInForm = compose(withRouter, withFirebase)(SignInFormBase);
+const SignInForm = compose(
+  withRouter,
+  withFirebase,
+  withStyles(styles)
+)(SignInFormBase);
 
-export default SignInPage;
+export default withStyles(styles)(SignInPage);
 
 export { SignInForm };
