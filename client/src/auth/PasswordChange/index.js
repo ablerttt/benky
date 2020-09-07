@@ -9,52 +9,64 @@ import styles from "../../constants/styles";
 const INITIAL_STATE = {
   passwordOne: "",
   passwordTwo: "",
+  currentPassword: "",
   error: null,
 };
 
 class PasswordChangeForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...INITIAL_STATE, updated: false };
+    this.state = { ...INITIAL_STATE, updated: false, success: "" };
   }
 
-  onSubmit = (event) => {
-    const { passwordOne, passwordTwo } = this.state;
+  verifyCurrentPassword = async (currentPassword) => {
+    await this.props.firebase.doCurrentPasswordVerification(currentPassword);
+  };
 
+  updateCurrentPassword = async (password) => {
+    await this.props.firebase.doPasswordUpdate(password);
+  };
+
+  onSubmit = async (e) => {
+    e.preventDefault();
+    // this.setState({ error: "" });
+    const { passwordOne, passwordTwo, currentPassword } = this.state;
+    this.setState({ error: "" });
     if (passwordOne !== passwordTwo) {
       this.setState({
-        error: { message: "The two passwords are different from each other." },
+        error: "The two passwords are different from each other.",
       });
-      event.preventDefault();
       return;
     }
 
-    // var credential = this.props.firebase.auth.EmailAuthProvider.credential(
-    //   this.props.firebase.auth().currentUser.email,
-    //   currentPassword
-    // );
+    await this.verifyCurrentPassword(currentPassword)
+      .then((res) => {
+        console.log(res);
+        this.updateCurrentPassword(passwordOne)
+          .then((res) => {
+            console.log("PASSWORD UPDATE RES");
+            console.log(res);
+          })
+          .catch((e) => {
+            console.log("PASSWORD UPDATE ERR");
+            console.log(e);
+            this.setState({ error: e.message, success: "" });
+          });
 
-    // this.props.firebaseApp
-    //   .auth()
-    //   .currentUser.reauthenticateWithCredential(credential)
-    //   .then(() => {
-    //     // User re-authenticated.
-    //     console.log("reauthentification");
-    //   })
-    //   .catch((e) => {
-    //     console.log("error");
-    //   });
-
-    this.props.firebase
-      .doPasswordUpdate(passwordOne)
-      .then(() => {
-        this.setState({ ...INITIAL_STATE, updated: true });
+        this.setState({
+          success: "Successfully updated password!",
+          passwordOne: "",
+          passwordTwo: "",
+          currentPassword: "",
+          error: "",
+        });
       })
-      .catch((error) => {
-        this.setState({ error });
+      .catch((e) => {
+        console.log("PASSWORD VERIFY ERR");
+        console.log(e);
+        this.setState({ error: e.message, success: "" });
+        return;
       });
-
-    event.preventDefault();
   };
 
   onChange = (event) => {
@@ -64,19 +76,24 @@ class PasswordChangeForm extends Component {
   };
 
   render() {
-    const { error } = this.state;
+    const {
+      currentPassword,
+      passwordOne,
+      passwordTwo,
+      error,
+      success,
+    } = this.state;
+    const isInvalid =
+      currentPassword === "" || passwordOne === "" || passwordTwo === "";
     const { classes } = this.props;
     return (
       <div>
-        <div>
-          Change the email that your account is linked to. If you forget your
-          password, you'll receive any emails from this email instead.
-        </div>
+        Change your password.
         <br />
         <form onSubmit={this.onSubmit}>
           <TextField
             name="currentPassword"
-            value={this.state.currentPassword}
+            value={currentPassword}
             onChange={this.onChange}
             type="password"
             label="Original Password"
@@ -84,7 +101,7 @@ class PasswordChangeForm extends Component {
           <br />
           <TextField
             name="passwordOne"
-            value={this.state.passwordOne}
+            value={passwordOne}
             onChange={this.onChange}
             type="password"
             label="New Password"
@@ -92,7 +109,7 @@ class PasswordChangeForm extends Component {
           <br />
           <TextField
             name="passwordTwo"
-            value={this.state.passwordTwo}
+            value={passwordTwo}
             onChange={this.onChange}
             type="password"
             label="Confirm New Password"
@@ -103,11 +120,13 @@ class PasswordChangeForm extends Component {
             type="submit"
             className={classes.primaryLightButton}
             variant="contained"
+            disabled={isInvalid}
           >
             Reset Password
           </Button>
 
-          {error && <p>{error.message}</p>}
+          {error && <p>{error}</p>}
+          {success && <p>{success}</p>}
         </form>
       </div>
     );

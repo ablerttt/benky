@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import EmailChange from "../EmailChange";
+import DeleteAccount from "../DeleteAccount";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,7 +83,6 @@ const AccountPage = (props) => {
               onChange={handleChange}
               aria-label="ant example"
               orientation="vertical"
-              // variant="scrollable"
               className={classes.tabs}
               centered
             >
@@ -92,7 +92,7 @@ const AccountPage = (props) => {
               <AntTab label="Delete Account" />
             </Tabs>
             <TabPanel className={classes.tabPanel} value={value} index={0}>
-              <EmailChange classes={classes} />
+              <EmailChange />
             </TabPanel>
             <TabPanel className={classes.tabPanel} value={value} index={1}>
               <PasswordChangeForm />
@@ -101,7 +101,7 @@ const AccountPage = (props) => {
               <PasswordForgetForm />
             </TabPanel>
             <TabPanel className={classes.tabPanel} value={value} index={3}>
-              delete account
+              <DeleteAccount />
             </TabPanel>
           </div>
         </div>

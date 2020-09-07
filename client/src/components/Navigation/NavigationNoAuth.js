@@ -8,9 +8,18 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./NavigationStyles";
+import { compose } from "recompose";
+import { withRouter } from "react-router-dom";
 
 const NavigationNoAuth = (props) => {
   const { classes } = props;
+
+  const routeToSignIn = (e) => {
+    e.preventDefault();
+
+    props.history.push("/signin");
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appbar}>
@@ -21,11 +30,13 @@ const NavigationNoAuth = (props) => {
                 <strong>LOGO</strong>
               </Typography>
             </Link>
-            <Link to={ROUTES.SIGN_IN}>
-              <Button color="inherit" className={classes.right}>
-                Login
-              </Button>
-            </Link>
+            <Button
+              variant="contained"
+              className={classes.right}
+              onClick={routeToSignIn}
+            >
+              Login
+            </Button>
           </Toolbar>
         </Container>
       </AppBar>
@@ -33,4 +44,4 @@ const NavigationNoAuth = (props) => {
   );
 };
 
-export default withStyles(styles)(NavigationNoAuth);
+export default compose(withRouter, withStyles(styles))(NavigationNoAuth);
