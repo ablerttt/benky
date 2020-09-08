@@ -21,6 +21,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
+import { convertLastModifiedTime } from "../../constants/times";
 
 const SampleTerms = (props) => {
   const limited = props.cards.slice(0, 5);
@@ -106,15 +107,17 @@ class ViewList extends Component {
           </Typography>
           <br />
           {/* <Grid container spacing={3}> */}
-          <GridList
-            spacing={30}
-            cellHeight="auto"
-            cols={columns}
-          >
+          <GridList spacing={30} cellHeight="auto" cols={columns}>
             {items.map((item, val) => {
               return (
                 <GridListTile key={val} className={classes.root}>
-                  <Card className={classes.listCard} raised>
+                  <Card key={val} className={classes.listCard}>
+                    {console.log(new Date(item.updatedAt))}
+                    {console.log(
+                      "Last modified: " +
+                        convertLastModifiedTime(new Date(item.updatedAt)) +
+                        " ago."
+                    )}
                     <CardHeader
                       title={
                         <Typography variant="h5" gutterBottom>
@@ -123,7 +126,8 @@ class ViewList extends Component {
                       }
                       subheader={
                         <Typography variant="body1" gutterBottom>
-                          Last modified {item.updatedAt}
+                          {"Last modified: " +
+                            convertLastModifiedTime(new Date(item.updatedAt))}
                         </Typography>
                       }
                       className={classes.cardHeading}

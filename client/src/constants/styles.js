@@ -19,8 +19,10 @@ const styles = (theme) => ({
     textTransform: "none",
   },
   listCard: {
-    borderRadius: "0.5em",
-    backgroundColor: "#e3fbfc",
+    borderRadius: "1em",
+    // backgroundColor: "#e3fbfc",
+    background: "linear-gradient(45deg, #628bd1 30%, #50b39d 90%)",
+    padding: "1em",
     flexGrow: 1,
   },
   titleTextField: {
