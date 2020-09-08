@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
 import { withFirebase } from "../Firebase";
-import * as ROUTES from "../../constants/routes";
 import { compose } from "recompose";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "../../constants/styles";
@@ -33,7 +31,6 @@ class PasswordForgetFormBase extends Component {
 
     event.preventDefault();
   };
-  
 
   render() {
     const { error } = this.state;

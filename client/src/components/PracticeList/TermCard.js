@@ -15,26 +15,23 @@ const TermCard = (props) => {
 
   return (
     <Paper variant="elevation" className={classes.practiceCard}>
-      <div
-        styles={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h3" gutterBottom>
+      <div>
+        <Typography variant="h3" gutterBottom align="center">
           {cards[indices[index]].term}
         </Typography>
         <div className={classes.practiceCardControl}>
           <FormControlLabel
-            className={classes.practiceCardControl}
             control={<Switch checked={showDef} onChange={toggleFlip} />}
             label="Show"
+            className={classes.practiceCardSwitch}
           />
         </div>
+        <br />
         <Grow in={showDef}>
           <Paper elevation={4} className={classes.practiceCardDescription}>
-            {cards[indices[index]].description}
+            <Typography style={{ margin: "auto", padding: "1em" }}>
+              {cards[indices[index]].description}
+            </Typography>
           </Paper>
         </Grow>
       </div>

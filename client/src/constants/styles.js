@@ -128,10 +128,11 @@ const styles = (theme) => ({
     padding: "100px 0",
   },
   practiceCard: {
+    position: "relative",
     backgroundColor: "#e3fbfc",
     display: "flex",
     flexDirection: "column",
-    width: "100%",
+    alignContent: "center",
     justifyContent: "center",
     height: "100%",
     borderRadius: "3em",
@@ -140,15 +141,20 @@ const styles = (theme) => ({
     width: "100%",
     textAlign: "center",
   },
-  practiceCardContent: {
+  practiceCardControl: {
     display: "flex",
+    flexDirection: "column",
+  },
+  practiceCardSwitch: {
     margin: "auto",
   },
   practiceCardDescription: {
-    width: "50%",
+    width: "60%",
     margin: "auto",
-    padding: "1rem",
+    padding: "auto",
+    display: "flex",
     justifyContent: "center",
+    alignContent: "center",
     borderRadius: "2em",
     textAlign: "center",
   },

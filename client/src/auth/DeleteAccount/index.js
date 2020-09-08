@@ -19,7 +19,7 @@ class DeleteAccount extends React.Component {
   }
 
   onDeleteAccount = async () => {
-    this.setState(  { error: "" });
+    this.setState({ error: "" });
     await this.props.firebase
       .doDeleteUser()
       .then((res) => {
@@ -74,7 +74,7 @@ class DeleteAccount extends React.Component {
               variant="contained"
               className={classes.cancelButton}
             >
-              Cencel
+              Cancel
             </Button>
             <Button
               onClick={this.onDeleteAccount}
