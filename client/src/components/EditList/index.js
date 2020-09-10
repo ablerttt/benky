@@ -74,4 +74,5 @@ class EditLinkBase extends React.Component {
 export default EditList;
 
 const EditLink = withStyles(styles)(EditLinkBase);
+
 export { EditLink };

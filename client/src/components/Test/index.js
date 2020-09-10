@@ -98,7 +98,6 @@ class TestLinkBase extends React.Component {
       <div>
         <Button
           onClick={this.testSet}
-          color="primary"
           className={classes.primaryLightButton}
           variant="contained"
         >

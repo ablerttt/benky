@@ -1,6 +1,20 @@
 //client/src/constants/styles.js
 
 const styles = (theme) => ({
+  "@global": {
+    "*::-webkit-scrollbar": {
+      width: "0.3em",
+      height: "0.3em",
+    },
+    "*::-webkit-scrollbar-track": {
+      display: "none",
+    },
+    "*::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,0.1)",
+      borderRadius: "0.4em",
+      borderColor: "transparent",
+    },
+  },
   root: {
     flexGrow: 1,
   },
@@ -71,17 +85,22 @@ const styles = (theme) => ({
     borderRadius: "3em",
     textTransform: "none",
     color: "white",
+    width: "6em",
   },
   primaryDarkButton: {
     backgroundColor: theme.palette.primary.dark,
+    "&:hover": {
+      background: theme.palette.primary.darkHover,
+    },
     margin: theme.spacing(1),
     borderRadius: "3em",
     textTransform: "none",
     color: "white",
+    width: "6em",
   },
   expand: {
     transform: "rotate(0deg)",
-    marginLeft: "auto",
+    // marginLeft: "auto",
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),

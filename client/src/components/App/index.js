@@ -41,6 +41,7 @@ const theme = createMuiTheme({
       light: "#436cab",
       lightHover: "#6d8ebf",
       dark: "#223757",
+      darkHover: "#46628c",
     },
     secondary: {
       main: "#89c6d9",
@@ -56,7 +57,7 @@ const App = () => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Navigation />
-      <Container maxWidth="md">
+      <Container maxWidth="md" >
         <Switch>
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
           <Route path={ROUTES.SIGN_UP} component={SignUpPage} />

@@ -12,12 +12,13 @@ import GridListTile from "@material-ui/core/GridListTile";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { compose } from "recompose";
 import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import { EditLink } from "../EditList";
 import styles from "../../constants/styles";
 import RemoveList from "../RemoveList";
 import { PracticeLink } from "../PracticeList";
 import { TestsLink } from "../Test";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { ShowSampleTerms } from "./SampleTerms";
 import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
@@ -36,7 +37,7 @@ const SampleTermBase = (props) => {
     return (
       <Button
         key={`sample-${i}`}
-        variant="filled"
+        variant="contained"
         className={classes.buttonSampleTerm}
       >
         {item.term}
@@ -118,7 +119,6 @@ class ViewList extends Component {
   };
 
   handleRemoveSet = (keyVal) => {
-    console.log(`handle remove set for key ${keyVal}`);
     let current = [...this.state.items];
     current.splice(keyVal, 1);
     this.setState({ items: current });
@@ -132,7 +132,6 @@ class ViewList extends Component {
       expandedId.push(i);
     }
     this.setState({ expandedId });
-    console.log(expandedId);
   };
 
   getGridListCols = () => {
@@ -254,7 +253,7 @@ class ViewList extends Component {
           </PopupState>
         </Grid>
         <br />
-        <GridList spacing={30} cellHeight="auto" cols={columns}>
+        <GridList spacing={30} cellHeight="auto" cols={1}>
           {items.map((item, val) => {
             return (
               <GridListTile key={val} className={classes.root}>
@@ -277,25 +276,31 @@ class ViewList extends Component {
                     className={classes.cardHeading}
                   />
                   <CardActions>
-                    <EditLink id={item._id} className={classes.left} />
-                    <PracticeLink id={item._id} />
-                    <TestsLink id={item._id} />
-                    <Button
-                      className={`${classes.expand} ${classes.primaryLightButton}`}
-                      onClick={() => this.handleExpandClickID(val)}
-                      aria-expanded={expandedId.includes(val)}
-                      aria-label="show more"
-                      variant="contained"
-                      startIcon={<ExpandMoreIcon />}
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "row",
+                        overflow: "auto",
+                      }}
                     >
-                      Terms
-                    </Button>
-                    <RemoveList
-                      id={item._id}
-                      onRemoveSet={this.handleRemoveSet}
-                      onChange={this.handleRemoveSet}
-                      keyVal={val}
-                    />
+                      <EditLink id={item._id} />
+                      <PracticeLink id={item._id} />
+                      <TestsLink id={item._id} />
+                      <ShowSampleTerms
+                        handleExpandClickID={this.handleExpandClickID}
+                        length={item.cards.length}
+                        val={val}
+                        expandedId={expandedId}
+                      />
+                      <RemoveList
+                        id={item._id}
+                        onRemoveSet={this.handleRemoveSet}
+                        onChange={this.handleRemoveSet}
+                        keyVal={val}
+                      />
+                    </div>
                   </CardActions>
                   <Collapse
                     in={expandedId.includes(val)}
@@ -303,7 +308,6 @@ class ViewList extends Component {
                     unmountOnExit
                   >
                     <CardContent>
-                      <Typography paragraph>Sample Terms:</Typography>
                       <SampleTerms cards={item.cards} />
                     </CardContent>
                   </Collapse>
