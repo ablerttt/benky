@@ -114,7 +114,7 @@ class PracticeContainer extends React.Component {
     const { title, cards, shuffle, index } = this.state;
     var { indices, flipped } = this.state;
 
-    return (
+    return ( 
       <div>
         <Grid container justify="space-between">
           <Typography className={classes.intro} variant="h5">

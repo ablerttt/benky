@@ -2,11 +2,14 @@ import React from "react";
 import { withAuthorization } from "../../auth/Session";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import Option from "./test";
 import Grid from "@material-ui/core/Grid";
 import * as ROUTES from "../../constants/routes";
 import styles from "./styles";
 import { compose } from "recompose";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import { Link } from "react-router-dom";
+import Card from "@material-ui/core/Card";
 
 const HomePage = (props) => {
   const { classes } = props;
@@ -33,30 +36,28 @@ const HomePage = (props) => {
           What great thing will you do today?
         </Typography>
       </div>
-      <Grid
-        container
-        className={classes.root}
-        justify="center"
-        spacing={3}
-        alignItems="stretch"
-      >
+      <Grid container className={classes.root} alignItems="stretch" spacing={3}>
         {[0, 1, 2].map((value) => (
-          <Grid
-            item
-            key={value}
-            className={classes.option}
-            lg={4}
-            sm={6}
-            xs={12}
-          >
-            <Option
-              classes={styles}
-              title={options[value]}
-              className={classes.paper}
-              connect={links[value]}
-              description={descriptions[value]}
-              inspo={inspo[value]}
-            />
+          <Grid item key={value} lg={4} sm={6} xs={12}>
+            <Card style={{ height: "100%" }}>
+              <CardActionArea
+                component={Link}  
+                to={links[value]}
+                style={{ height: "100%" }}
+              >
+                <CardContent>
+                  <Typography variant="h5" component="h2">
+                    {options[value]}
+                  </Typography>
+                  <Typography color="textSecondary">{inspo[value]}</Typography>
+                  <br />
+                  <br />
+                  <Typography variant="body2" component="p">
+                    {descriptions[value]}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
           </Grid>
         ))}
       </Grid>

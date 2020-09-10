@@ -11,6 +11,7 @@
     "axios": "^0.20.0",
     "console": "^0.7.2",
     "firebase": "^7.19.1",
+    "material-ui-popup-state": "^1.6.1",
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",

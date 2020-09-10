@@ -1,10 +1,11 @@
-const convertLastModifiedTime = (date) => {
-  const current = new Date();
-  const year = date.getFullYear() - current.getFullYear();
-  const month = date.getMonth() - current.getMonth();
-  const day = date.getDate() - current.getDate();
-  const hours = date.getHours() - current.getHours();
-  const minutes = date.getMinutes() - current.getMinutes();
+const convertLastModifiedTime = (inputDate, current) => {
+  current = new Date(Date.now());
+
+  const year = current.getFullYear() - inputDate.getFullYear();
+  const month = current.getMonth() - inputDate.getMonth();
+  const day = current.getDate() - inputDate.getDate();
+  const hours = current.getHours() - inputDate.getHours();
+  const minutes = current.getMinutes() - inputDate.getMinutes();
 
   if (year === 1) {
     return "1 year";

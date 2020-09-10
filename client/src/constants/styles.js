@@ -14,9 +14,22 @@ const styles = (theme) => ({
     margin: "30px 0",
   },
   button: {
-    margin: theme.spacing(0.5),
+    margin: theme.spacing(1),
     borderRadius: "3em",
     textTransform: "none",
+  },
+  warningButton: {
+    backgroundColor: theme.palette.error.main,
+    margin: theme.spacing(1),
+    borderRadius: "3em",
+    textTransform: "none",
+    color: "white",
+  },
+  buttonSampleTerm: {
+    margin: theme.spacing(1),
+    borderRadius: "3em",
+    textTransform: "none",
+    backgroundColor: "white",
   },
   listCard: {
     borderRadius: "1em",
@@ -45,7 +58,7 @@ const styles = (theme) => ({
   secondaryButton: {
     backgroundColor: theme.palette.secondary.main,
     color: "white",
-    margin: theme.spacing(0.5),
+    margin: theme.spacing(1),
     borderRadius: "3em",
     textTransform: "none",
   },
@@ -54,15 +67,14 @@ const styles = (theme) => ({
     "&:hover": {
       background: theme.palette.primary.lightHover,
     },
-    margin: theme.spacing(0.5),
+    margin: theme.spacing(1),
     borderRadius: "3em",
     textTransform: "none",
     color: "white",
   },
   primaryDarkButton: {
     backgroundColor: theme.palette.primary.dark,
-    // margin: theme.spacing(0.5),
-    margin: "auto",
+    margin: theme.spacing(1),
     borderRadius: "3em",
     textTransform: "none",
     color: "white",
@@ -80,15 +92,8 @@ const styles = (theme) => ({
   left: {
     marginLeft: "auto",
   },
-  warningButton: {
-    backgroundColor: theme.palette.error.main,
-    margin: theme.spacing(0.5),
-    borderRadius: "3em",
-    textTransform: "none",
-    color: "white",
-  },
   cancelButton: {
-    margin: theme.spacing(0.5),
+    margin: theme.spacing(1),
     borderRadius: "3em",
     textTransform: "none",
     color: "black",
