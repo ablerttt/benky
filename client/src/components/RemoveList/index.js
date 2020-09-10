@@ -36,7 +36,7 @@ const RemoveList = (props) => {
   return (
     <div>
       <Button
-        className={classes.primaryDarkButton}
+        className={classes.primaryDarkLimitedButton}
         variant="contained"
         onClick={handleClickOpen}
       >

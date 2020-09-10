@@ -65,7 +65,7 @@ class PracticeLinkBase extends React.Component {
       <div>
         <Button
           onClick={this.practiceSet}
-          className={classes.primaryLightButton}
+          className={classes.primaryLightLimitedButton}
           variant="contained"
         >
           Practice

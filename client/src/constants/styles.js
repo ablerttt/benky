@@ -47,10 +47,18 @@ const styles = (theme) => ({
   },
   listCard: {
     borderRadius: "1em",
-    // backgroundColor: "#e3fbfc",
     background: "linear-gradient(45deg, #628bd1 30%, #50b39d 90%)",
     padding: "1em",
     flexGrow: 1,
+  },
+  viewCardOptions: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    alignContent: "center",
+    flexDirection: "row",
+    overflow: "auto",
   },
   titleTextField: {
     width: "85%",
@@ -85,9 +93,29 @@ const styles = (theme) => ({
     borderRadius: "3em",
     textTransform: "none",
     color: "white",
-    width: "6em",
   },
   primaryDarkButton: {
+    backgroundColor: theme.palette.primary.dark,
+    "&:hover": {
+      background: theme.palette.primary.darkHover,
+    },
+    margin: theme.spacing(1),
+    borderRadius: "3em",
+    textTransform: "none",
+    color: "white",
+  },
+  primaryLightLimitedButton: {
+    backgroundColor: theme.palette.primary.light,
+    "&:hover": {
+      background: theme.palette.primary.lightHover,
+    },
+    margin: theme.spacing(1),
+    borderRadius: "3em",
+    textTransform: "none",
+    color: "white",
+    width: "6em",
+  },
+  primaryDarkLimitedButton: {
     backgroundColor: theme.palette.primary.dark,
     "&:hover": {
       background: theme.palette.primary.darkHover,

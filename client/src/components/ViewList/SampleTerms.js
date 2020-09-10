@@ -3,7 +3,6 @@ import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Toolbar";
-import Zoom from "@material-ui/core/Zoom";
 
 const ShowSampleTermBase = (props) => {
   const { classes } = props;
@@ -23,7 +22,7 @@ const ShowSampleTermBase = (props) => {
     return (
       <div>
         <Button
-          className={`${classes.expand} ${classes.primaryLightButton}`}
+          className={`${classes.expand} ${classes.primaryLightLimitedButton}`}
           onClick={() => props.handleExpandClickID(props.val)}
           aria-expanded={props.expandedId.includes(props.val)}
           aria-label="show more"
@@ -37,4 +36,23 @@ const ShowSampleTermBase = (props) => {
 };
 
 const ShowSampleTerms = withStyles(styles)(ShowSampleTermBase);
-export { ShowSampleTerms };
+
+const SampleTermBase = (props) => {
+  const limited = props.cards.slice(0, 5);
+  const { classes } = props;
+  return limited.map((item, i) => {
+    return (
+      <Button
+        key={`sample-${i}`}
+        variant="contained"
+        className={classes.buttonSampleTerm}
+      >
+        {item.term}
+      </Button>
+    );
+  });
+};
+
+const SampleTerms = withStyles(styles)(SampleTermBase);
+
+export { ShowSampleTerms, SampleTerms };

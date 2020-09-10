@@ -61,7 +61,7 @@ class EditLinkBase extends React.Component {
       <div>
         <Button
           onClick={this.updateSet}
-          className={classes.primaryLightButton}
+          className={classes.primaryLightLimitedButton}
           variant="contained"
         >
           Edit

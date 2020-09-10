@@ -2,51 +2,25 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import api from "../../api";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { compose } from "recompose";
-import CardActions from "@material-ui/core/CardActions";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import { EditLink } from "../EditList";
 import styles from "../../constants/styles";
-import RemoveList from "../RemoveList";
+import { convertLastModifiedTime } from "../../constants/times";
+import SortOptions from "./SortOptions";
+import GridListTile from "@material-ui/core/GridListTile";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+import { EditLink } from "../EditList";
 import { PracticeLink } from "../PracticeList";
 import { TestsLink } from "../Test";
-import { ShowSampleTerms } from "./SampleTerms";
-import Collapse from "@material-ui/core/Collapse";
-import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
-import Popover from "@material-ui/core/Popover";
-import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
-import { convertLastModifiedTime } from "../../constants/times";
-import Box from "@material-ui/core/Box";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-
-const SampleTermBase = (props) => {
-  const limited = props.cards.slice(0, 5);
-  const { classes } = props;
-  return limited.map((item, i) => {
-    return (
-      <Button
-        key={`sample-${i}`}
-        variant="contained"
-        className={classes.buttonSampleTerm}
-      >
-        {item.term}
-      </Button>
-    );
-  });
-};
-
-const SampleTerms = withStyles(styles)(SampleTermBase);
+import { ShowSampleTerms, SampleTerms } from "./SampleTerms";
+import RemoveList from "../RemoveList";
 
 function sortDateOld(items) {
   items.sort((a, b) => {
@@ -160,9 +134,8 @@ class ViewList extends Component {
   };
 
   render() {
-    const { items, expandedId, width } = this.state;
+    const { items, expandedId } = this.state;
     const { classes } = this.props;
-    const columns = width === "sm" || width === "xs" ? 1 : 2;
 
     return (
       <Container component="main" maxWidth="lg">
@@ -181,76 +154,7 @@ class ViewList extends Component {
           >
             View sets
           </Typography>
-          <PopupState
-            variant="popover"
-            popupId="demo-popup-popover"
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-          >
-            {(popupState) => (
-              <div>
-                <Button
-                  style={{
-                    display: "inline-block",
-                    verticalAlign: "middle",
-                  }}
-                  className={classes.primaryLightButton}
-                  variant="contained"
-                  {...bindTrigger(popupState)}
-                >
-                  Sort
-                </Button>
-                <Popover
-                  {...bindPopover(popupState)}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "center",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "center",
-                  }}
-                >
-                  <Box style={{ width: "8em" }}>
-                    <List component="nav">
-                      <ListItem
-                        button
-                        onClick={() => this.setSortMethod("nameAZ")}
-                      >
-                        <ListItemText primary="Title: A - Z" />
-                      </ListItem>
-                      <Divider light />
-                      <ListItem
-                        button
-                        onClick={() => this.setSortMethod("nameZA")}
-                      >
-                        <ListItemText primary="Title: Z - A" />
-                      </ListItem>
-                      <ListItem
-                        button
-                        onClick={() => this.setSortMethod("dateold")}
-                      >
-                        <ListItemText primary="Date: Oldest" />
-                      </ListItem>
-                      <Divider light />
-                      <ListItem
-                        button
-                        onClick={() => this.setSortMethod("datenew")}
-                      >
-                        <ListItemText primary="Date: Newest" />
-                      </ListItem>
-                    </List>
-                  </Box>
-                </Popover>
-              </div>
-            )}
-          </PopupState>
+          <SortOptions setSortMethod={this.setSortMethod} />
         </Grid>
         <br />
         <GridList spacing={30} cellHeight="auto" cols={1}>
@@ -276,15 +180,7 @@ class ViewList extends Component {
                     className={classes.cardHeading}
                   />
                   <CardActions>
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        display: "flex",
-                        flexDirection: "row",
-                        overflow: "auto",
-                      }}
-                    >
+                    <div className={classes.viewCardOptions}>
                       <EditLink id={item._id} />
                       <PracticeLink id={item._id} />
                       <TestsLink id={item._id} />
