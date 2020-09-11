@@ -1,15 +1,13 @@
 import React from "react";
 import api from "../../api";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
 import LoadingPage from "../EditList/LoadingList";
 import NotFoundPage from "../../pages/404";
 import EmptySet from "../../pages/EmptySet";
 import styles from "../../constants/styles";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+import TestContainer from "./TestContainer";
 
 class Test extends React.Component {
   constructor(props) {
@@ -52,11 +50,12 @@ class Test extends React.Component {
     if (valid) {
       renderContainer = (
         <div>
-          <Typography className={classes.intro} variant="h3">
+          <Typography className={classes.intro} variant="h5">
             Test: {title}
           </Typography>
           {cards.length === 0 && <EmptySet id={id} />}
-          {cards.length > 0 && <Typography variant="h2">Testing!!!</Typography>}
+          {/* {cards.length > 0 && <Typography variant="h2">Testing!!!</Typography>} */}
+          {cards.length > 0 && <TestContainer cards={cards} />}
         </div>
       );
     } else if (valid) {
@@ -68,22 +67,6 @@ class Test extends React.Component {
     return renderContainer;
   }
 }
-
-const TestLink = (props) => ({
-  render() {
-    return (
-      <CardActionArea component={Link} to={`/test/${props.id}`}>
-        <CardContent>
-          <Typography variant="h5">{props.title}</Typography>
-          <br />
-          <Typography variant="body" gutterBottom>
-            Last edited {props.updatedAt}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    );
-  },
-});
 
 class TestLinkBase extends React.Component {
   testSet = (e) => {
@@ -110,6 +93,6 @@ class TestLinkBase extends React.Component {
 
 const TestsLink = withStyles(styles)(TestLinkBase);
 
-export { TestLink, TestsLink };
+export { TestsLink };
 
 export default withStyles(styles)(Test);

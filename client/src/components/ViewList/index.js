@@ -94,8 +94,11 @@ class ViewList extends Component {
 
   handleRemoveSet = (keyVal) => {
     let current = [...this.state.items];
+    let currentExpanded = [...this.state.expandedId];
     current.splice(keyVal, 1);
+    currentExpanded.splice(keyVal, 1);
     this.setState({ items: current });
+    this.setState({ expandedId: currentExpanded });
   };
 
   handleExpandClickID = (i) => {

@@ -6,33 +6,13 @@ import CardActions from "@material-ui/core/CardActions";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+import styles from "../../constants/styles";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-    borderRadius: "5em",
-    textTransform: "none",
-  },
-  input: {
-    display: "none",
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-}));
 
 const SampleTerms = (props) => {
   const limited = props.cards.slice(0, 5);
@@ -46,7 +26,7 @@ const SampleTerms = (props) => {
 };
 
 const TestOptions = (props) => {
-  const classes = useStyles();
+  const { classes } = props;
   const [expandedId, setExpandedId] = React.useState(-1);
 
   const handleExpandClickID = (i) => {
@@ -96,4 +76,4 @@ const TestOptions = (props) => {
   );
 };
 
-export default TestOptions;
+export default withStyles(styles)(TestOptions);
