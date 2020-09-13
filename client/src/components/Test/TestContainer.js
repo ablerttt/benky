@@ -1,8 +1,6 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import styles from "../../constants/styles";
 import TestQuestion from "./TestQuestion";
-import Typography from "@material-ui/core/Typography";
+import SubmitDialog from "./SubmitDialog";
 
 function shuffleList(array) {
   array.sort(() => Math.random() - 0.5);
@@ -12,19 +10,19 @@ class TestContainer extends React.Component {
   constructor(props) {
     super(props);
     var len = props.cards.length;
-    var indices = Array.from(
-      { length: props.cards.length },
-      (_, index) => index
-    );
+    var indices = Array.from({ length: len }, (_, index) => index);
     var questions = this.chooseQuestions(indices);
+
     shuffleList(indices);
 
     this.state = {
       cards: props.cards,
       len: props.cards.length,
       questions: questions,
-      indices: Array.from({ length: props.cards.length }, (_, index) => index),
+      indices: Array.from({ length: len }, (_, index) => index),
       shuffled: indices,
+      selectedAnswers: Array.from({ length: len }, (_, index) => -1),
+      submitted: false,
     };
   }
 
@@ -45,25 +43,52 @@ class TestContainer extends React.Component {
     return result;
   };
 
+  updateAnswer = (count, entry) => {
+    var currentState = this.state.selectedAnswers;
+    currentState[count] = entry;
+    this.setState({ selectedAnswers: currentState });
+    console.log(currentState);
+  };
+
+  onSubmit = () => {
+    this.setState({ submitted: true });
+    console.log("submit");
+  };
+
   render() {
-    const { classes } = this.props;
-    const { questions, indices, cards, shuffled } = this.state;
+    const {
+      questions,
+      cards,
+      shuffled,
+      indices,
+      selectedAnswers,
+      submitted,
+    } = this.state;
     return (
       <div>
-        {console.log(cards)}
-        {shuffled.map((i, val) => {
+        {indices.map((i) => {
           return (
             <TestQuestion
-              key={val}
+              key={i}
               cards={cards}
-              index={i}
+              count={i}
+              index={shuffled[i]}
               questions={questions}
+              selected={selectedAnswers[i][1]}
+              updateAnswer={this.updateAnswer}
+              submitted={submitted}
             />
           );
         })}
+        <SubmitDialog
+          onSubmit={this.onSubmit}
+          showDialog={submitted}
+          answers={selectedAnswers}
+          closeDialog={() => this.setState({ submitted: false })}
+        />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(TestContainer);
+export default TestContainer;

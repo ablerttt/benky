@@ -216,6 +216,35 @@ const styles = (theme) => ({
     width: "40%",
     margin: theme.spacing(1),
   },
+  clearStyle: {
+    margin: "0",
+    border: "0",
+    padding: "0",
+  },
+  testCard: {
+    padding: "1.5em",
+    border: "0",
+    margin: "2em 0",
+    borderRadius: "1em",
+    backgroundColor: "#d9d7d7",
+  },
+  colortest: {
+    margin: theme.spacing(1),
+    borderRadius: "1em",
+    textTransform: "none",
+  },
+  submitButton: {
+    display: "flex",
+    margin: "auto",
+    marginBottom: "30px",
+    borderRadius: "1em",
+    textTransform: "none",
+    color: "white",
+    backgroundColor: theme.palette.primary.light,
+    "&:hover": {
+      background: theme.palette.primary.lightHover,
+    },
+  },
 });
 
 export default styles;

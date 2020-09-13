@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "../../constants/styles";
 import { compose } from "recompose";
+
 const handleContinue = (props) => {
   props.history.push(`/set/${props.id}`);
 };

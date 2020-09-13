@@ -51,10 +51,9 @@ class Test extends React.Component {
       renderContainer = (
         <div>
           <Typography className={classes.intro} variant="h5">
-            Test: {title}
+            Test: <strong>{title}</strong>
           </Typography>
           {cards.length === 0 && <EmptySet id={id} />}
-          {/* {cards.length > 0 && <Typography variant="h2">Testing!!!</Typography>} */}
           {cards.length > 0 && <TestContainer cards={cards} />}
         </div>
       );
