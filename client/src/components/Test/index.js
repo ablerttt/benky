@@ -34,7 +34,6 @@ class Test extends React.Component {
         } else {
           this.setState({ valid: false });
         }
-        console.log(res);
       })
       .catch((e) => {
         console.log(e);

@@ -31,17 +31,18 @@ insertStudySet = (req, res) => {
   }
 
   const studySet = new StudySet(body);
-  console.log(studySet);
 
   if (!studySet) {
-    console.log("Study set is not a study set ");
-    return res.status(400).json({ success: false, error: err });
+    console.log("Study set is not a study set.");
+    return res
+      .status(400)
+      .json({ success: false, error: "Study set is not a study set." });
   }
 
   studySet
     .save()
     .then(() => {
-      console.log("Success! Study set was created");
+      console.log("Success! Study set was created.");
       return res.status(201).json({
         success: true,
         id: studySet._id,
@@ -68,7 +69,10 @@ getAllStudySets = (req, res) => {
         .json({ success: false, error: `Study Sets not found` });
     }
     return res.status(200).json({ success: true, data: studysets });
-  }).catch((err) => console.log(err));
+  }).catch((err) => {
+    console.log(err);
+    return res.status(400).json({ success: false, error: err });
+  });
 };
 
 checkIdExists = async (req, res) => {
@@ -82,6 +86,7 @@ checkIdExists = async (req, res) => {
     }
   }).catch((err) => {
     console.log(err);
+    return res.status(400).json({ success: false, valid: false, error: err });
   });
 };
 
@@ -96,7 +101,10 @@ getStudySetById = (req, res) => {
     }
 
     return res.status(200).json({ success: true, valid: true, data: studyset });
-  }).catch((err) => console.log(err));
+  }).catch((err) => {
+    console.log(err);
+    return res.status(400).json({ success: false, valid: false, error: err });
+  });
 };
 
 updateStudySetById = async (req, res) => {
@@ -128,11 +136,9 @@ updateStudySetById = async (req, res) => {
           message: "Successfully updated the study set.",
         });
       })
-      .catch((e) => {
-        return res.status(404).json({
-          e,
-          message: "Did not update the study set.",
-        });
+      .catch((err) => {
+        console.log("Did not update study set.");
+        return res.status(404).json({ success: false, error: err });
       });
   });
 };
@@ -141,12 +147,13 @@ removeStudySetById = (req, res) => {
   StudySet.findOneAndDelete({ _id: req.params.id }, (err) => {
     if (err) {
       console.log(`Failed to find the study set to delete.`);
-      return re.status(400).json({ success: false, error: err });
+      return res.status(400).json({ success: false, error: err });
     }
     console.log("Success!");
     return res.status(200).json({ success: true });
   }).catch((err) => {
     console.log("Error found: " + err);
+    return res.status(400).json({ success: false, error: err });
   });
 };
 

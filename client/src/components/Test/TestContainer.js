@@ -1,6 +1,6 @@
 import React from "react";
 import TestQuestion from "./TestQuestion";
-import SubmitDialog from "./SubmitDialog";
+import SubmitDialog from "./SubmitDialog";l
 
 function shuffleList(array) {
   array.sort(() => Math.random() - 0.5);
@@ -36,7 +36,6 @@ class TestContainer extends React.Component {
 
   logKeyDown = (e) => {
     const { submitted } = this.state;
-    console.log(e.key);
     if (submitted && e.key === "Escape") {
       this.setState({ submitted: false });
     }
@@ -68,7 +67,6 @@ class TestContainer extends React.Component {
 
   onSubmit = () => {
     this.setState({ submitted: true });
-    console.log("submit");
   };
 
   render() {
