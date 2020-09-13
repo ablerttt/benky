@@ -228,12 +228,14 @@ class EditListPage extends React.Component {
             showDialog={showDialog}
             closeDialog={this.closeValid}
             id={id}
+            escDialog={() => this.setState({ showDialog: false })}
           />
           <InvalidDialog
             showDialog={showInvalidDialog}
             closeInvalidDialog={this.closeInvalid}
             errors={errors}
             cards={cards}
+            escInvalidDialog={() => this.setState({ showInvalidDialog: false })}
           />
         </div>
       );

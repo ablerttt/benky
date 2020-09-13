@@ -198,12 +198,17 @@ class StudySetInsert extends React.Component {
           Create
         </Button>
 
-        <CreateDialog showDialog={showDialog} id={id} />
+        <CreateDialog
+          showDialog={showDialog}
+          id={id}
+          escDialog={() => this.setState({ showDialog: false })}
+        />
         <InvalidDialog
           showDialog={showInvalidDialog}
           closeInvalidDialog={this.closeInvalid}
           errors={errors}
           cards={cards}
+          escInvalidDialog={() => this.setState({ showInvalidDialog: false })}
         />
       </div>
     );

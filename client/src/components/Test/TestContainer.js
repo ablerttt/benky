@@ -26,6 +26,22 @@ class TestContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener("keydown", this.logKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.logKeyDown);
+  }
+
+  logKeyDown = (e) => {
+    const { submitted } = this.state;
+    console.log(e.key);
+    if (submitted && e.key === "Escape") {
+      this.setState({ submitted: false });
+    }
+  };
+
   chooseQuestions = (indices) => {
     var result = [];
     for (let i = 0; i < indices.length; i++) {

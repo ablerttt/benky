@@ -71,6 +71,7 @@ const InvalidDialog = (props) => {
   return (
     <Dialog
       open={props.showDialog}
+      onEscapeKeyDown={props.escInvalidDialog}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >

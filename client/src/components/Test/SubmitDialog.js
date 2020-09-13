@@ -28,6 +28,13 @@ const SubmitVerification = (props) => {
         questions. Go back and check again!
       </Typography>
     );
+  } else if (props.unanswered.length === 1) {
+    return (
+      <Typography component={"span"}>
+        There is still <strong>{props.unanswered.length}</strong> unanswered
+        question. Go back and check again!
+      </Typography>
+    );
   } else {
     return (
       <Typography component={"span"}>
@@ -51,6 +58,7 @@ const SubmitDialog = (props) => {
         Submit
       </Button>
       <Dialog
+        onEscapeKeyDown={props.closeDialog}
         open={showDialog}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

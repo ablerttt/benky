@@ -23,6 +23,7 @@ const CreateDialog = (props) => {
   return (
     <Dialog
       open={props.showDialog}
+      onEscapeKeyDown={props.escDialog}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >

@@ -55,10 +55,11 @@ class TestQuestion extends React.Component {
             </Typography>
             <br />
           </CardContent>
-          <CardActions style={{ displey: "flex", flexDirection: "column" }}>
+          <CardActions style={{ display: "flex", flexDirection: "column" }}>
             {questions[index][1].map((num, selectIndex) => {
               return (
                 <Button
+                  style={{ width: "80%" }}
                   color={
                     selectIndex === this.state.selected
                       ? "primary"
