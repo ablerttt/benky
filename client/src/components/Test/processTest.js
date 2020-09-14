@@ -11,11 +11,8 @@ const processTest = (cards, testResults, selectedAnswers) => {
     let options = [];
     for (let j = 0; j < testResults[i][1].length; j++) {
       options.push(cards[testResults[i][1][j]].description);
-    }
-    // questionRes.push(term);
-    // questionRes.push(correctAnswer);
-    // questionRes.push(chosen);
-    // questionRes.push(options);
+      }
+      
     questionRes["term"] = term;
     questionRes["correctAnswer"] = correctAnswer;
     questionRes["chosen"] = chosen;

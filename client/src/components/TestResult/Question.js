@@ -1,5 +1,4 @@
 import React from "react";
-import { Prompt } from "react-router";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -8,7 +7,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 
-class TestQuestion extends React.Component {
+class Question extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,14 +16,6 @@ class TestQuestion extends React.Component {
       submitted: this.props.submitted,
     };
   }
-
-  componentDidUpdate = () => {
-    if (this.shouldBlockNavigation) {
-      window.onbeforeunload = () => true;
-    } else {
-      window.onbeforeunload = undefined;
-    }
-  };
 
   updateSelected = (i) => {
     if (this.state.selected === i) {
@@ -44,9 +35,6 @@ class TestQuestion extends React.Component {
     const { classes, cards, questions, index, count } = this.props;
     return (
       <div>
-        <React.Fragment>
-          <Prompt message="You have unsaved changes, are you sure you want to leave?" />
-        </React.Fragment>
         <Card raised className={classes.testCard}>
           <CardContent className={classes.clearStyle}>
             <Typography variant="h6">
@@ -81,4 +69,4 @@ class TestQuestion extends React.Component {
   }
 }
 
-export default withStyles(styles)(TestQuestion);
+export default withStyles(styles)(Question);

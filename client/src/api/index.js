@@ -25,7 +25,7 @@ export const insertTestResult = (id, title, date, questionSet) =>
     questionSet: questionSet,
   });
 export const getTestResults = () => api.get(`/testresults`);
-export const getTestResultById = (id) => api.get(`/test/:${id}`);
+export const getTestResultById = (id) => api.get(`/test/${id}`);
 
 const apis = {
   insertStudySet,

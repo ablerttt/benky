@@ -16,6 +16,7 @@ import EditList from "../../components/EditList";
 import PracticeList from "../../components/PracticeList";
 import TestSet from "../../components/TestList";
 import Test from "../../components/Test";
+import TestResult from "../../components/TestResult";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import * as ROUTES from "../../constants/routes";
 import { withAuthentification } from "../../auth/Session";
@@ -57,7 +58,7 @@ const App = () => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Navigation />
-      <Container maxWidth="md" >
+      <Container maxWidth="md">
         <Switch>
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
           <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
@@ -72,6 +73,7 @@ const App = () => (
           <Route path={ROUTES.PRACTICE_LIST} component={PracticeList} />
           <Route path={ROUTES.TEST_LIST} exact component={TestSet} />
           <Route path={ROUTES.TEST} exact component={Test} />
+          <Route path={ROUTES.TEST_RESULT} exact component={TestResult} />
           <Route component={NotFoundPage} />
         </Switch>
       </Container>

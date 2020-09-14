@@ -11,3 +11,4 @@ export const UPDATE_LIST = "/set/:id";
 export const PRACTICE_LIST = "/p/:id";
 export const TEST_LIST = "/test";
 export const TEST = "/test/:id";
+export const TEST_RESULT = "/testresult/:id";

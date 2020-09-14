@@ -39,7 +39,7 @@ class PracticeSet extends React.Component {
   };
 
   render() {
-    let { valid, title, cards, checked } = this.state;
+    const { valid, title, cards, checked } = this.state;
     let renderContainer = <div>Loading!</div>;
 
     if (checked && valid) {

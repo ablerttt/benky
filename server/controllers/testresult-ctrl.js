@@ -1,3 +1,5 @@
+const { Mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const TestEntry = require("../models/test-model");
 
 insertTestEntry = (req, res) => {
@@ -23,8 +25,6 @@ insertTestEntry = (req, res) => {
       .status(400)
       .json({ success: false, error: "Test Entry is not a test entry." });
   }
-
-  console.log(testEntry);
 
   testEntry
     .save()
@@ -65,7 +65,7 @@ getAllTestEntries = (req, res) => {
 };
 
 getTestEntryById = (req, res) => {
-  TestEntry.findOne({ _id: req.params.id }, (err, testEntry) => {
+  TestEntry.findById(req.params.id, (err, testEntry) => {
     if (err) {
       return res.status(400).json({ success: false, valid: false, error: err });
     }
