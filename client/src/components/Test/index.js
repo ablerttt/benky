@@ -53,7 +53,9 @@ class Test extends React.Component {
             Test: <strong>{title}</strong>
           </Typography>
           {cards.length === 0 && <EmptySet id={id} />}
-          {cards.length > 0 && <TestContainer cards={cards} />}
+          {cards.length > 0 && (
+            <TestContainer cards={cards} id={id} title={title} />
+          )}
         </div>
       );
     } else if (valid) {

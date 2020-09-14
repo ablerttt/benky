@@ -44,9 +44,9 @@ class TestQuestion extends React.Component {
     const { classes, cards, questions, index, count } = this.props;
     return (
       <div>
-        <React.Fragment>
+        {/* <React.Fragment>
           <Prompt message="You have unsaved changes, are you sure you want to leave?" />
-        </React.Fragment>
+        </React.Fragment> */}
         <Card raised className={classes.testCard}>
           <CardContent className={classes.clearStyle}>
             <Typography variant="h6">

@@ -2,9 +2,9 @@ const express = require("express");
 
 const TestEntryCtrl = require("../controllers/testresult-ctrl");
 
-const router = expres.Router();
+const router = express.Router();
 
-router.post("/testres", TestEntryCtrl.insertTestEntry);
+router.post("/test", TestEntryCtrl.insertTestEntry);
 router.get("/testresults", TestEntryCtrl.getAllTestEntries);
 router.get("/test/:id", TestEntryCtrl.getTestEntryById);
 

@@ -1,6 +1,8 @@
 import React from "react";
 import TestQuestion from "./TestQuestion";
-import SubmitDialog from "./SubmitDialog";l
+import SubmitDialog from "./SubmitDialog";
+import api from "../../api";
+import { processTest } from "./processTest";
 
 function shuffleList(array) {
   array.sort(() => Math.random() - 0.5);
@@ -22,7 +24,9 @@ class TestContainer extends React.Component {
       indices: Array.from({ length: len }, (_, index) => index),
       shuffled: indices,
       selectedAnswers: Array.from({ length: len }, (_, index) => -1),
-      submitted: false,
+      submittedDialog: false,
+      id: props.id,
+      title: props.title,
     };
   }
 
@@ -51,6 +55,7 @@ class TestContainer extends React.Component {
       current.push(i);
       var otherOptions = dupe.slice(0, 4);
       otherOptions.push(i);
+      shuffleList(otherOptions);
       current.push(otherOptions);
       result.push(current);
     }
@@ -62,11 +67,44 @@ class TestContainer extends React.Component {
     var currentState = this.state.selectedAnswers;
     currentState[count] = entry;
     this.setState({ selectedAnswers: currentState });
-    console.log(currentState);
   };
 
-  onSubmit = () => {
-    this.setState({ submitted: true });
+  onSubmit = async () => {
+    console.log("submit!!!");
+    this.setState({ submittedDialog: false });
+
+    const {
+      shuffled,
+      questions,
+      cards,
+      selectedAnswers,
+      id,
+      title,
+    } = this.state;
+
+    var sortedQuestions = [];
+    for (let i = 0; i < shuffled.length; i++) {
+      sortedQuestions.push(questions[shuffled[i]]);
+    }
+
+    const processedResult = processTest(
+      cards,
+      sortedQuestions,
+      selectedAnswers
+    );
+
+    // id, title, date, questionSet
+
+    await api
+      .insertTestResult(id, title, new Date(), processedResult)
+      .then((res) => {
+        console.log("RES");
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("ERR");
+        console.log(err);
+      });
   };
 
   render() {
@@ -76,7 +114,7 @@ class TestContainer extends React.Component {
       shuffled,
       indices,
       selectedAnswers,
-      submitted,
+      submittedDialog,
     } = this.state;
     return (
       <div>
@@ -90,15 +128,16 @@ class TestContainer extends React.Component {
               questions={questions}
               selected={selectedAnswers[i][1]}
               updateAnswer={this.updateAnswer}
-              submitted={submitted}
+              submitted={submittedDialog}
             />
           );
         })}
         <SubmitDialog
           onSubmit={this.onSubmit}
-          showDialog={submitted}
+          showDialog={submittedDialog}
           answers={selectedAnswers}
-          closeDialog={() => this.setState({ submitted: false })}
+          closeDialog={() => this.setState({ submittedDialog: false })}
+          openDialog={() => this.setState({ submittedDialog: true })}
         />
       </div>
     );

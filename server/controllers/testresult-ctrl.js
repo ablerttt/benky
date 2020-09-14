@@ -2,6 +2,7 @@ const TestEntry = require("../models/test-model");
 
 insertTestEntry = (req, res) => {
   const body = req.body;
+
   if (!body) {
     console.log("Invalid test result detected.");
     return res.status(400).json({
@@ -10,7 +11,11 @@ insertTestEntry = (req, res) => {
     });
   }
 
-  const testEntry = new TestEntry(body);
+  let testEntry = new TestEntry();
+  testEntry.setId = body.setId;
+  testEntry.title = body.title;
+  testEntry.dateTaken = body.dateTaken;
+  testEntry.questionSet = body.questionSet;
 
   if (!testEntry) {
     console.log("Test Entry is not a test entry.");
@@ -18,6 +23,8 @@ insertTestEntry = (req, res) => {
       .status(400)
       .json({ success: false, error: "Test Entry is not a test entry." });
   }
+
+  console.log(testEntry);
 
   testEntry
     .save()

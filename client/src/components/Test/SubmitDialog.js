@@ -8,7 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { compose } from "recompose";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 
 function getAllIndexes(arr, val) {
@@ -47,13 +47,12 @@ const SubmitVerification = (props) => {
 const SubmitDialog = (props) => {
   const { classes, showDialog, answers } = props;
   const unansweredIndices = getAllIndexes(answers, -1);
-  console.log(unansweredIndices);
   return (
     <div>
       <Button
         variant="contained"
         className={classes.submitButton}
-        onClick={props.onSubmit}
+        onClick={() => props.openDialog()}
       >
         Submit
       </Button>
@@ -79,17 +78,29 @@ const SubmitDialog = (props) => {
           >
             Cancel
           </Button>
-          <Button
-            // onClick={() => handlePractice(props)}
-            className={classes.primaryDarkButton}
-            variant="contained"
-          >
-            Submit
-          </Button>
+          {unansweredIndices.length === 0 && (
+            <Button
+              onClick={() => props.onSubmit()}
+              className={classes.primaryDarkButton}
+              variant="contained"
+            >
+              Submit
+            </Button>
+          )}
+          {unansweredIndices.length > 0 && (
+            <Button
+              onClick={() => props.onSubmit()}
+              className={classes.warningButton}
+              variant="contained"
+            >
+              Submit Anyway
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>
   );
 };
 
-export default compose(withRouter, withStyles(styles))(SubmitDialog);
+// export default compose(withRouter, withStyles(styles))(SubmitDialog);
+export default withStyles(styles)(SubmitDialog);
