@@ -6,67 +6,64 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
+var classNames = require("classnames");
 
-class Question extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: -1,
-      count: this.props.count,
-      submitted: this.props.submitted,
-    };
-  }
+const Question = (props) => {
+  const { classes, value, index } = props;
+  const status =
+    value.chosen === value.correctAnswer
+      ? "Correct"
+      : value.chosen === -1
+      ? "No attempt"
+      : "Incorrect";
 
-  updateSelected = (i) => {
-    if (this.state.selected === i) {
-      this.setState({ selected: -1 });
-      this.props.updateAnswer(this.state.count, -1);
-    } else {
-      this.setState({ selected: i });
-      this.props.updateAnswer(this.state.count, i);
-    }
-  };
+  return (
+    <div>
+      <Card raised className={classes.testCard}>
+        <CardContent className={classNames(classes.clearStyle, classes.intro)}>
+          <Typography variant="h6" display="inline">
+            {`${index}. `}
+            {"   "} {value.term}
+          </Typography>
+        <br />
+          <Typography
+            display="inline"
+            style={{
+              float: "right",
+            }}
+          >
+            {status}
+          </Typography>
+          <br />
+        </CardContent>
 
-  shouldBlockNavigation = () => {
-    return !this.props.submitted;
-  };
-
-  render() {
-    const { classes, cards, questions, index, count } = this.props;
-    return (
-      <div>
-        <Card raised className={classes.testCard}>
-          <CardContent className={classes.clearStyle}>
-            <Typography variant="h6">
-              {`${parseInt(count + 1)}. `}
-              {"   "} {cards[index].term}
-            </Typography>
-            <br />
-          </CardContent>
-          <CardActions style={{ display: "flex", flexDirection: "column" }}>
-            {questions[index][1].map((num, selectIndex) => {
-              return (
-                <Button
-                  style={{ width: "80%" }}
-                  color={
-                    selectIndex === this.state.selected
-                      ? "primary"
-                      : "secondary"
-                  }
-                  onClick={() => this.updateSelected(selectIndex)}
-                  key={selectIndex}
-                  className={classes.colortest}
-                  variant="contained"
-                >
-                  {cards[num].description}
-                </Button>
-              );
-            })}
-          </CardActions>
-        </Card>
-      </div>
-    );
-  }
-}
-
+        <CardActions style={{ display: "inline" }}>
+          <br />
+          {value.options.map((des, ind) => (
+            <Button
+              disableRipple
+              disableFocusRipple
+              disableTouchRipple
+              key={ind}
+              className={classNames(
+                classes.colortest,
+                classes.buttonSampleTerm,
+                ind === value.chosen && classes.correctButton,
+                ind !== value.chosen &&
+                  ind === value.correctAnswer &&
+                  classes.incorrectButton,
+                ind !== value.chosen &&
+                  ind !== value.correctAnswer &&
+                  classes.unselectedButton
+              )}
+              variant="contained"
+            >
+              {des}
+            </Button>
+          ))}
+        </CardActions>
+      </Card>
+    </div>
+  );
+};
 export default withStyles(styles)(Question);

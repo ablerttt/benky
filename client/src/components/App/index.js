@@ -48,8 +48,8 @@ const theme = createMuiTheme({
       main: "#89c6d9",
     },
     error: {
-      main: "#d67665",
-      light: "fcc2d4",
+      main: "#f04a3e",
+      light: "#fc7168",
     },
   },
 });

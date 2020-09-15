@@ -16,8 +16,9 @@ class TestResult extends React.Component {
         if (res.data.success && res.data.valid) {
           this.setState({
             valid: true,
+            verified: true,
             title: res.data.data.title,
-            questionSet: res.data.data.questionSet,
+            questionSet: res.data.data.questionSet.map((m) => m),
             dateTaken: res.data.data.dateTaken,
             setId: res.data.data.setId,
           });
@@ -25,10 +26,8 @@ class TestResult extends React.Component {
       })
       .catch((e) => {
         console.log(e);
-        this.setState({ valid: false });
+        this.setState({ valid: false, verified: true });
       });
-
-    this.setState({ verified: true });
   }
 
   render() {

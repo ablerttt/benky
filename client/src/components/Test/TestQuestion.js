@@ -18,13 +18,13 @@ class TestQuestion extends React.Component {
     };
   }
 
-  componentDidUpdate = () => {
-    if (this.shouldBlockNavigation) {
-      window.onbeforeunload = () => true;
-    } else {
-      window.onbeforeunload = undefined;
-    }
-  };
+  // componentDidUpdate = () => {
+  //   if (this.shouldBlockNavigation) {
+  //     window.onbeforeunload = () => true;
+  //   } else {
+  //     window.onbeforeunload = undefined;
+  //   }
+  // };
 
   updateSelected = (i) => {
     if (this.state.selected === i) {
@@ -36,17 +36,17 @@ class TestQuestion extends React.Component {
     }
   };
 
-  shouldBlockNavigation = () => {
-    return !this.props.submitted;
-  };
+  // shouldBlockNavigation = () => {
+  //   return !this.props.submitted;
+  // };
 
   render() {
     const { classes, cards, questions, index, count } = this.props;
     return (
       <div>
-        <React.Fragment>
+        {/* <React.Fragment>
           <Prompt message="You have unsaved changes, are you sure you want to leave?" />
-        </React.Fragment>
+        </React.Fragment> */}
         <Card raised className={classes.testCard}>
           <CardContent className={classes.clearStyle}>
             <Typography variant="h6">
@@ -55,11 +55,10 @@ class TestQuestion extends React.Component {
             </Typography>
             <br />
           </CardContent>
-          <CardActions style={{ display: "flex", flexDirection: "column" }}>
+          <CardActions style={{ display: "inline" }}>
             {questions[index][1].map((num, selectIndex) => {
               return (
                 <Button
-                  style={{ width: "80%" }}
                   color={
                     selectIndex === this.state.selected
                       ? "primary"

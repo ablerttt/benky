@@ -41,7 +41,7 @@ const styles = (theme) => ({
   },
   buttonSampleTerm: {
     margin: theme.spacing(1),
-    borderRadius: "3em",
+    borderRadius: "2em",
     textTransform: "none",
     backgroundColor: "white",
   },
@@ -228,11 +228,6 @@ const styles = (theme) => ({
     borderRadius: "1em",
     backgroundColor: "#d9d7d7",
   },
-  colortest: {
-    margin: theme.spacing(1),
-    borderRadius: "1em",
-    textTransform: "none",
-  },
   submitButton: {
     display: "flex",
     margin: "auto",
@@ -244,6 +239,32 @@ const styles = (theme) => ({
     "&:hover": {
       background: theme.palette.primary.lightHover,
     },
+  },
+  colortest: {
+    margin: theme.spacing(1),
+    borderRadius: "1em",
+    textTransform: "none",
+  },
+  correctButton: {
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
+    backgroundColor: theme.palette.primary.main,
+    color: "white",
+  },
+  unselectedButton: {
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
+      // backgroundColor: "white",
+    },
+    backgroundColor: theme.palette.secondary.light,
+    // backgroundColor: "white",
+  },
+  incorrectButton: {
+    "&:hover": {
+      backgroundColor: theme.palette.error.light,
+    },
+    backgroundColor: theme.palette.error.light,
   },
 });
 
