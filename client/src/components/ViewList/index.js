@@ -147,13 +147,14 @@ class ViewList extends React.Component {
     return (
       <Container component="main" maxWidth="lg">
         <Grid
+          
           container
           justify="space-between"
           alignItems="center"
           className={classes.intro}
         >
           <Typography
-            variant="h5"
+            variant="h4"
             style={{
               display: "inline-block",
               verticalAlign: "middle",

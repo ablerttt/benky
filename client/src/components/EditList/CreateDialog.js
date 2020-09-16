@@ -8,11 +8,8 @@ import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "../../constants/styles";
+import { Link } from "react-router-dom";
 import { compose } from "recompose";
-
-const handlePractice = (props) => {
-  props.history.push("/sets");
-};
 
 const CreateDialog = (props) => {
   const { classes } = props;
@@ -40,7 +37,8 @@ const CreateDialog = (props) => {
           Continue Editing
         </Button>
         <Button
-          onClick={() => handlePractice(props)}
+          component={Link}
+          to="/sets"
           className={classes.primaryDarkButton}
           variant="contained"
         >

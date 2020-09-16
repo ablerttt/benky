@@ -4,7 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import * as ROUTES from "../../constants/routes";
-import styles from "./styles";
+// import styles from "./styles";
+import styles from "../../constants/styles";
 import { compose } from "recompose";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -29,21 +30,21 @@ const HomePage = (props) => {
   return (
     <div>
       <div className={classes.intro}>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h5" gutterBottom>
           Welcome back.
         </Typography>
-        <Typography variant="h6" gutterBottom>
+        <Typography gutterBottom>
           What great thing will you do today?
         </Typography>
       </div>
       <Grid container className={classes.root} alignItems="stretch" spacing={3}>
         {[0, 1, 2].map((value) => (
           <Grid item key={value} lg={4} sm={6} xs={12}>
-            <Card style={{ height: "100%" }}>
+            <Card className={classes.listCard}>
               <CardActionArea
                 component={Link}
                 to={links[value]}
-                style={{ height: "100%" }}
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.3" }}
               >
                 <CardContent>
                   <Typography variant="h5" component="h2">

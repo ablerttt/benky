@@ -9,6 +9,7 @@ import Box from "@material-ui/core/Box";
 import TermCard from "./TermCard";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import HelpDialog from "./HelpDialog";
 
 function shuffleList(array) {
   array.sort(() => Math.random() - 0.5);
@@ -27,6 +28,7 @@ class PracticeContainer extends React.Component {
       indices: Array.from({ length: len }, (_, index) => index),
       index: 0,
       flipped: Array(len).fill(false),
+      openDialog: false,
     };
   }
 
@@ -58,7 +60,6 @@ class PracticeContainer extends React.Component {
   }
 
   handleShuffleOption = () => {
-    // e.preventDefault();
     const { shuffle, cards } = this.state;
     const len = cards.length;
 
@@ -68,7 +69,7 @@ class PracticeContainer extends React.Component {
       shuffleList(ind);
       this.setState({ indices: ind });
     } else {
-      this.setState({ indices: ind });
+      this.reset();
     }
 
     this.setState({
@@ -111,10 +112,10 @@ class PracticeContainer extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { title, cards, shuffle, index } = this.state;
+    const { title, cards, shuffle, index, openDialog } = this.state;
     var { indices, flipped } = this.state;
 
-    return ( 
+    return (
       <div>
         <Grid container justify="space-between">
           <Typography className={classes.intro} variant="h5">
@@ -137,9 +138,16 @@ class PracticeContainer extends React.Component {
             >
               Reset
             </Button>
+            <Button
+              style={{ align: "right" }}
+              className={classes.primaryLightButton}
+              variant="contained"
+              onClick={() => this.setState({ openDialog: true })}
+            >
+              Help!
+            </Button>
           </div>
         </Grid>
-        <br />
         <Fab
           color="primary"
           aria-label="add"
@@ -169,6 +177,10 @@ class PracticeContainer extends React.Component {
             toggleFlip={() => this.toggleFlip(index)}
           />
         </Box>
+        <HelpDialog
+          showDialog={openDialog}
+          escDialog={() => this.setState({ openDialog: false })}
+        />
       </div>
     );
   }

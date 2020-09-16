@@ -170,6 +170,7 @@ const styles = (theme) => ({
   },
   practiceLeftFab: {
     position: "absolute",
+    padding: "auto 0",
     left: theme.spacing(5),
     bottom: "40%",
     transform: "rotate(-90deg)",

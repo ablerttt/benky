@@ -8,18 +8,11 @@ import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "../../constants/styles";
+import { Link } from "react-router-dom";
 import { compose } from "recompose";
 
-const handleContinue = (props) => {
-  props.history.push(`/set/${props.id}`);
-};
-
-const handlePractice = (props) => {
-  props.history.push("/sets");
-};
-
 const CreateDialog = (props) => {
-  const { classes } = props;
+  const { classes, id } = props;
   return (
     <Dialog
       open={props.showDialog}
@@ -37,14 +30,16 @@ const CreateDialog = (props) => {
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={() => handleContinue(props)}
+          component={Link}
+          to={`/set/${id}`}
           className={classes.primaryDarkButton}
           variant="contained"
         >
           Continue Editing
         </Button>
         <Button
-          onClick={() => handlePractice(props)}
+          component={Link}
+          to={`/p/${id}`}
           className={classes.primaryDarkButton}
           variant="contained"
         >

@@ -98,6 +98,7 @@ class TestOptions extends React.Component {
               <CardActionArea component={Link} to={`/testresult/${item._id}`}>
                 <CardHeader
                   title={item.title}
+                  titleTypographyProps={{ variant: "h6" }}
                   subheader={`Taken ${convertLastModifiedTime(
                     new Date(item.dateTaken),
                     new Date()
