@@ -3,7 +3,7 @@ import TestQuestion from "./TestQuestion";
 import SubmitDialog from "./SubmitDialog";
 import api from "../../api";
 import { processTest } from "./processTest";
-import { withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom";
 
 function shuffleList(array) {
   array.sort(() => Math.random() - 0.5);
@@ -100,8 +100,6 @@ class TestContainer extends React.Component {
     await api
       .insertTestResult(id, title, new Date(), processedResult)
       .then((res) => {
-        console.log("RES");
-        console.log(res);
         resultID = res.data.id;
         if (resultID === "") {
           console.log("INVALID ID");
@@ -109,7 +107,6 @@ class TestContainer extends React.Component {
         }
       })
       .catch((err) => {
-        console.log("ERR");
         console.log(err);
       });
 
@@ -154,4 +151,4 @@ class TestContainer extends React.Component {
   }
 }
 
-export default withRouter(TestContainer)
+export default withRouter(TestContainer);

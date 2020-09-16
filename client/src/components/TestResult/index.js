@@ -8,19 +8,27 @@ class TestResult extends React.Component {
     super(props);
     this.state = { verified: false, valid: true };
   }
+
   componentDidMount() {
     api
       .getTestResultById(this.props.match.params.id)
       .then((res) => {
-        console.log(res);
         if (res.data.success && res.data.valid) {
           this.setState({
             valid: true,
-            verified: true,
             title: res.data.data.title,
             questionSet: res.data.data.questionSet.map((m) => m),
             dateTaken: res.data.data.dateTaken,
             setId: res.data.data.setId,
+          });
+
+          api.checkValidId(res.data.data.setId).then((res2) => {
+            if (!(res2.data.success && res2.data.valid)) {
+              this.setState({ gotoLink: false });
+            } else {
+              this.setState({ gotoLink: true });
+            }
+            this.setState({ verified: true });
           });
         }
       })
@@ -35,13 +43,14 @@ class TestResult extends React.Component {
     let renderContainer = <div>Loading!</div>;
 
     if (verified && valid) {
-      const { title, questionSet, dateTaken, setId } = this.state;
+      const { title, questionSet, dateTaken, setId, gotoLink } = this.state;
       renderContainer = (
         <TestResultContainer
           title={title}
           questionSet={questionSet}
           setId={setId}
           dateTaken={dateTaken}
+          gotoLink={gotoLink}
         />
       );
     } else if (verified) {

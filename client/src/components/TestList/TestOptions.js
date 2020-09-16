@@ -1,79 +1,125 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
+import CardHeader from "@material-ui/core/CardHeader";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "../../constants/styles";
-import Collapse from "@material-ui/core/Collapse";
-import IconButton from "@material-ui/core/IconButton";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Link } from "react-router-dom";
+import SortOptions from "./SortOptions";
+import { convertLastModifiedTime } from "../../constants/times";
 
-const SampleTerms = (props) => {
-  const limited = props.cards.slice(0, 5);
-  return limited.map((item, i) => {
-    return (
-      <Button key={`sample-${i}`} variant="outlined" className={props.t.button}>
-        {item.term}
-      </Button>
-    );
+function sortDateOld(items) {
+  items.sort((a, b) => {
+    if (a.dateTaken > b.dateTaken) return 1;
+    if (a.dateTaken < b.dateTaken) return -1;
+    return 0;
   });
-};
+}
 
-const TestOptions = (props) => {
-  const { classes } = props;
-  const [expandedId, setExpandedId] = React.useState(-1);
+function sortDateNew(items) {
+  items.sort((a, b) => {
+    if (a.dateTaken > b.dateTaken) return -1;
+    if (a.dateTaken < b.dateTaken) return 1;
+    return 0;
+  });
+}
 
-  const handleExpandClickID = (i) => {
-    setExpandedId(expandedId === i ? -1 : i);
+function sortTitleAZ(items) {
+  items.sort((a, b) => {
+    if (a.title > b.title) return 1;
+    if (a.title < b.title) return -1;
+    return 0;
+  });
+}
+
+function sortTitleZA(items) {
+  items.sort((a, b) => {
+    if (a.title > b.title) return -1;
+    if (a.title < b.title) return 1;
+    return 0;
+  });
+}
+
+class TestOptions extends React.Component {
+  constructor(props) {
+    super(props);
+    let items = props.testResults;
+    sortDateNew(items);
+    this.state = {
+      set: items,
+      sort: "datenew",
+    };
+  }
+
+  setSortMethod = (m) => {
+    var set = this.state.set;
+    if (m === "dateold") {
+      sortDateOld(set);
+    } else if (m === "datenew") {
+      sortDateNew(set);
+    } else if (m === "nameAZ") {
+      sortTitleAZ(set);
+    } else if (m === "nameZA") {
+      sortTitleZA(set);
+    } else {
+      console.log("Error: invalid sorting method detected.");
+    }
+    this.setState({ sort: m, set: set });
   };
 
-  const items = props.set;
-  return (
-    <Grid container spacing={3}>
-      {items.map((item, i) => {
-        return (
-          <Grid item xs={12} sm={6} key={item._id}>
-            <Card>
-              <CardActionArea component={Link} to={`/test/${item._id}`}>
-                <CardContent>
-                  <Typography variant="h5">{item.title}</Typography>
-                  <br />
-                  <Typography variant="body1" gutterBottom>
-                    Last edited {item.updatedAt}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  className={classes.expand}
-                  onClick={() => handleExpandClickID(i)}
-                  aria-expanded={expandedId === i}
-                  aria-label="show more"
-                >
-                  <ExpandMoreIcon fontSize="small" />
-                </IconButton>
-              </CardActions>
-              <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
-                <CardContent>
-                  <Typography paragraph>Sample Terms:</Typography>
-                  <SampleTerms t={classes} cards={item.cards} />
-                </CardContent>
-              </Collapse>
-            </Card>
-          </Grid>
-        );
-      })}
-    </Grid>
-  );
-};
+  render() {
+    const { classes } = this.props;
+    const { set } = this.state;
+
+    return (
+      <div>
+        <Grid
+          container
+          justify="space-between"
+          alignItems="center"
+          className={classes.intro}
+        >
+          <Typography
+            variant="h5"
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+            }}
+          >
+            Test Archive
+          </Typography>
+          <SortOptions setSortMethod={this.setSortMethod} />
+        </Grid>
+        <GridList spacing={30} cellHeight="auto" cols={1}>
+          {set.map((item, val) => {
+            return (
+              <GridListTile key={val} className={classes.root}>
+                <Card key={val} className={classes.listCard}>
+                  <CardActionArea
+                    component={Link}
+                    to={`/testresult/${item._id}`}
+                  >
+                    <CardHeader
+                      title={item.title}
+                      subheader={`Taken ${convertLastModifiedTime(
+                        new Date(item.dateTaken),
+                        new Date(Date.now())
+                      )} ago`}
+                      className={classes.cardHeading}
+                    />
+                  </CardActionArea>
+                </Card>
+              </GridListTile>
+            );
+          })}
+        </GridList>
+      </div>
+    );
+  }
+}
 
 export default withStyles(styles)(TestOptions);

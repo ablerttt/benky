@@ -45,7 +45,7 @@ class TestQuestion extends React.Component {
     return (
       <div>
         {/* <React.Fragment>
-          <Prompt message="You have unsaved changes, are you sure you want to leave?" />
+          <Prompt message="You haven't finished yet, are you sure you want to leave?" />
         </React.Fragment> */}
         <Card raised className={classes.testCard}>
           <CardContent className={classes.clearStyle}>

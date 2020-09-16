@@ -13,17 +13,17 @@ import Card from "@material-ui/core/Card";
 
 const HomePage = (props) => {
   const { classes } = props;
-  const options = ["Create a new set.", "Review.", "Test."];
+  const options = ["Create a new set.", "Review.", "View test results."];
   const links = [ROUTES.NEW_LIST, ROUTES.SHOW_LIST, ROUTES.TEST_LIST];
   const descriptions = [
     "Apply your knowledge of material to a new set.",
     "Practice your newfound knowledge to achieve memorization.",
-    "You can do it! Try solving your questions and see how you do.",
+    "View your previous test results and find out what you got wrong!",
   ];
   const inspo = [
     "Bring your ideas to life.",
     "Refresh.",
-    "Put your knowledge to the test.",
+    "Review and relearn!",
   ];
 
   return (
@@ -41,7 +41,7 @@ const HomePage = (props) => {
           <Grid item key={value} lg={4} sm={6} xs={12}>
             <Card style={{ height: "100%" }}>
               <CardActionArea
-                component={Link}  
+                component={Link}
                 to={links[value]}
                 style={{ height: "100%" }}
               >

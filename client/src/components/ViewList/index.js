@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import api from "../../api";
 import Card from "@material-ui/core/Card";
@@ -54,7 +54,7 @@ function sortTitleZA(items) {
   });
 }
 
-class ViewList extends Component {
+class ViewList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
