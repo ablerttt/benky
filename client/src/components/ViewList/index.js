@@ -6,13 +6,11 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import GridList from "@material-ui/core/GridList";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { compose } from "recompose";
 import styles from "../../constants/styles";
 import { convertLastModifiedTime } from "../../constants/times";
 import SortOptions from "./SortOptions";
-import GridListTile from "@material-ui/core/GridListTile";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
@@ -21,6 +19,7 @@ import { PracticeLink } from "../PracticeList";
 import { TestsLink } from "../Test";
 import { ShowSampleTerms, SampleTerms } from "./SampleTerms";
 import RemoveList from "../RemoveList";
+import NoSets from "../../pages/NoSets";
 
 function sortDateOld(items) {
   items.sort((a, b) => {
@@ -62,6 +61,7 @@ class ViewList extends React.Component {
       expandedId: [],
       width: props.width,
       sort: "datenew",
+      empty: false,
     };
   }
 
@@ -75,6 +75,10 @@ class ViewList extends React.Component {
       this.setState({
         items,
       });
+
+      if (items.length === 0) {
+        this.setState({ empty: true });
+      }
     });
   };
 
@@ -137,7 +141,7 @@ class ViewList extends React.Component {
   };
 
   render() {
-    const { items, expandedId } = this.state;
+    const { items, expandedId, empty } = this.state;
     const { classes } = this.props;
 
     return (
@@ -157,64 +161,60 @@ class ViewList extends React.Component {
           >
             View sets
           </Typography>
-          <SortOptions setSortMethod={this.setSortMethod} />
+          {!empty && <SortOptions setSortMethod={this.setSortMethod} />}
         </Grid>
-        <br />
-        <GridList spacing={30} cellHeight="auto" cols={1}>
-          {items.map((item, val) => {
+        {!empty &&
+          items.map((item, val) => {
             return (
-              <GridListTile key={val} className={classes.root}>
-                <Card key={val} className={classes.listCard}>
-                  <CardHeader
-                    title={
-                      <Typography variant="h5" gutterBottom>
-                        {item.title}
-                      </Typography>
-                    }
-                    subheader={
-                      <Typography variant="body1" gutterBottom>
-                        {"Last modified: " +
-                          convertLastModifiedTime(
-                            new Date(item.updatedAt),
-                            new Date(Date.now())
-                          )}
-                      </Typography>
-                    }
-                    className={classes.cardHeading}
-                  />
-                  <CardActions>
-                    <div className={classes.viewCardOptions}>
-                      <EditLink id={item._id} />
-                      <PracticeLink id={item._id} />
-                      <TestsLink id={item._id} />
-                      <ShowSampleTerms
-                        handleExpandClickID={this.handleExpandClickID}
-                        length={item.cards.length}
-                        val={val}
-                        expandedId={expandedId}
-                      />
-                      <RemoveList
-                        id={item._id}
-                        onRemoveSet={this.handleRemoveSet}
-                        onChange={this.handleRemoveSet}
-                        keyVal={val}
-                      />
-                    </div>
-                  </CardActions>
-                  <Collapse
-                    in={expandedId.includes(val)}
-                    timeout="auto"
-                    unmountOnExit
-                  >
-                    <CardContent>
-                      <SampleTerms cards={item.cards} />
-                    </CardContent>
-                  </Collapse>
-                </Card>
-              </GridListTile>
+              <Card key={val} className={classes.listCard} raised>
+                <CardHeader
+                  title={
+                    <Typography variant="h6" gutterBottom>
+                      {item.title}
+                    </Typography>
+                  }
+                  subheader={
+                    <Typography variant="body1" gutterBottom>
+                      {"Last modified: " +
+                        convertLastModifiedTime(
+                          new Date(item.updatedAt),
+                          new Date(Date.now())
+                        )}
+                    </Typography>
+                  }
+                />
+                <CardActions>
+                  <div className={classes.viewCardOptions}>
+                    <EditLink id={item._id} />
+                    <PracticeLink id={item._id} length={item.cards.length} />
+                    <TestsLink id={item._id} length={item.cards.length} />
+                    <ShowSampleTerms
+                      handleExpandClickID={this.handleExpandClickID}
+                      length={item.cards.length}
+                      val={val}
+                      expandedId={expandedId}
+                    />
+                    <RemoveList
+                      id={item._id}
+                      onRemoveSet={this.handleRemoveSet}
+                      onChange={this.handleRemoveSet}
+                      keyVal={val}
+                    />
+                  </div>
+                </CardActions>
+                <Collapse
+                  in={expandedId.includes(val)}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <CardContent>
+                    <SampleTerms cards={item.cards} />
+                  </CardContent>
+                </Collapse>
+              </Card>
             );
           })}
-        </GridList>
+        {empty && <NoSets />}
       </Container>
     );
   }

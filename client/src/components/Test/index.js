@@ -8,6 +8,8 @@ import styles from "../../constants/styles";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import TestContainer from "./TestContainer";
+import Tooltip from "@material-ui/core/Toolbar";
+import { Link } from "react-router-dom";
 
 class Test extends React.Component {
   constructor(props) {
@@ -68,28 +70,37 @@ class Test extends React.Component {
   }
 }
 
-class TestLinkBase extends React.Component {
-  testSet = (e) => {
-    e.preventDefault();
-
-    window.location.href = `/test/${this.props.id}`;
-  };
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
+const TestLinkBase = (props) => {
+  const { classes, length, id } = props;
+  return (
+    <div>
+      {length > 1 && (
         <Button
-          onClick={this.testSet}
+          component={Link}
+          to={`/test/${id}`}
           className={classes.primaryLightLimitedButton}
           variant="contained"
         >
           Test
         </Button>
-      </div>
-    );
-  }
-}
+      )}
+      {length <= 0 && (
+        <Tooltip
+          title="This set does not have enough terms to test."
+          style={{ padding: "0" }}
+        >
+          <Button
+            disabled
+            className={classes.primaryLightLimitedButton}
+            variant="contained"
+          >
+            Test
+          </Button>
+        </Tooltip>
+      )}
+    </div>
+  );
+};
 
 const TestsLink = withStyles(styles)(TestLinkBase);
 

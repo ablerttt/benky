@@ -7,9 +7,9 @@ import Button from "@material-ui/core/Button";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-
 import CreateDialog from "./CreateDialog";
 import InvalidDialog from "./InvalidDialog";
+import { Link } from "react-router-dom";
 
 class StudySetInsert extends React.Component {
   constructor(props) {
@@ -215,4 +215,26 @@ class StudySetInsert extends React.Component {
   }
 }
 
+class NewLinkBase extends React.Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <div>
+        <Button
+          component={Link}
+          to={`/newset`}
+          className={classes.primaryLightLimitedButton}
+          variant="contained"
+        >
+          Create
+        </Button>
+      </div>
+    );
+  }
+}
+
+const NewSetLink = withStyles(styles)(NewLinkBase);
+
 export default withStyles(styles)(StudySetInsert);
+
+export { NewSetLink };

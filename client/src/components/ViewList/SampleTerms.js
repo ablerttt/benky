@@ -8,10 +8,10 @@ const ShowSampleTermBase = (props) => {
   const { classes } = props;
   if (props.length === 0) {
     return (
-      <Tooltip title="There are no terms in this set." style={{ padding: "0" }}>
+      <Tooltip title="This set is empty." style={{ padding: "0" }}>
         <Button
           disabled
-          className={classes.primaryLightButton}
+          className={classes.primaryLightLimitedButton}
           variant="contained"
         >
           Terms

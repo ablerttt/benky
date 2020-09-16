@@ -59,20 +59,17 @@ insertStudySet = (req, res) => {
 };
 
 getAllStudySets = (req, res) => {
-  StudySet.find({}, (err, studysets) => {
-    if (err) {
+  StudySet.find({})
+    .then((studysets) => {
+      if (!studysets.length) {
+        return res.status(200).json({ success: true, data: {} });
+      }
+      return res.status(200).json({ success: true, data: studysets });
+    })
+    .catch((err) => {
+      console.log(err);
       return res.status(400).json({ success: false, error: err });
-    }
-    if (!studysets.length) {
-      return res
-        .status(404)
-        .json({ success: false, error: `Study Sets not found` });
-    }
-    return res.status(200).json({ success: true, data: studysets });
-  }).catch((err) => {
-    console.log(err);
-    return res.status(400).json({ success: false, error: err });
-  });
+    });
 };
 
 checkIdExists = async (req, res) => {

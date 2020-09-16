@@ -46,22 +46,35 @@ insertTestEntry = (req, res) => {
 };
 
 getAllTestEntries = (req, res) => {
-  TestEntry.find({}, (err, testEntries) => {
-    if (err) {
+  TestEntry.find({}, { questionSet: 0 })
+    .then((testEntries) => {
+      if (!testEntries.length) {
+        return res.status(200).json({ success: true, data: {} });
+      }
+
+      return res.status(200).json({ success: true, data: testEntries });
+    })
+    .catch((err) => {
+      console.log(err);
       return res.status(400).json({ success: false, error: err });
-    }
+    });
+};
 
-    if (!testEntries.length) {
+getAllTestEntryTitles = (req, res) => {
+  TestEntry.find({}, { title: 1, dateTaken: 1 })
+    .then((testEntries) => {
+      if (!testEntries.length) {
+        return res.status(200).json({ success: true, data: {}, empty: true });
+      }
+
       return res
-        .status(404)
-        .json({ success: false, error: "Test Entry was not found." });
-    }
-
-    return res.status(200).json({ success: true, data: testEntries });
-  }).catch((err) => {
-    console.log(err);
-    return res.status(400).json({ success: false, error: err });
-  });
+        .status(200)
+        .json({ success: true, data: testEntries, empty: false });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(400).json({ success: false, error: err, empty: true });
+    });
 };
 
 getTestEntryById = (req, res) => {
@@ -87,4 +100,5 @@ module.exports = {
   insertTestEntry,
   getAllTestEntries,
   getTestEntryById,
+  getAllTestEntryTitles,
 };

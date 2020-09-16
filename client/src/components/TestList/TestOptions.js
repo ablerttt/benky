@@ -1,7 +1,5 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -51,7 +49,7 @@ class TestOptions extends React.Component {
     sortDateNew(items);
     this.state = {
       set: items,
-      sort: "datenew",
+      sort: "dateold",
     };
   }
 
@@ -94,29 +92,22 @@ class TestOptions extends React.Component {
           </Typography>
           <SortOptions setSortMethod={this.setSortMethod} />
         </Grid>
-        <GridList spacing={30} cellHeight="auto" cols={1}>
-          {set.map((item, val) => {
-            return (
-              <GridListTile key={val} className={classes.root}>
-                <Card key={val} className={classes.listCard}>
-                  <CardActionArea
-                    component={Link}
-                    to={`/testresult/${item._id}`}
-                  >
-                    <CardHeader
-                      title={item.title}
-                      subheader={`Taken ${convertLastModifiedTime(
-                        new Date(item.dateTaken),
-                        new Date(Date.now())
-                      )} ago`}
-                      className={classes.cardHeading}
-                    />
-                  </CardActionArea>
-                </Card>
-              </GridListTile>
-            );
-          })}
-        </GridList>
+        {set.map((item, val) => {
+          return (
+            <Card key={val} raised className={classes.listTestCard}>
+              <CardActionArea component={Link} to={`/testresult/${item._id}`}>
+                <CardHeader
+                  title={item.title}
+                  subheader={`Taken ${convertLastModifiedTime(
+                    new Date(item.dateTaken),
+                    new Date()
+                  )} ago`}
+                  className={classes.cardHeading}
+                />
+              </CardActionArea>
+            </Card>
+          );
+        })}
       </div>
     );
   }

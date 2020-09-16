@@ -49,6 +49,14 @@ const styles = (theme) => ({
     borderRadius: "1em",
     background: "linear-gradient(45deg, #628bd1 30%, #50b39d 90%)",
     padding: "1em",
+    marginBottom: "2em",
+    flexGrow: 1,
+  },
+  listTestCard: {
+    borderRadius: "1em",
+    background: "linear-gradient(45deg, #628bd1 30%, #50b39d 90%)",
+    padding: "1em",
+    marginBottom: "1.5em",
     flexGrow: 1,
   },
   viewCardOptions: {
@@ -145,12 +153,7 @@ const styles = (theme) => ({
     textTransform: "none",
     color: "black",
   },
-  cardHeading: {
-    title: {
-      variant: "h1",
-      backgroundColor: "pink",
-    },
-  },
+
   tabs: {
     textTransform: "none",
     borderRight: `1px solid ${theme.palette.divider}`,

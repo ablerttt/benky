@@ -6,6 +6,7 @@ import NotFoundPage from "../../pages/404";
 import LoadingPage from "./LoadingList";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 class EditList extends React.Component {
   constructor(props) {
@@ -49,18 +50,13 @@ class EditList extends React.Component {
 }
 
 class EditLinkBase extends React.Component {
-  updateSet = (e) => {
-    e.preventDefault();
-
-    window.location.href = `/set/${this.props.id}`;
-  };
-
   render() {
     const { classes } = this.props;
     return (
       <div>
         <Button
-          onClick={this.updateSet}
+          component={Link}
+          to={`/set/${this.props.id}`}
           className={classes.primaryLightLimitedButton}
           variant="contained"
         >

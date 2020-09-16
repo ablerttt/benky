@@ -5,6 +5,8 @@ import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import PracticeContainer from "./PracticeContainer";
 import NotFoundPage from "../../pages/404";
+import Tooltip from "@material-ui/core/Tooltip";
+import { Link } from "react-router-dom";
 
 class PracticeSet extends React.Component {
   constructor(props) {
@@ -52,28 +54,34 @@ class PracticeSet extends React.Component {
   }
 }
 
-class PracticeLinkBase extends React.Component {
-  practiceSet = (e) => {
-    e.preventDefault();
-
-    window.location.href = `/p/${this.props.id}`;
-  };
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
+const PracticeLinkBase = (props) => {
+  const { classes, length, id } = props;
+  return (
+    <div>
+      {length >= 1 && (
         <Button
-          onClick={this.practiceSet}
+          component={Link}
+          to={`/p/${id}`}
           className={classes.primaryLightLimitedButton}
           variant="contained"
         >
           Practice
         </Button>
-      </div>
-    );
-  }
-}
+      )}
+      {length <= 0 && (
+        <Tooltip title="This set is empty.">
+          <Button
+            disabled
+            className={classes.primaryLightLimitedButton}
+            variant="contained"
+          >
+            Practice
+          </Button>
+        </Tooltip>
+      )}
+    </div>
+  );
+};
 
 const PracticeLink = withStyles(styles)(PracticeLinkBase);
 

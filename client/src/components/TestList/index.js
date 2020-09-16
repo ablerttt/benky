@@ -6,27 +6,29 @@ class TestSet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: [],
+      results: {},
       mounted: false,
     };
   }
 
   componentDidMount = async () => {
-    await api.getTestResults().then((res) => {
-      console.log(res)
+    await api.getTestResultTitles().then((res) => {
       this.setState({
         results: res.data.data,
+        empty: res.data.empty,
         mounted: true,
       });
     });
   };
 
   render() {
-    const { results, mounted } = this.state;
+    const { results, mounted, empty } = this.state;
+    console.log("Current data is empty? " + empty);
     return (
       <div>
         {!mounted && <div>LOADING</div>}
-        {mounted && <TestOptions testResults={results} />}
+        {mounted && empty && <div>EMPTY</div>}
+        {mounted && !empty && <TestOptions testResults={results} />}
       </div>
     );
   }

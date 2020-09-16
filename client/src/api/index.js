@@ -26,6 +26,7 @@ export const insertTestResult = (id, title, date, questionSet) =>
   });
 export const getTestResults = () => api.get(`/testresults`);
 export const getTestResultById = (id) => api.get(`/test/${id}`);
+export const getTestResultTitles = () => api.get(`/testtitles`);
 
 const apis = {
   insertStudySet,
@@ -39,6 +40,7 @@ const apis = {
   insertTestResult,
   getTestResults,
   getTestResultById,
+  getTestResultTitles,
 };
 
 export default apis;
