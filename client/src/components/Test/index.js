@@ -1,7 +1,6 @@
 import React from "react";
 import api from "../../api";
 import Typography from "@material-ui/core/Typography";
-import LoadingPage from "../EditList/LoadingList";
 import NotFoundPage from "../../pages/404";
 import EmptySet from "../../pages/EmptySet";
 import styles from "../../constants/styles";
@@ -10,6 +9,8 @@ import { withStyles } from "@material-ui/core/styles";
 import TestContainer from "./TestContainer";
 import Tooltip from "@material-ui/core/Toolbar";
 import { Link } from "react-router-dom";
+import PulseLoader from "react-spinners/PulseLoader";
+import { css } from "@emotion/core";
 
 class Test extends React.Component {
   constructor(props) {
@@ -45,7 +46,18 @@ class Test extends React.Component {
   };
 
   render() {
-    let renderContainer = <LoadingPage />;
+    const override = css`
+      display: flex;
+      // flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    `;
+
+    let renderContainer = (
+      <PulseLoader css={override} size={25} color="#58b1d6" loading={true} />
+    );
     const { classes } = this.props;
     const { valid, cards, title, checked, id } = this.state;
     if (valid) {

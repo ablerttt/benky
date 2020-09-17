@@ -39,10 +39,12 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: "#38598f",
-      light: "#436cab",
-      lightHover: "#6d8ebf",
-      dark: "#223757",
-      darkHover: "#46628c",
+      light: "#58b1d6",
+      lightHover: "#d6f3ff",
+      dark: "#2878a1",
+      darkHover: "#155d82",
+      card: "#79c7e8",
+      cardLight: "#d6f3ff",
     },
     secondary: {
       main: "#89c6d9",

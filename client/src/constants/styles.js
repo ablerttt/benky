@@ -18,6 +18,12 @@ const styles = (theme) => ({
   root: {
     flexGrow: 1,
   },
+  addIcons: {
+    margin: "auto",
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+  },
   title: {
     fontSize: 14,
   },
@@ -69,21 +75,44 @@ const styles = (theme) => ({
     overflow: "auto",
   },
   titleTextField: {
-    width: "85%",
-    marginBottom: "4%",
+    width: "100%",
   },
   titleResize: {
     fontSize: 24,
   },
   termTextField: {
-    width: "35%",
-    marginRight: "3%",
-    marginBottom: "2%",
+    width: "40%",
+    marginRight: "5%",
   },
   defTextField: {
-    width: "35%",
-    marginRight: "3%",
-    marginBottom: "2%",
+    width: "40%",
+  },
+  deleteCardButton: {
+    backgroundColor: theme.palette.primary.light,
+    "&:hover": {
+      background: theme.palette.primary.lightHover,
+    },
+    margin: theme.spacing(1),
+    borderRadius: "3em",
+    textTransform: "none",
+    color: "white",
+    float: "right",
+  },
+  termCard: {
+    borderRadius: "1em",
+    backgroundColor: "white",
+    padding: "1em 2em",
+    marginBottom: "2em",
+    // display: "flex",
+    // flexDirection: "row",
+  },
+  titleCard: {
+    borderRadius: "1em",
+    backgroundColor: theme.palette.primary.cardLight,
+    padding: "1em 2em",
+    marginBottom: "2em",
+    // display: "flex",
+    // flexDirection: "row",
   },
   secondaryButton: {
     backgroundColor: theme.palette.secondary.main,

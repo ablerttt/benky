@@ -147,7 +147,6 @@ class ViewList extends React.Component {
     return (
       <Container component="main" maxWidth="lg">
         <Grid
-          
           container
           justify="space-between"
           alignItems="center"

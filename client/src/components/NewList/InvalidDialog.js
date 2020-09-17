@@ -8,6 +8,8 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { withStyles } from "@material-ui/core/styles";
+import styles from "./styles";
 
 const ErrorCard = (props) => {
   const code = props.code;
@@ -23,7 +25,7 @@ const ErrorCard = (props) => {
   } else {
     term =
       "Term " +
-      (parseInt(code.substring(0, index)) + 1) +
+      parseInt(parseInt(code.substring(0, code.search(/[tdm]/))) + 1) +
       ": " +
       (props.cards[index].term === "" ? "[Empty]" : props.cards[index].term);
     for (let i = 1; i < code.length; i++) {
@@ -68,6 +70,7 @@ const ListErrors = (props) => {
 };
 
 const InvalidDialog = (props) => {
+  const { classes } = props;
   return (
     <Dialog
       open={props.showDialog}
@@ -85,7 +88,11 @@ const InvalidDialog = (props) => {
         <ListErrors errors={props.errors} cards={props.cards} />
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.closeInvalidDialog} color="primary">
+        <Button
+          onClick={props.closeInvalidDialog}
+          variant="contained"
+          className={classes.primaryDarkButton}
+        >
           Close
         </Button>
       </DialogActions>
@@ -93,4 +100,4 @@ const InvalidDialog = (props) => {
   );
 };
 
-export default InvalidDialog;
+export default withStyles(styles)(InvalidDialog);

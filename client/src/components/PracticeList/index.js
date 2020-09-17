@@ -6,6 +6,8 @@ import { withStyles } from "@material-ui/core/styles";
 import PracticeContainer from "./PracticeContainer";
 import NotFoundPage from "../../pages/404";
 import Tooltip from "@material-ui/core/Tooltip";
+import PulseLoader from "react-spinners/PulseLoader";
+import { css } from "@emotion/core";
 import { Link } from "react-router-dom";
 
 class PracticeSet extends React.Component {
@@ -22,6 +24,8 @@ class PracticeSet extends React.Component {
     await api
       .getStudySetById(this.state.id)
       .then((res) => {
+        var currentTime = new Date().getTime();
+        while (currentTime + 300 >= new Date().getTime()) {}
         console.log(res);
         if (res.data.success && res.data.data != null) {
           this.setState({
@@ -35,14 +39,26 @@ class PracticeSet extends React.Component {
         }
       })
       .catch((e) => {
-        // console.log("Error is " + e);
+        console.log("Error is " + e);
         this.setState({ valid: false, checked: true });
       });
   };
 
   render() {
     const { valid, title, cards, checked } = this.state;
-    let renderContainer = <div>Loading!</div>;
+
+    const override = css`
+      display: flex;
+      // flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    `;
+
+    let renderContainer = (
+      <PulseLoader css={override} size={25} color="#58b1d6" loading={true} />
+    );
 
     if (checked && valid) {
       renderContainer = <PracticeContainer title={title} cards={cards} />;

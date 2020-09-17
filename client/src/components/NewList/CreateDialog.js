@@ -7,7 +7,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import styles from "../../constants/styles";
+import styles from "./styles";
 import { Link } from "react-router-dom";
 import { compose } from "recompose";
 

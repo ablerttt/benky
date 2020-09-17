@@ -2,9 +2,10 @@ import React from "react";
 import api from "../../api";
 import CardInputs from "./CardInputs";
 import TextField from "@material-ui/core/TextField";
+import Card from "@material-ui/core/Card";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
-import styles from "../../constants/styles";
+import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import CreateDialog from "./CreateDialog";
@@ -156,47 +157,49 @@ class StudySetInsert extends React.Component {
     } = this.state;
     const { classes } = this.props;
     return (
-      <div>
-        <Typography variant="h3" className={classes.intro} gutterBottom>
+      <div id="newset">
+        <Typography variant="h4" gutterBottom className={classes.intro}>
           Create a New Set
         </Typography>
-        <TextField
-          className={classes.titleTextField}
-          onChange={this.handleChangeInputName}
-          name="title"
-          id="title"
-          autoFocus
-          InputProps={{
-            classes: {
-              input: classes.titleResize,
-            },
-          }}
-          variant="filled"
-          label="Title"
-          value={title}
-          placeholder="Untitled List"
-        />
-        <br />
+        <Card className={classes.titleCard} raised>
+          <TextField
+            className={classes.titleTextField}
+            onChange={this.handleChangeInputName}
+            name="title"
+            id="title"
+            autoFocus
+            InputProps={{
+              classes: {
+                input: classes.titleResize,
+              },
+            }}
+            label="Title"
+            value={title}
+            placeholder="Untitled List"
+          />
+        </Card>
         <CardInputs
           cards={cards}
           removeItem={this.deleteCard}
           changeTerm={this.handleChangeCardTerm}
           changeDef={this.handleChangeCardDef}
         />
-        <Button
-          onClick={this.addCard}
-          className={`${classes.button} ${classes.secondaryButton}`}
-          variant="contained"
-        >
-          <AddIcon />
-        </Button>
-        <Button
-          onClick={this.handleInsertStudySet}
-          className={classes.button}
-          variant="contained"
-        >
-          Create
-        </Button>
+        <div>
+          <Button
+            onClick={this.addCard}
+            className={classes.primaryLightButton}
+            variant="contained"
+          >
+            <AddIcon />
+          </Button>
+          <Button
+            onClick={this.handleInsertStudySet}
+            className={classes.primaryDarkButton}
+            variant="contained"
+          >
+            Create
+          </Button>
+        </div>
 
         <CreateDialog
           showDialog={showDialog}
@@ -223,7 +226,7 @@ class NewLinkBase extends React.Component {
         <Button
           component={Link}
           to={`/newset`}
-          className={classes.primaryLightLimitedButton}
+          className={classes.primaryLightButton}
           variant="contained"
         >
           Create

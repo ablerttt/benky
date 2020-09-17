@@ -94,8 +94,17 @@ class TestOptions extends React.Component {
         </Grid>
         {set.map((item, val) => {
           return (
-            <Card key={val} raised className={classes.listTestCard}>
-              <CardActionArea component={Link} to={`/testresult/${item._id}`}>
+            <Card
+              key={val}
+              raised
+              className={classes.listTestCard}
+              disableHover
+            >
+              <CardActionArea
+                component={Link}
+                to={`/testresult/${item._id}`}
+                disableHover
+              >
                 <CardHeader
                   title={item.title}
                   titleTypographyProps={{ variant: "h6" }}
