@@ -10,6 +10,7 @@ import TermCard from "./TermCard";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import HelpDialog from "./HelpDialog";
+import EmptySet from "../../pages/EmptySet";
 
 function shuffleList(array) {
   array.sort(() => Math.random() - 0.5);
@@ -121,66 +122,78 @@ class PracticeContainer extends React.Component {
           <Typography className={classes.intro} variant="h5">
             Practice: {title}
           </Typography>
-          <div className={classes.intro}>
-            Shuffle
-            <Switch
-              checked={shuffle}
-              onChange={this.handleShuffleOption}
-              name="shuffleOption"
-              inputProps={{ "aria-label": "shuffle-option" }}
-            />
-            <Button
-              style={{ align: "right" }}
-              className={classes.primaryLightButton}
-              onClick={this.reset}
-              variant="contained"
-              disabled={index === 0 && !shuffle && !flipped.includes(true)}
-            >
-              Reset
-            </Button>
-            <Button
-              style={{ align: "right" }}
-              className={classes.primaryLightButton}
-              variant="contained"
-              onClick={() => this.setState({ openDialog: true })}
-            >
-              Help!
-            </Button>
-          </div>
+
+          {cards.length > 0 && (
+            <div className={classes.intro}>
+              Shuffle
+              <Switch
+                checked={shuffle}
+                onChange={this.handleShuffleOption}
+                name="shuffleOption"
+                inputProps={{ "aria-label": "shuffle-option" }}
+              />
+              <Button
+                style={{ align: "right" }}
+                className={classes.primaryLightButton}
+                onClick={this.reset}
+                variant="contained"
+                disabled={index === 0 && !shuffle && !flipped.includes(true)}
+              >
+                Reset
+              </Button>
+              <Button
+                style={{ align: "right" }}
+                className={classes.primaryLightButton}
+                variant="contained"
+                onClick={() => this.setState({ openDialog: true })}
+              >
+                Help!
+              </Button>
+            </div>
+          )}
         </Grid>
-        <Fab
-          color="primary"
-          aria-label="add"
-          className={classes.practiceLeftFab}
-          size="large"
-          disabled={index === 0}
-          onClick={() => this.decreaseIndex()}
-        >
-          <NavigationIcon />
-        </Fab>
-        <Fab
-          color="primary"
-          aria-label="add"
-          className={classes.practiceRightFab}
-          size="large"
-          disabled={index === indices.length - 1}
-          onClick={() => this.increaseIndex()}
-        >
-          <NavigationIcon />
-        </Fab>
-        <Box height="65vh">
-          <TermCard
-            cards={cards}
-            indices={indices}
-            index={index}
-            showDef={flipped[index]}
-            toggleFlip={() => this.toggleFlip(index)}
+        {cards.length > 0 && (
+          <Fab
+            color="primary"
+            aria-label="add"
+            className={classes.practiceLeftFab}
+            size="large"
+            disabled={index === 0}
+            onClick={() => this.decreaseIndex()}
+          >
+            <NavigationIcon />
+          </Fab>
+        )}
+        {cards.length > 0 && (
+          <Fab
+            color="primary"
+            aria-label="add"
+            className={classes.practiceRightFab}
+            size="large"
+            disabled={index === indices.length - 1}
+            onClick={() => this.increaseIndex()}
+          >
+            <NavigationIcon />
+          </Fab>
+        )}
+        {cards.length > 0 && (
+          <Box height="65vh">
+            <TermCard
+              cards={cards}
+              indices={indices}
+              index={index}
+              showDef={flipped[index]}
+              toggleFlip={() => this.toggleFlip(index)}
+            />
+          </Box>
+        )}
+        {cards.length > 0 && (
+          <HelpDialog
+            showDialog={openDialog}
+            escDialog={() => this.setState({ openDialog: false })}
           />
-        </Box>
-        <HelpDialog
-          showDialog={openDialog}
-          escDialog={() => this.setState({ openDialog: false })}
-        />
+        )}
+        {cards.length === 0 && <EmptySet id={this.props.id} />}
       </div>
     );
   }

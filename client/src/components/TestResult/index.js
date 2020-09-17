@@ -2,6 +2,8 @@ import React from "react";
 import api from "../../api";
 import NotFoundPage from "../../pages/404";
 import TestResultContainer from "./TestResultContainer";
+import PulseLoader from "react-spinners/PulseLoader";
+import { css } from "@emotion/core";
 
 class TestResult extends React.Component {
   constructor(props) {
@@ -23,6 +25,8 @@ class TestResult extends React.Component {
           });
 
           api.checkValidId(res.data.data.setId).then((res2) => {
+            var currentTime = new Date().getTime();
+            while (currentTime + 300 >= new Date().getTime()) {}
             if (!(res2.data.success && res2.data.valid)) {
               this.setState({ gotoLink: false });
             } else {
@@ -40,7 +44,19 @@ class TestResult extends React.Component {
 
   render() {
     const { verified, valid } = this.state;
-    let renderContainer = <div>Loading!</div>;
+
+    const override = css`
+      display: flex;
+      // flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    `;
+
+    let renderContainer = (
+      <PulseLoader css={override} size={25} color="#58b1d6" loading={true} />
+    );
 
     if (verified && valid) {
       const { title, questionSet, dateTaken, setId, gotoLink } = this.state;

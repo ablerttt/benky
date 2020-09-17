@@ -5,7 +5,6 @@ import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import PracticeContainer from "./PracticeContainer";
 import NotFoundPage from "../../pages/404";
-import Tooltip from "@material-ui/core/Tooltip";
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
 import { Link } from "react-router-dom";
@@ -45,7 +44,7 @@ class PracticeSet extends React.Component {
   };
 
   render() {
-    const { valid, title, cards, checked } = this.state;
+    const { valid, title, cards, checked, id } = this.state;
 
     const override = css`
       display: flex;
@@ -61,7 +60,9 @@ class PracticeSet extends React.Component {
     );
 
     if (checked && valid) {
-      renderContainer = <PracticeContainer title={title} cards={cards} />;
+      renderContainer = (
+        <PracticeContainer title={title} cards={cards} id={id} />
+      );
     } else if (checked && !valid) {
       renderContainer = <NotFoundPage />;
     }
@@ -71,20 +72,20 @@ class PracticeSet extends React.Component {
 }
 
 const PracticeLinkBase = (props) => {
-  const { classes, length, id } = props;
+  const { classes, id } = props;
   return (
     <div>
-      {length >= 1 && (
-        <Button
-          component={Link}
-          to={`/p/${id}`}
-          className={classes.primaryLightLimitedButton}
-          variant="contained"
-        >
-          Practice
-        </Button>
-      )}
-      {length <= 0 && (
+      {/* {length >= 1 && ( */}
+      <Button
+        component={Link}
+        to={`/p/${id}`}
+        className={classes.primaryLightLimitedButton}
+        variant="contained"
+      >
+        Practice
+      </Button>
+      {/* )} */}
+      {/* {length <= 0 && (
         <Tooltip title="This set is empty.">
           <Button
             disabled
@@ -94,7 +95,7 @@ const PracticeLinkBase = (props) => {
             Practice
           </Button>
         </Tooltip>
-      )}
+      )} */}
     </div>
   );
 };

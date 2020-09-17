@@ -7,7 +7,6 @@ import styles from "../../constants/styles";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import TestContainer from "./TestContainer";
-import Tooltip from "@material-ui/core/Toolbar";
 import { Link } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
@@ -83,20 +82,20 @@ class Test extends React.Component {
 }
 
 const TestLinkBase = (props) => {
-  const { classes, length, id } = props;
+  const { classes, id } = props;
   return (
     <div>
-      {length > 1 && (
-        <Button
-          component={Link}
-          to={`/test/${id}`}
-          className={classes.primaryLightLimitedButton}
-          variant="contained"
-        >
-          Test
-        </Button>
-      )}
-      {length <= 0 && (
+      {/* {length > 1 && ( */}
+      <Button
+        component={Link}
+        to={`/test/${id}`}
+        className={classes.primaryLightLimitedButton}
+        variant="contained"
+      >
+        Test
+      </Button>
+      {/* )} */}
+      {/* {length <= 0 && (
         <Tooltip
           title="This set does not have enough terms to test."
           style={{ padding: "0" }}
@@ -109,7 +108,7 @@ const TestLinkBase = (props) => {
             Test
           </Button>
         </Tooltip>
-      )}
+      )} */}
     </div>
   );
 };

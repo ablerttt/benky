@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,32 +7,29 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./NavigationStyles";
-import { compose } from "recompose";
-import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavigationNoAuth = (props) => {
   const { classes } = props;
-
-  const routeToSignIn = (e) => {
-    e.preventDefault();
-
-    props.history.push("/signin");
-  };
 
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appbar}>
         <Container maxWidth="md">
           <Toolbar>
-            <Link to={ROUTES.LANDING} className={classes.title}>
-              <Typography variant="h6">
-                <strong>LOGO</strong>
-              </Typography>
-            </Link>
+            <Typography
+              variant="h6"
+              component={Link}
+              to={ROUTES.LANDING}
+              className={classes.title}
+            >
+              <strong>LOGO</strong>
+            </Typography>
             <Button
               variant="contained"
               className={classes.right}
-              onClick={routeToSignIn}
+              component={Link}
+              to={"/signin"}
             >
               Login
             </Button>
@@ -44,4 +40,4 @@ const NavigationNoAuth = (props) => {
   );
 };
 
-export default compose(withRouter, withStyles(styles))(NavigationNoAuth);
+export default withStyles(styles)(NavigationNoAuth);

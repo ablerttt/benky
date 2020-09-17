@@ -1,6 +1,8 @@
 import React from "react";
 import api from "../../api";
 import TestOptions from "./TestOptions";
+import PulseLoader from "react-spinners/PulseLoader";
+import { css } from "@emotion/core";
 
 class TestSet extends React.Component {
   constructor(props) {
@@ -13,6 +15,8 @@ class TestSet extends React.Component {
 
   componentDidMount = async () => {
     await api.getTestResultTitles().then((res) => {
+      var currentTime = new Date().getTime();
+      while (currentTime + 300 >= new Date().getTime()) {}
       this.setState({
         results: res.data.data,
         empty: res.data.empty,
@@ -23,14 +27,26 @@ class TestSet extends React.Component {
 
   render() {
     const { results, mounted, empty } = this.state;
-    console.log("Current data is empty? " + empty);
-    return (
-      <div>
-        {!mounted && <div>LOADING</div>}
-        {mounted && empty && <div>EMPTY</div>}
-        {mounted && !empty && <TestOptions testResults={results} />}
-      </div>
+    const override = css`
+      display: flex;
+      // flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    `;
+
+    let returnedState = (
+      <PulseLoader css={override} size={25} color="#58b1d6" loading={true} />
     );
+
+    if (mounted && empty) {
+      returnedState = <div>EMPTY</div>;
+    } else if (mounted && !empty) {
+      returnedState = <TestOptions testResults={results} />;
+    }
+
+    return returnedState;
   }
 }
 
