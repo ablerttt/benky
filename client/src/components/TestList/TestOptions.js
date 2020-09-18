@@ -82,7 +82,7 @@ class TestOptions extends React.Component {
           className={classes.intro}
         >
           <Typography
-            variant="h5"
+            variant="h4"
             style={{
               display: "inline-block",
               verticalAlign: "middle",
@@ -106,13 +106,15 @@ class TestOptions extends React.Component {
                 disableHover
               >
                 <CardHeader
+                  className={classes.whiteText}
                   title={item.title}
                   titleTypographyProps={{ variant: "h6" }}
-                  subheader={`Taken ${convertLastModifiedTime(
-                    new Date(item.dateTaken),
-                    new Date()
-                  )} ago`}
-                  className={classes.cardHeading}
+                  subheader={
+                    <Typography>{`Taken ${convertLastModifiedTime(
+                      new Date(item.dateTaken),
+                      new Date()
+                    )} ago`}</Typography>
+                  }
                 />
               </CardActionArea>
             </Card>

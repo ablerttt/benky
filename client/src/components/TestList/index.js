@@ -3,6 +3,7 @@ import api from "../../api";
 import TestOptions from "./TestOptions";
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
+import NoTests from "../../pages/NoTests";
 
 class TestSet extends React.Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class TestSet extends React.Component {
     );
 
     if (mounted && empty) {
-      returnedState = <div>EMPTY</div>;
+      returnedState = <NoTests />;
     } else if (mounted && !empty) {
       returnedState = <TestOptions testResults={results} />;
     }

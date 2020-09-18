@@ -57,12 +57,14 @@ const ListErrors = (props) => {
     <List dense>
       {props.errors.map((i, c) => {
         return (
-          <ErrorCard
-            code={i}
-            c={c}
-            key={`error-card-${c}`}
-            cards={props.cards}
-          />
+          <DialogContentText>
+            <ErrorCard
+              code={i}
+              c={c}
+              key={`error-card-${c}`}
+              cards={props.cards}
+            />
+          </DialogContentText>
         );
       })}
     </List>
@@ -78,7 +80,7 @@ const InvalidDialog = (props) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
+      <DialogTitle id="alert-dialog-title" className={classes.dialog}>
         {"Errors exist within your set."}
       </DialogTitle>
       <DialogContent>

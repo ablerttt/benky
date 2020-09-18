@@ -25,7 +25,7 @@ const CardInputs = (props) => {
               value={props.cards[idx].term}
               name={cardId}
               dataid={idx}
-              id={cardId}
+              className={classes.input}
               onChange={(e) => props.changeTerm(e, idx)}
             />
           </FormControl>
@@ -36,6 +36,7 @@ const CardInputs = (props) => {
               value={props.cards[idx].description}
               name={desId}
               dataid={idx}
+              className={classes.input}
               id={desId}
               onChange={(e) => props.changeDef(e, idx)}
             />

@@ -19,13 +19,13 @@ const Question = (props) => {
 
   return (
     <div>
-      <Card raised className={classes.testCard}>
+      <Card className={classes.testCard}>
         <CardContent className={classNames(classes.clearStyle, classes.intro)}>
           <Typography variant="h6" display="inline">
             {`${index}. `}
             {"   "} {value.term}
           </Typography>
-        <br />
+          <br />
           <Typography
             display="inline"
             style={{

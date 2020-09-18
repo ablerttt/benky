@@ -74,7 +74,7 @@ const AccountPage = (props) => {
     <AuthUserContext.Consumer>
       {(authUser) => (
         <div>
-          <Typography variant="h3" className={classes.intro}>
+          <Typography variant="h5" className={classes.intro}>
             Account
           </Typography>
           <div className={classes.accountRoot}>

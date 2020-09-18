@@ -53,17 +53,18 @@ const styles = (theme) => ({
   },
   listCard: {
     borderRadius: "1em",
-    background: "linear-gradient(45deg, #628bd1 30%, #50b39d 90%)",
+    // background: "linear-gradient(45deg, #628bd1 30%, #50b39d 90%)",
+    backgroundColor: theme.palette.highlight.main,
     padding: "1em",
     marginBottom: "2em",
     flexGrow: 1,
   },
   listTestCard: {
     borderRadius: "1em",
-    background: "linear-gradient(45deg, #628bd1 30%, #50b39d 90%)",
+    backgroundColor: theme.palette.highlight.main,
     padding: "1em",
     marginBottom: "1.5em",
-    flexGrow: 1,
+    // flexGrow: 1,
   },
   viewCardOptions: {
     width: "100%",
@@ -135,6 +136,16 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.primary.dark,
     "&:hover": {
       background: theme.palette.primary.darkHover,
+    },
+    margin: theme.spacing(1),
+    borderRadius: "3em",
+    textTransform: "none",
+    color: "white",
+  },
+  highlightButton: {
+    backgroundColor: theme.palette.highlight.main,
+    "&:hover": {
+      background: theme.palette.highlight.light,
     },
     margin: theme.spacing(1),
     borderRadius: "3em",
@@ -259,7 +270,7 @@ const styles = (theme) => ({
     border: "0",
     margin: "2em 0",
     borderRadius: "1em",
-    backgroundColor: "#d9d7d7",
+    backgroundColor: theme.palette.highlight.dark,
   },
   submitButton: {
     display: "flex",
@@ -267,10 +278,9 @@ const styles = (theme) => ({
     marginBottom: "30px",
     borderRadius: "1em",
     textTransform: "none",
-    color: "white",
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.highlight.accent,
     "&:hover": {
-      background: theme.palette.primary.lightHover,
+      background: theme.palette.highlight.accentLighter,
     },
   },
   colortest: {
@@ -298,6 +308,23 @@ const styles = (theme) => ({
       backgroundColor: theme.palette.error.light,
     },
     backgroundColor: theme.palette.error.light,
+  },
+  homeCardAction: {
+    height: "100%",
+  },
+  homeCard: {
+    borderRadius: "1em",
+    backgroundColor: theme.palette.highlight.main,
+    padding: "1em",
+  },
+  sortOption: {
+    color: theme.palette.text.secondary,
+  },
+  whiteText: {
+    color: "white",
+  },
+  dialog: {
+    backgroundColor: theme.palette.highlight.main,
   },
 });
 

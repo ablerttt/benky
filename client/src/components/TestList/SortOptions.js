@@ -49,21 +49,34 @@ const SortOptions = (props) => {
               horizontal: "center",
             }}
           >
-            <Box style={{ width: "8em" }}>
+            <Box style={{ width: "10em" }}>
               <List component="nav">
                 <ListItem button onClick={() => props.setSortMethod("nameAZ")}>
-                  <ListItemText primary="Title: A - Z" />
+                  <ListItemText
+                    className={classes.sortOption}
+                    primary="Title: A - Z"
+                  />
                 </ListItem>
                 <Divider light />
                 <ListItem button onClick={() => props.setSortMethod("nameZA")}>
-                  <ListItemText primary="Title: Z - A" />
+                  <ListItemText
+                    className={classes.sortOption}
+                    primary="Title: Z - A"
+                  />
                 </ListItem>
+                <Divider light />
                 <ListItem button onClick={() => props.setSortMethod("dateold")}>
-                  <ListItemText primary="Date: Oldest" />
+                  <ListItemText
+                    className={classes.sortOption}
+                    primary="Date: Oldest"
+                  />
                 </ListItem>
                 <Divider light />
                 <ListItem button onClick={() => props.setSortMethod("datenew")}>
-                  <ListItemText primary="Date: Newest" />
+                  <ListItemText
+                    className={classes.sortOption}
+                    primary="Date: Newest"
+                  />
                 </ListItem>
               </List>
             </Box>

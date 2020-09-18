@@ -60,7 +60,7 @@ const SubmitDialog = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id="alert-dialog-title" className={classes.dialog}>
           {"Confirm Submission"}
         </DialogTitle>
         <DialogContent>
@@ -71,7 +71,7 @@ const SubmitDialog = (props) => {
         <DialogActions>
           <Button
             onClick={() => props.closeDialog()}
-            className={classes.primaryDarkButton}
+            className={classes.primaryLightButton}
             variant="contained"
           >
             Cancel
@@ -79,7 +79,7 @@ const SubmitDialog = (props) => {
           {unansweredIndices.length === 0 && (
             <Button
               onClick={() => props.onSubmit()}
-              className={classes.primaryDarkButton}
+              className={classes.primaryLightButton}
               variant="contained"
             >
               Submit
@@ -88,7 +88,7 @@ const SubmitDialog = (props) => {
           {unansweredIndices.length > 0 && (
             <Button
               onClick={() => props.onSubmit()}
-              className={classes.warningButton}
+              className={classes.highlightButton}
               variant="contained"
             >
               Submit Anyway

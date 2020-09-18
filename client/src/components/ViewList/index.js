@@ -175,11 +175,12 @@ class ViewList extends React.Component {
                   }
                   subheader={
                     <Typography variant="body1" gutterBottom>
-                      {"Last modified: " +
+                      {"Last modified " +
                         convertLastModifiedTime(
                           new Date(item.updatedAt),
                           new Date(Date.now())
-                        )}
+                        ) +
+                        " ago"}
                     </Typography>
                   }
                 />

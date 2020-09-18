@@ -170,7 +170,7 @@ class StudySetInsert extends React.Component {
             autoFocus
             InputProps={{
               classes: {
-                input: classes.titleResize,
+                input: classes.input,
               },
             }}
             label="Title"

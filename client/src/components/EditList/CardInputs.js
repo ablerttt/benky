@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import { withStyles } from "@material-ui/core/styles";
-import styles from "./styles"
+import styles from "./styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
@@ -22,6 +22,7 @@ const CardInputs = (props) => {
             </InputLabel>
             <Input
               multiline
+              className={classes.input}
               value={props.cards[idx].term}
               name={cardId}
               dataid={idx}
@@ -35,6 +36,7 @@ const CardInputs = (props) => {
             </InputLabel>
             <Input
               multiline
+              className={classes.input}
               value={props.cards[idx].description}
               name={desId}
               dataid={idx}

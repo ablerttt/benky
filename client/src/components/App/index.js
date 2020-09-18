@@ -20,8 +20,10 @@ import TestResult from "../../components/TestResult";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import * as ROUTES from "../../constants/routes";
 import { withAuthentification } from "../../auth/Session";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const theme = createMuiTheme({
+  shadows: ["none"],
   typography: {
     fontFamily: [
       "-apple-system",
@@ -47,17 +49,32 @@ const theme = createMuiTheme({
       cardLight: "#d6f3ff",
     },
     secondary: {
-      main: "#89c6d9",
+      main: "#a0d2eb",
     },
     error: {
       main: "#f04a3e",
       light: "#fc7168",
+    },
+    highlight: {
+      main: "#845bb3",
+      light: "#bb67f5",
+      dark: "#8043ab",
+      accent: "#D0BDF4",
+      accentLighter: "#e6d9ff",
+    },
+    background: {
+      default: "#27282b",
+    },
+    text: {
+      primary: "#fff",
+      secondary: "#000",
     },
   },
 });
 
 const App = () => (
   <ThemeProvider theme={theme}>
+    <CssBaseline />
     <BrowserRouter>
       <Navigation />
       <Container maxWidth="md" style={{ marginBottom: "1em" }}>

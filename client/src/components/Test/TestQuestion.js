@@ -59,10 +59,15 @@ class TestQuestion extends React.Component {
             {questions[index][1].map((num, selectIndex) => {
               return (
                 <Button
-                  color={
+                  // color={
+                  //   selectIndex === this.state.selected
+                  //     ? "primary"
+                  //     : "secondary"
+                  // }
+                  style={
                     selectIndex === this.state.selected
-                      ? "primary"
-                      : "secondary"
+                      ? { backgroundColor: "#58b1d6" }
+                      : { backgroundColor: "#e3f6ff" }
                   }
                   onClick={() => this.updateSelected(selectIndex)}
                   key={selectIndex}

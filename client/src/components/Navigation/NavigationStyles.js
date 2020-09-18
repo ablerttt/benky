@@ -10,7 +10,7 @@ const styles = (theme) => ({
   right: {
     color: "white",
     textTransform: "none",
-    margin: theme.spacing(2),
+    marginLeft: theme.spacing(2),
     borderRadius: "3em",
     backgroundColor: theme.palette.primary.light,
     "&:hover": {
@@ -18,7 +18,7 @@ const styles = (theme) => ({
     },
   },
   appbar: {
-    backgroundColor: "#2E3B55",
+    backgroundColor: "rgba(255, 255, 255, 0.0)",
   },
   primaryLightButton: {
     backgroundColor: theme.palette.primary.light,
@@ -26,7 +26,7 @@ const styles = (theme) => ({
       background: theme.palette.primary.lightHover,
     },
     margin: theme.spacing(0.5),
-    borderRadius: "3em",
+    // borderRadius: "3em",
     textTransform: "none",
     color: "white",
   },

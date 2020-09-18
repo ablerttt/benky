@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import * as ROUTES from "../../constants/routes";
-// import styles from "./styles";
 import styles from "../../constants/styles";
 import { compose } from "recompose";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -21,12 +20,6 @@ const HomePage = (props) => {
     "Practice your newfound knowledge to achieve memorization.",
     "View your previous test results and find out what you got wrong!",
   ];
-  const inspo = [
-    "Bring your ideas to life.",
-    "Refresh.",
-    "Review and relearn!",
-  ];
-
   return (
     <div>
       <div className={classes.intro}>
@@ -37,20 +30,27 @@ const HomePage = (props) => {
           What great thing will you do today?
         </Typography>
       </div>
-      <Grid container className={classes.root} alignItems="stretch" spacing={3}>
+      <Grid
+        container
+        // className={classes.root}
+        alignItems="stretch"
+        direction="row"
+        spacing={3}
+      >
         {[0, 1, 2].map((value) => (
           <Grid item key={value} lg={4} sm={6} xs={12}>
-            <Card className={classes.listCard}>
+            <Card className={classes.homeCard} style={{ height: "100%" }}>
               <CardActionArea
                 component={Link}
                 to={links[value]}
-                style={{ backgroundColor: "rgba(255, 255, 255, 0.3" }}
+                style={{
+                  height: "100%",
+                }}
               >
                 <CardContent>
                   <Typography variant="h5" component="h2">
                     {options[value]}
                   </Typography>
-                  <Typography color="textSecondary">{inspo[value]}</Typography>
                   <br />
                   <br />
                   <Typography variant="body2" component="p">

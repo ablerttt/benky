@@ -2,11 +2,15 @@ const styles = (theme) => ({
   root: {
     flexGrow: 1,
   },
+  input: {
+    color: theme.palette.text.secondary,
+  },
   intro: {
     margin: "1em 0",
   },
   titleTextField: {
     width: "100%",
+    color: theme.palette.text.secondary,
   },
   termTextField: {
     width: "40%",
@@ -57,6 +61,12 @@ const styles = (theme) => ({
     borderRadius: "3em",
     textTransform: "none",
     color: "white",
+  },
+  dialog: {
+    backgroundColor: theme.palette.highlight.main,
+  },
+  secondaryButton: {
+    backgroundColor: theme.palette.secondary.main,
   },
 });
 
