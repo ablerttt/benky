@@ -12,10 +12,6 @@ const styles = (theme) => ({
     textTransform: "none",
     marginLeft: theme.spacing(2),
     borderRadius: "3em",
-    backgroundColor: theme.palette.primary.light,
-    "&:hover": {
-      background: theme.palette.primary.lightHover,
-    },
   },
   appbar: {
     backgroundColor: "rgba(255, 255, 255, 0.0)",
@@ -27,6 +23,16 @@ const styles = (theme) => ({
     },
     margin: theme.spacing(0.5),
     // borderRadius: "3em",
+    textTransform: "none",
+    color: "white",
+  },
+  highlightButton: {
+    backgroundColor: theme.palette.highlight.main,
+    "&:hover": {
+      background: theme.palette.highlight.light,
+    },
+    margin: theme.spacing(1),
+    borderRadius: "3em",
     textTransform: "none",
     color: "white",
   },

@@ -62,6 +62,17 @@ const styles = (theme) => ({
     textTransform: "none",
     color: "white",
   },
+  primaryLightLimitedButton: {
+    backgroundColor: theme.palette.primary.light,
+    "&:hover": {
+      background: theme.palette.primary.lightHover,
+    },
+    margin: theme.spacing(1),
+    borderRadius: "3em",
+    textTransform: "none",
+    color: "white",
+    width: "6em",
+  },
   dialog: {
     backgroundColor: theme.palette.primary.dark,
   },

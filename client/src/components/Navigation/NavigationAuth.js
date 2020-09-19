@@ -28,14 +28,17 @@ const NavigationAuth = (props) => {
             </Typography>
             <Button
               variant="contained"
-              className={classes.right}
+              className={`${classes.right} ${classes.highlightButton}`}
               component={Link}
               to={"/account"}
             >
               Account
             </Button>
             <SignOut>
-              <Button variant="contained" className={classes.right}>
+              <Button
+                variant="contained"
+                className={`${classes.right} ${classes.highlightButton}`}
+              >
                 Log Out
               </Button>
             </SignOut>

@@ -125,7 +125,11 @@ const styles = (theme) => ({
   primaryLightButton: {
     backgroundColor: theme.palette.primary.light,
     "&:hover": {
-      background: theme.palette.primary.lightHover,
+      backgroundColor: theme.palette.primary.lightHover,
+    },
+    "&:disabled": {
+      backgroundColor: theme.palette.primary.dark,
+      color: "rgba(255, 255, 255, 0.5 )",
     },
     margin: theme.spacing(1),
     borderRadius: "3em",
@@ -227,7 +231,7 @@ const styles = (theme) => ({
   },
   practiceCard: {
     position: "relative",
-    backgroundColor: "#e3fbfc",
+    backgroundColor: theme.palette.highlight.main,
     display: "flex",
     flexDirection: "column",
     alignContent: "center",
@@ -251,6 +255,7 @@ const styles = (theme) => ({
     margin: "auto",
     padding: "auto",
     display: "flex",
+    backgroundColor: theme.palette.highlight.dark,
     justifyContent: "center",
     alignContent: "center",
     borderRadius: "2em",
@@ -258,6 +263,7 @@ const styles = (theme) => ({
   },
   logInText: {
     width: "40%",
+    color: "white",
     margin: theme.spacing(1),
   },
   clearStyle: {

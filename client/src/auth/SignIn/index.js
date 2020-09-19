@@ -15,10 +15,11 @@ const SignInPage = (props) => {
   const { classes } = props;
   return (
     <div>
-      <Typography variant="h3" className={classes.intro}>
-        Sign In
+      <Typography variant="h4" className={classes.intro}>
+        Login
       </Typography>
       <SignInForm />
+      <br />
       <PasswordForgetLink />
       <SignUpLink />
     </div>
@@ -61,12 +62,19 @@ class SignInFormBase extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <TextField
+          autoFocus
           name="email"
           value={email}
           onChange={this.onChange}
           label="Email Address"
           variant="filled"
           className={classes.logInText}
+          InputProps={{
+            style: {
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
+              color: "black",
+            },
+          }}
         />
         <br />
         <TextField
@@ -77,6 +85,12 @@ class SignInFormBase extends Component {
           variant="filled"
           label="Password"
           className={classes.logInText}
+          InputProps={{
+            style: {
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
+              color: "black",
+            },
+          }}
         />
         <br />
         <Button

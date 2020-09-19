@@ -27,7 +27,7 @@ const NavigationNoAuth = (props) => {
             </Typography>
             <Button
               variant="contained"
-              className={classes.right}
+              className={`${classes.right} ${classes.highlightButton}`}
               component={Link}
               to={"/signin"}
             >

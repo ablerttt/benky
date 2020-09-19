@@ -15,7 +15,7 @@ class EditLinkBase extends React.Component {
         <Button
           component={Link}
           to={`/set/${this.props.id}`}
-          className={classes.primaryLightButton}
+          className={classes.primaryLightLimitedButton}
           variant="contained"
         >
           Edit

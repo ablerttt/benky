@@ -50,7 +50,7 @@ class PasswordForgetFormBase extends Component {
             Reset Password
           </Button>
 
-          {error && <p>{error.message}</p>}
+          {error && <Typography>{error.message}</Typography>}
         </form>
       </div>
     );
@@ -58,18 +58,18 @@ class PasswordForgetFormBase extends Component {
 }
 
 const PasswordForgetLinkBase = (props) => {
-  // <p>
+  // <Typography>
   //   <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
-  // </p>
+  // </Typography>
   const { classes } = props;
   return (
-    <p>
+    <Typography>
       Forgot password? Send a verification email and get it reset
       <Button className={classes.primaryLightButton} variant="contained">
         here
       </Button>
       .
-    </p>
+    </Typography>
   );
 };
 
