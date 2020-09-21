@@ -161,6 +161,9 @@ const styles = (theme) => ({
     "&:hover": {
       background: theme.palette.primary.lightHover,
     },
+    "&:disabled": {
+      background: theme.palette.primary.lightDisabled,
+    },
     margin: theme.spacing(1),
     borderRadius: "3em",
     textTransform: "none",
@@ -197,20 +200,27 @@ const styles = (theme) => ({
     textTransform: "none",
     color: "black",
   },
-
   tabs: {
     textTransform: "none",
     borderRight: `1px solid ${theme.palette.divider}`,
+    margin: "auto",
+    position: "fixed",
   },
   accountRoot: {
-    textTransform: "none",
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
     display: "flex",
-    height: 224,
+    textTransform: "none",
+    padding: "auto",
+    margin: "auto",
+  },
+  accountContainer: {
+    height: "25em",
+    padding: "2em",
+    backgroundColor: "rgba(255,255, 255, 0.18)",
+    borderRadius: "1em",
   },
   tabPanel: {
     width: "70%",
+    marginLeft: "22%",
   },
   practiceLeftFab: {
     position: "absolute",

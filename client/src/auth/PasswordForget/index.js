@@ -38,8 +38,9 @@ class PasswordForgetFormBase extends Component {
 
     return (
       <div>
-        Send a verification email so you can reset your password.
-        <br />
+        <Typography>
+          Send a verification email so you can reset your password.
+        </Typography>
         <br />
         <form onSubmit={this.onSubmit}>
           <Button

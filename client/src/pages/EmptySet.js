@@ -12,8 +12,9 @@ const EmptySet = (props) => {
         Looks like your set is empty!
       </Typography>
       <Typography gutterBottom variant="body1">
-        Consider adding a few terms to continue.
+        Consider adding a few terms.
       </Typography>
+      <br />
       <EditLink id={id} color="b3f0a7" />
     </div>
   );

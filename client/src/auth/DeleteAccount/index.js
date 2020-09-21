@@ -10,6 +10,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Typography from "@material-ui/core/Typography";
 
 class DeleteAccount extends React.Component {
   constructor(props) {
@@ -46,8 +47,7 @@ class DeleteAccount extends React.Component {
     const { showDialog, error } = this.state;
     return (
       <div>
-        Permanantly delete your account.
-        <br />
+        <Typography>Permanantly delete your account.</Typography>
         <br />
         <Button
           className={classes.primaryLightButton}
@@ -56,7 +56,6 @@ class DeleteAccount extends React.Component {
         >
           Delete Account
         </Button>
-        <br />
         <br />
         {error && <p>{error}</p>}
         <Dialog open={showDialog} onClose={this.handleCancel}>

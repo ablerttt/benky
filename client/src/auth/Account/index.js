@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import EmailChange from "../EmailChange";
 import DeleteAccount from "../DeleteAccount";
+import Container from "@material-ui/core/Container";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -24,12 +25,7 @@ function TabPanel(props) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={2}>
-          {children}
-          {/* <Typography>{children}</Typography> */}
-        </Box>
-      )}
+      {value === index && <Box p={2}>{children}</Box>}
     </div>
   );
 }
@@ -77,33 +73,35 @@ const AccountPage = (props) => {
           <Typography variant="h5" className={classes.intro}>
             Account
           </Typography>
-          <div className={classes.accountRoot}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="ant example"
-              orientation="vertical"
-              className={classes.tabs}
-              centered
-            >
-              <AntTab label="Change Email" />
-              <AntTab label="Change Password" />
-              <AntTab label="Forgot Password" />
-              <AntTab label="Delete Account" />
-            </Tabs>
-            <TabPanel className={classes.tabPanel} value={value} index={0}>
-              <EmailChange />
-            </TabPanel>
-            <TabPanel className={classes.tabPanel} value={value} index={1}>
-              <PasswordChangeForm />
-            </TabPanel>
-            <TabPanel className={classes.tabPanel} value={value} index={2}>
-              <PasswordForgetForm />
-            </TabPanel>
-            <TabPanel className={classes.tabPanel} value={value} index={3}>
-              <DeleteAccount />
-            </TabPanel>
-          </div>
+          <Container disableGutters className={classes.accountContainer}>
+            <div className={classes.accountRoot}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="ant example"
+                orientation="vertical"
+                className={classes.tabs}
+                centered
+              >
+                <AntTab label="Change Email" />
+                <AntTab label="Change Password" />
+                <AntTab label="Forgot Password" />
+                <AntTab label="Delete Account" />
+              </Tabs>
+              <TabPanel className={classes.tabPanel} value={value} index={0}>
+                <EmailChange />
+              </TabPanel>
+              <TabPanel className={classes.tabPanel} value={value} index={1}>
+                <PasswordChangeForm />
+              </TabPanel>
+              <TabPanel className={classes.tabPanel} value={value} index={2}>
+                <PasswordForgetForm />
+              </TabPanel>
+              <TabPanel className={classes.tabPanel} value={value} index={3}>
+                <DeleteAccount />
+              </TabPanel>
+            </div>
+          </Container>
         </div>
       )}
     </AuthUserContext.Consumer>

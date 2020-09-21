@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import { compose } from "recompose";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "../../constants/styles";
+import Typography from "@material-ui/core/Typography"
 
 const INITIAL_STATE = {
   passwordOne: "",
@@ -88,7 +89,7 @@ class PasswordChangeForm extends Component {
     const { classes } = this.props;
     return (
       <div>
-        Change your password.
+        <Typography>Change your password.</Typography>
         <br />
         <form onSubmit={this.onSubmit}>
           <TextField
@@ -97,6 +98,16 @@ class PasswordChangeForm extends Component {
             onChange={this.onChange}
             type="password"
             label="Original Password"
+            InputProps={{
+              style: {
+                color: "white",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: "grey",
+              },
+            }}
           />
           <br />
           <TextField
@@ -105,6 +116,16 @@ class PasswordChangeForm extends Component {
             onChange={this.onChange}
             type="password"
             label="New Password"
+            InputProps={{
+              style: {
+                color: "white",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: "grey",
+              },
+            }}
           />
           <br />
           <TextField
@@ -113,6 +134,16 @@ class PasswordChangeForm extends Component {
             onChange={this.onChange}
             type="password"
             label="Confirm New Password"
+            InputProps={{
+              style: {
+                color: "white",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: "grey",
+              },
+            }}
           />
           <br />
           <br />

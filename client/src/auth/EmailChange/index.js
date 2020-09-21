@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
+import Typography from "@material-ui/core/Typography";
 
 class EmailChange extends React.Component {
   constructor(props) {
@@ -57,18 +58,28 @@ class EmailChange extends React.Component {
     const isInvalid = oldEmail === "" || newEmail === "";
     return (
       <div>
-        <div>
+        <Typography>
           Change the email that your account is linked to. If you forget your
           password, you'll receive any emails from this email instead.
-        </div>
+        </Typography>
         <br />
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit} style={{ margin: "auto" }}>
           <TextField
             id="oldEmail"
             name="oldEmail"
             label="Old Email Address"
             onChange={this.onChange}
             value={oldEmail}
+            InputProps={{
+              style: {
+                color: "white",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: "grey",
+              },
+            }}
           />
           <br />
           <TextField
@@ -77,6 +88,16 @@ class EmailChange extends React.Component {
             label="New Email Address"
             onChange={this.onChange}
             value={newEmail}
+            InputProps={{
+              style: {
+                color: "white",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: "grey",
+              },
+            }}
           />
           <br />
           <br />

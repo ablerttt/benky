@@ -18,7 +18,9 @@ const HelpDialog = (props) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{"How to practice?"}</DialogTitle>
+      <DialogTitle id="alert-dialog-title" className={classes.dialog}>
+        {"How to practice?"}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           <Typography component={"span"}>

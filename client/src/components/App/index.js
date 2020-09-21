@@ -43,6 +43,7 @@ const theme = createMuiTheme({
       main: "#38598f",
       light: "#58b1d6",
       lightHover: "#85cfed",
+      lightDisabled: "#9fbfcc",
       dark: "#2878a1",
       darkHover: "#155d82",
       card: "#79c7e8",
