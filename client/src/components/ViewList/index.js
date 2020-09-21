@@ -6,7 +6,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { compose } from "recompose";
 import styles from "../../constants/styles";
 import { convertLastModifiedTime } from "../../constants/times";
@@ -20,6 +19,7 @@ import { TestsLink } from "../Test";
 import { ShowSampleTerms, SampleTerms } from "./SampleTerms";
 import RemoveList from "../RemoveList";
 import NoSets from "../../pages/NoSets";
+import { withAuthorization } from "../../auth/Session";
 
 function sortDateOld(items) {
   items.sort((a, b) => {
@@ -113,15 +113,6 @@ class ViewList extends React.Component {
       expandedId.push(i);
     }
     this.setState({ expandedId });
-  };
-
-  getGridListCols = () => {
-    const { width } = this.state;
-    if (isWidthUp("md", width)) {
-      return 2;
-    }
-
-    return 1;
   };
 
   setSortMethod = (m) => {
@@ -221,4 +212,9 @@ class ViewList extends React.Component {
   }
 }
 
-export default compose(withStyles(styles), withWidth())(ViewList);
+const condition = (authUser) => !!authUser;
+
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(ViewList);

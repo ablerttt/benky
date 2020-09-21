@@ -1,16 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import api from "../../api";
+import CreateDialog from "./CreateDialog";
+import InvalidDialog from "./InvalidDialog";
 import CardInputs from "./CardInputs";
+
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import CreateDialog from "./CreateDialog";
-import InvalidDialog from "./InvalidDialog";
-import { Link } from "react-router-dom";
+import { compose } from "recompose";
+import { withAuthorization } from "../../auth/Session";
 
 class StudySetInsert extends React.Component {
   constructor(props) {
@@ -238,6 +243,11 @@ class NewLinkBase extends React.Component {
 
 const NewSetLink = withStyles(styles)(NewLinkBase);
 
-export default withStyles(styles)(StudySetInsert);
+const condition = (authUser) => !!authUser;
+
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(StudySetInsert);
 
 export { NewSetLink };

@@ -57,8 +57,6 @@ class SignInFormBase extends Component {
     const { email, password, error } = this.state;
     const { classes } = this.props;
 
-    const isInvalid = password === "" || email === "";
-
     return (
       <form onSubmit={this.onSubmit}>
         <TextField
@@ -94,7 +92,6 @@ class SignInFormBase extends Component {
         />
         <br />
         <Button
-          disabled={isInvalid}
           type="submit"
           className={classes.primaryLightButton}
           variant="contained"

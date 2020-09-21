@@ -4,6 +4,7 @@ import TestOptions from "./TestOptions";
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
 import NoTests from "../../pages/NoTests";
+import { withAuthorization } from "../../auth/Session";
 
 class TestSet extends React.Component {
   constructor(props) {
@@ -51,4 +52,6 @@ class TestSet extends React.Component {
   }
 }
 
-export default TestSet;
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(TestSet);

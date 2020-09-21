@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { withAuthorization } from "../../auth/Session";
 
 const EditList = (props) => <EditContainer id={props.match.params.id} />;
 
@@ -25,7 +26,9 @@ class EditLinkBase extends React.Component {
   }
 }
 
-export default EditList;
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(EditList);
 
 const EditLink = withStyles(styles)(EditLinkBase);
 

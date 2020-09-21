@@ -4,6 +4,7 @@ import NotFoundPage from "../../pages/404";
 import TestResultContainer from "./TestResultContainer";
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
+import { withAuthorization } from "../../auth/Session";
 
 class TestResult extends React.Component {
   constructor(props) {
@@ -77,4 +78,6 @@ class TestResult extends React.Component {
   }
 }
 
-export default TestResult;
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(TestResult);

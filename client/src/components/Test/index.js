@@ -10,6 +10,8 @@ import TestContainer from "./TestContainer";
 import { Link } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
+import { withAuthorization } from "../../auth/Session";
+import { compose } from "recompose";
 
 class Test extends React.Component {
   constructor(props) {
@@ -85,7 +87,6 @@ const TestLinkBase = (props) => {
   const { classes, id } = props;
   return (
     <div>
-      {/* {length > 1 && ( */}
       <Button
         component={Link}
         to={`/test/${id}`}
@@ -94,27 +95,14 @@ const TestLinkBase = (props) => {
       >
         Test
       </Button>
-      {/* )} */}
-      {/* {length <= 0 && (
-        <Tooltip
-          title="This set does not have enough terms to test."
-          style={{ padding: "0" }}
-        >
-          <Button
-            disabled
-            className={classes.primaryLightLimitedButton}
-            variant="contained"
-          >
-            Test
-          </Button>
-        </Tooltip>
-      )} */}
     </div>
   );
 };
+
+const condition = (authUser) => !!authUser;
 
 const TestsLink = withStyles(styles)(TestLinkBase);
 
 export { TestsLink };
 
-export default withStyles(styles)(Test);
+export default compose(withStyles(styles), withAuthorization(condition))(Test);

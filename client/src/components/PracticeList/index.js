@@ -8,6 +8,8 @@ import NotFoundPage from "../../pages/404";
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
 import { Link } from "react-router-dom";
+import { compose } from "recompose";
+import { withAuthorization } from "../../auth/Session";
 
 class PracticeSet extends React.Component {
   constructor(props) {
@@ -84,24 +86,17 @@ const PracticeLinkBase = (props) => {
       >
         Practice
       </Button>
-      {/* )} */}
-      {/* {length <= 0 && (
-        <Tooltip title="This set is empty.">
-          <Button
-            disabled
-            className={classes.primaryLightLimitedButton}
-            variant="contained"
-          >
-            Practice
-          </Button>
-        </Tooltip>
-      )} */}
     </div>
   );
 };
+
+const condition = (authUser) => !!authUser;
 
 const PracticeLink = withStyles(styles)(PracticeLinkBase);
 
 export { PracticeLink };
 
-export default withStyles(styles)(PracticeSet);
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(PracticeSet);
