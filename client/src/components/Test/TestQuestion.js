@@ -1,14 +1,11 @@
 import React from "react";
-// import { Prompt } from "react-router";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import Paper from "@material-ui/core/Paper";
 
 var classNames = require("classnames");
 
