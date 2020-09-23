@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-
 const db = require("./db");
 const setRouter = require("./routes/studyset-router");
 const testRouter = require("./routes/testentry-router");
@@ -23,4 +22,8 @@ app.get("/", (req, res) => {
 app.use("/api", setRouter);
 app.use("/api", testRouter);
 
-app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
+// app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
+
+app.listen(process.env.PORT, () =>
+  console.log(`Server running on port ${process.env.PORT}`)
+);
