@@ -7,6 +7,10 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import Paper from "@material-ui/core/Paper";
+
+var classNames = require("classnames");
 
 class TestQuestion extends React.Component {
   constructor(props) {
@@ -18,14 +22,6 @@ class TestQuestion extends React.Component {
     };
   }
 
-  // componentDidUpdate = () => {
-  //   if (this.shouldBlockNavigation) {
-  //     window.onbeforeunload = () => true;
-  //   } else {
-  //     window.onbeforeunload = undefined;
-  //   }
-  // };
-
   updateSelected = (i) => {
     if (this.state.selected === i) {
       this.setState({ selected: -1 });
@@ -36,17 +32,10 @@ class TestQuestion extends React.Component {
     }
   };
 
-  // shouldBlockNavigation = () => {
-  //   return !this.props.submitted;
-  // };
-
   render() {
     const { classes, cards, questions, index, count } = this.props;
     return (
       <div>
-        {/* <React.Fragment>
-          <Prompt message="You haven't finished yet, are you sure you want to leave?" />
-        </React.Fragment> */}
         <Card raised className={classes.testCard}>
           <CardContent className={classes.clearStyle}>
             <Typography variant="h6">
@@ -55,19 +44,20 @@ class TestQuestion extends React.Component {
             </Typography>
             <br />
           </CardContent>
-          <CardActions style={{ display: "inline" }}>
+          <CardActionArea
+            disableRipple
+            style={{
+              display: "inline",
+              margin: "auto",
+            }}
+          >
             {questions[index][1].map((num, selectIndex) => {
               return (
                 <Button
-                  // color={
-                  //   selectIndex === this.state.selected
-                  //     ? "primary"
-                  //     : "secondary"
-                  // }
                   style={
                     selectIndex === this.state.selected
-                      ? { backgroundColor: "#58b1d6" }
-                      : { backgroundColor: "#e3f6ff" }
+                      ? { backgroundColor: "#38598f", color: "white" }
+                      : { backgroundColor: "#B3DBEF" }
                   }
                   onClick={() => this.updateSelected(selectIndex)}
                   key={selectIndex}
@@ -78,7 +68,7 @@ class TestQuestion extends React.Component {
                 </Button>
               );
             })}
-          </CardActions>
+          </CardActionArea>
         </Card>
       </div>
     );

@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
+
 var classNames = require("classnames");
 
 const Question = (props) => {
@@ -48,9 +49,9 @@ const Question = (props) => {
               className={classNames(
                 classes.colortest,
                 classes.buttonSampleTerm,
-                ind === value.chosen && classes.correctButton,
-                ind !== value.chosen &&
-                  ind === value.correctAnswer &&
+                ind === value.correctAnswer && classes.correctButton,
+                ind === value.chosen &&
+                  ind !== value.correctAnswer &&
                   classes.incorrectButton,
                 ind !== value.chosen &&
                   ind !== value.correctAnswer &&

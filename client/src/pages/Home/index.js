@@ -11,7 +11,6 @@ import CardContent from "@material-ui/core/CardContent";
 import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 
-
 const HomePage = (props) => {
   const { classes } = props;
   const options = ["Create a new set.", "Review.", "View test results."];
@@ -24,20 +23,12 @@ const HomePage = (props) => {
   return (
     <div>
       <div className={classes.intro}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Welcome back.
         </Typography>
-        <Typography gutterBottom>
-          What great thing will you do today?
-        </Typography>
+        <Typography gutterBottom>What's the game plan for today?</Typography>
       </div>
-      <Grid
-        container
-        // className={classes.root}
-        alignItems="stretch"
-        direction="row"
-        spacing={3}
-      >
+      <Grid container alignItems="stretch" direction="row" spacing={3}>
         {[0, 1, 2].map((value) => (
           <Grid item key={value} lg={4} sm={6} xs={12}>
             <Card className={classes.homeCard} style={{ height: "100%" }}>

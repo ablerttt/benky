@@ -11,13 +11,45 @@ import Card from "@material-ui/core/Card";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import CloseIcon from "@material-ui/icons/Close";
+import Input from "@material-ui/core/Input";
 
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
 import { withAuthorization } from "../../auth/Session";
 
-class StudySetInsert extends React.Component {
+function shallowCompare(instance, nextProps, nextState) {}
+
+function checkValid(title, cards) {
+  var terms = [];
+  var errs = [];
+  if (title === "") {
+    errs.push("a");
+  }
+  for (let i = 0; i < cards.length; i++) {
+    var cardError = `${i}`;
+    if (cards[i].term === "") {
+      cardError += "t";
+    }
+    if (cards[i].description === "") {
+      cardError += "d";
+    }
+    if (terms.includes(cards[i].term)) {
+      cardError += "m";
+    }
+    if (cardError !== `${i}`) {
+      errs.push(cardError);
+    } else {
+      terms.push(cards[i].term);
+    }
+  }
+  return errs;
+}
+
+class StudySetInsert extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -30,31 +62,9 @@ class StudySetInsert extends React.Component {
     };
   }
 
-  checkValid = (title, cards) => {
-    var terms = [];
-    var errs = [];
-    if (title === "") {
-      errs.push("a");
-    }
-    for (let i = 0; i < cards.length; i++) {
-      var cardError = `${i}`;
-      if (cards[i].term === "") {
-        cardError += "t";
-      }
-      if (cards[i].description === "") {
-        cardError += "d";
-      }
-      if (terms.includes(cards[i].term)) {
-        cardError += "m";
-      }
-      if (cardError !== `${i}`) {
-        errs.push(cardError);
-      } else {
-        terms.push(cards[i].term);
-      }
-    }
-    return errs;
-  };
+  // shouldComponentUpdate = (nextProps, nextState) => {
+  //   return shallowCompare(this, nextProps, nextState);
+  // };
 
   handleChangeCardTerm = async (event, idx) => {
     const term = event.target.value;
@@ -79,23 +89,11 @@ class StudySetInsert extends React.Component {
     this.setState({ title });
   };
 
-  trimWhiteSpace = () => {
-    let { title, cards } = this.state;
-    title = title.trim();
-    for (let i = 0; i < cards.length; i++) {
-      cards[i].term = cards[i].term.trim();
-      cards[i].description = cards[i].description.trim();
-    }
-    this.setState({ title: title, cards: cards });
-  };
-
   validateSet = async (title) => {
-    console.log("Check validate set with " + title);
     let valid = true;
     await api
       .checkTitleExists(title)
       .then((res) => {
-        console.log(res);
         if (res.data.valid && res.data.success) {
         } else {
           valid = false;
@@ -108,10 +106,20 @@ class StudySetInsert extends React.Component {
     return valid;
   };
 
+  trimWhiteSpace = () => {
+    let { title, cards } = this.state;
+    title = title.trim();
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].term = cards[i].term.trim();
+      cards[i].description = cards[i].description.trim();
+    }
+    this.setState({ title: title, cards: cards });
+  };
+
   handleInsertStudySet = async () => {
     this.trimWhiteSpace();
     let { title, cards } = this.state;
-    let errors = this.checkValid(title, cards);
+    let errors = checkValid(title, cards);
     let validateResult = await this.validateSet(title);
     if (!validateResult) {
       errors.unshift("e");
@@ -161,6 +169,29 @@ class StudySetInsert extends React.Component {
       errors,
     } = this.state;
     const { classes } = this.props;
+    let dialog;
+    if (showDialog) {
+      dialog = (
+        <CreateDialog
+          showDialog={showDialog}
+          id={id}
+          escDialog={() => this.setState({ showDialog: false })}
+        />
+      );
+    } else if (showInvalidDialog) {
+      dialog = (
+        <InvalidDialog
+          showDialog={showInvalidDialog}
+          closeInvalidDialog={this.closeInvalid}
+          errors={errors}
+          cards={cards}
+          escInvalidDialog={() => this.setState({ showInvalidDialog: false })}
+        />
+      );
+    } else {
+      dialog = null;
+    }
+
     return (
       <div id="newset">
         <Typography variant="h4" gutterBottom className={classes.intro}>
@@ -205,19 +236,7 @@ class StudySetInsert extends React.Component {
             Create
           </Button>
         </div>
-
-        <CreateDialog
-          showDialog={showDialog}
-          id={id}
-          escDialog={() => this.setState({ showDialog: false })}
-        />
-        <InvalidDialog
-          showDialog={showInvalidDialog}
-          closeInvalidDialog={this.closeInvalid}
-          errors={errors}
-          cards={cards}
-          escInvalidDialog={() => this.setState({ showInvalidDialog: false })}
-        />
+        {dialog}
       </div>
     );
   }

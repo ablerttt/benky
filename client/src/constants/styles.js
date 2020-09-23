@@ -300,7 +300,12 @@ const styles = (theme) => ({
     },
   },
   colortest: {
+    // margin: "1em 0",
     margin: theme.spacing(1),
+    // padding: "1em",
+    color: "black",
+    textAlign: "left",
+    // width: "100%",
     borderRadius: "1em",
     textTransform: "none",
   },

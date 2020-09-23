@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { convertLastModifiedTime } from "../../constants/times";
 
+var classNames = require("classnames");
+
 function calculateScore(questionSet) {
   const total = questionSet.length;
   var correct = 0;
@@ -48,7 +50,54 @@ const TestResultContainer = (props) => {
           </Typography>
         </div>
       </Grid>
-
+      <br />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography>Key: </Typography>
+        <Button
+          className={classNames(
+            classes.colortest,
+            classes.buttonSampleTerm,
+            classes.correctButton
+          )}
+          variant="contained"
+          disableRipple
+          disableFocusRipple
+          disableTouchRipple
+        >
+          Correct Answer
+        </Button>
+        <Button
+          className={classNames(
+            classes.colortest,
+            classes.buttonSampleTerm,
+            classes.incorrectButton
+          )}
+          variant="contained"
+          disableRipple
+          disableFocusRipple
+          disableTouchRipple
+        >
+          Incorrect Answer
+        </Button>
+        <Button
+          className={classNames(
+            classes.colortest,
+            classes.buttonSampleTerm,
+            classes.unselectedButton
+          )}
+          variant="contained"
+          disableRipple
+          disableFocusRipple
+          disableTouchRipple
+        >
+          Irrelevant Answer
+        </Button>
+      </div>
       {questionSet.map((q, i) => {
         return <Question value={q} key={i} index={parseInt(i + 1)} />;
       })}

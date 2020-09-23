@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/flare", { useNewUrlParser: true })
+  .connect(
+    "mongodb+srv://albert:xVMENDHCGi6sGaj@benkymain.wlkyu.mongodb.net/test?retryWrites=true&w=majority",
+    { useNewUrlParser: true }
+  )
   .catch((e) => {
     console.error("Connection error", e.message);
   });
