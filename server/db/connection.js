@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 const uri =
   "mongodb+srv://albert:xVMENDHCGi6sGaj@benkymain.wlkyu.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri);
+const client = new MongoClient(uri, { useUnifiedTopology: true });
 
 async function listDatabases(client) {
   databasesList = await client.db().admin().listDatabases();

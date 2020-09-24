@@ -7,7 +7,6 @@ const setRouter = require("./routes/studyset-router");
 const testRouter = require("./routes/testentry-router");
 
 const app = express();
-const apiPort = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
@@ -22,8 +21,8 @@ app.get("/", (req, res) => {
 app.use("/api", setRouter);
 app.use("/api", testRouter);
 
-// app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
+var port = process.env.port || 3000;
 
-app.listen(process.env.PORT, () =>
-  console.log(`Server running on port ${process.env.PORT}`)
-);
+app.listen(port);
+
+console.log("Server running on port " + port);
