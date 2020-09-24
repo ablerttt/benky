@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -21,7 +22,7 @@ app.get("/", (req, res) => {
 app.use("/api", setRouter);
 app.use("/api", testRouter);
 
-var port = process.env.port || 3000;
+var port = process.env.PORT || 3000;
 
 app.listen(port);
 
