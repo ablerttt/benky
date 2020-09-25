@@ -31,7 +31,7 @@ const styles = (theme) => ({
     "&:hover": {
       background: theme.palette.highlight.light,
     },
-    margin: theme.spacing(1),
+    // margin: theme.spacing(1),
     borderRadius: "3em",
     textTransform: "none",
     color: "white",

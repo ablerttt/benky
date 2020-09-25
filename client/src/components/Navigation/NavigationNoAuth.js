@@ -16,7 +16,7 @@ const NavigationNoAuth = (props) => {
     <div className={classes.root}>
       <AppBar position="static" className={classes.appbar}>
         <Container maxWidth="md">
-          <Toolbar>
+          <Toolbar style={{ padding: "0" }}>
             <Typography
               variant="h6"
               component={Link}
