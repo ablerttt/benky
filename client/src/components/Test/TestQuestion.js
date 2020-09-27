@@ -7,8 +7,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActionArea from "@material-ui/core/CardActionArea";
 
-var classNames = require("classnames");
-
 class TestQuestion extends React.Component {
   constructor(props) {
     super(props);

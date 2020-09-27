@@ -66,6 +66,7 @@ class ViewList extends React.Component {
   }
 
   componentDidMount = async () => {
+    console.log(process.env);
     await api.getAllStudySets().then((res) => {
       var items = Object.entries(res.data.data);
       for (let i = 0; i < items.length; i++) {

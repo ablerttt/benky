@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const connection =
   "mongodb+srv://albert:xVMENDHCGi6sGaj@benkymain.wlkyu.mongodb.net/test?retryWrites=true&w=majority";
 
+  
 mongoose
   .connect(connection, {
     useNewUrlParser: true,

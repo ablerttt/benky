@@ -11,17 +11,11 @@ import Card from "@material-ui/core/Card";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import CloseIcon from "@material-ui/icons/Close";
-import Input from "@material-ui/core/Input";
 
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
 import { withAuthorization } from "../../auth/Session";
-
-function shallowCompare(instance, nextProps, nextState) {}
 
 function checkValid(title, cards) {
   var terms = [];

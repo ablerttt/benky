@@ -30,6 +30,10 @@ class Firebase {
   doPasswordReset = () =>
     this.auth.sendPasswordResetEmail(this.auth.currentUser.email);
 
+  doPasswordResetWithEmail = async (email) => {
+    await this.auth.sendPasswordResetEmail(email);
+  };
+
   doCurrentPasswordVerification = async (currentPassword) => {
     const credential = this.auth.app.firebase_.auth.EmailAuthProvider.credential(
       this.auth.currentUser.email,
