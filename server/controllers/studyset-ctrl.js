@@ -59,11 +59,13 @@ insertStudySet = (req, res) => {
 };
 
 getAllStudySets = (req, res) => {
+  console.log("get all function was called.");
   StudySet.find({})
     .then((studysets) => {
       if (!studysets.length) {
         return res.status(200).json({ success: true, data: {} });
       }
+      console.log("Success!");
       return res.status(200).json({ success: true, data: studysets });
     })
     .catch((err) => {

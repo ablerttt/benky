@@ -48,7 +48,9 @@ const RemoveList = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Remove this set?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title" className={classes.dialog}>
+          {"Remove this set?"}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Once you remove this set, it cannot be recovered.

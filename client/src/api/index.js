@@ -1,16 +1,14 @@
 import axios from "axios";
-
-// const api = axios.create({
-//   baseURL: "http://localhost:8000/api",
-// });
+// import { auth } from
 
 const api = axios.create({
-  baseURL: "http://benkyapi.herokuapp.com/api",
+  // baseURL: "https://benkyapi.herokuapp.com/api",
+  baseURL: "http://localhost:3000/api",
 });
 
 export const insertStudySet = (title, cards) =>
   api.post(`/set`, { title: title, cards: cards });
-export const getAllStudySets = () => api.get(`/setlist`);
+export const getAllStudySets = (params) => api.get(`/setlist`, params);
 export const getStudySetById = (id) => api.get(`/set/${id}`);
 export const checkValidId = (id) => api.get(`/validset/${id}`);
 export const updateStudySetById = (id, title, cards) =>
