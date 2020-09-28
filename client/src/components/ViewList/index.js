@@ -36,15 +36,18 @@ class ViewList extends React.Component {
               items[i] = items[i][1];
             }
             SORT.sortDateNew(items);
+
+            console.log(items);
+            if (items.length === 0) {
+              console.log("empty");
+              this.setState({ empty: true });
+            }
+
             this.setState({
               items,
               verified: true,
               valid: true,
             });
-
-            if (items.length === 0) {
-              this.setState({ empty: true, verified: true, valid: false });
-            }
           });
       })
       .catch((e) => {

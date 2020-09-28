@@ -1,10 +1,9 @@
 const StudySet = require("../models/set-model");
 
 checkTitleExists = (req, res) => {
-  // console.log(req);
-  const title = req.query.title;
+  const title = req.headers.title;
 
-  StudySet.findOne({ title: title }, (err, existingSet) => {
+  StudySet.findOne({ title: title, uid: req.authId }, (err, existingSet) => {
     if (err) {
       return res.status(400).json({ success: false, valid: false, error: err });
     }
@@ -21,7 +20,12 @@ checkTitleExists = (req, res) => {
 };
 
 insertStudySet = (req, res) => {
-  const body = req.body;
+  console.log(req);
+  console.log(req.authId);
+  var body = req.body.headers;
+  body["uid"] = req.authId;
+  console.log(body);
+
   if (!body) {
     console.log(`Invalid set detected.`);
     return res.status(400).json({
@@ -60,12 +64,13 @@ insertStudySet = (req, res) => {
 
 getAllStudySets = (req, res) => {
   console.log("get all function was called.");
-  StudySet.find({})
+  StudySet.find({ uid: req.authId })
     .then((studysets) => {
       if (!studysets.length) {
         return res.status(200).json({ success: true, data: {} });
       }
-      console.log("Success!");
+      console.log("Success! data is ");
+      console.log(studysets);
       return res.status(200).json({ success: true, data: studysets });
     })
     .catch((err) => {

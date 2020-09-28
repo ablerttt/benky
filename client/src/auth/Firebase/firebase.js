@@ -19,6 +19,15 @@ class Firebase {
     this.db = app.database();
   }
 
+  verifyAuth = () => {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+      } else {
+        this.doSignOut();
+      }
+    });
+  };
+
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
 
@@ -55,6 +64,10 @@ class Firebase {
   };
 
   doDeleteUser = () => this.auth.currentUser.delete();
+
+  getUserID = () => this.auth.currentUser.uid;
+
+  getUserToken = () => this.auth.currentUser.getIdToken();
 
   user = (uid) => this.db.ref(`users/${uid}`);
 

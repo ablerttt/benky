@@ -8,15 +8,15 @@ const setRouter = require("./routes/studyset-router");
 const testRouter = require("./routes/testentry-router");
 
 const app = express();
-
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.raw());
+app.use(cors());
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("This server is working, yay!");
 });
 
 app.use("/api", setRouter);

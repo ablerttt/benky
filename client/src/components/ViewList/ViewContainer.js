@@ -26,10 +26,10 @@ class ViewContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: this.props.items,
-      expandedId: this.props.expandedId,
+      items: props.items,
+      expandedId: props.expandedId,
       sort: "datenew",
-      empty: false,
+      empty: props.empty,
     };
   }
 

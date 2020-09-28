@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const QuestionEntry = new Schema({
   term: { type: String, required: true },
   correctAnswer: { type: Number, required: true },
@@ -14,6 +13,7 @@ const TestEntry = new Schema({
   title: { type: String, required: true },
   dateTaken: { type: Date, required: true },
   questionSet: { type: [QuestionEntry], required: true },
+  uid: { type: String, required: true },
 });
 
 module.exports = mongoose.model("testresult", TestEntry);

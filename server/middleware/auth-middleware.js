@@ -1,17 +1,15 @@
 var admin = require("firebase-admin");
 
-const config = {
-  apiKey: "AIzaSyAJ7S7Mta3-GIEovHbFcrcpyT-6gZUxORk",
-  authDomain: "flashcards-951ca.firebaseapp.com",
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
   databaseURL: "https://flashcards-951ca.firebaseio.com",
   projectId: "flashcards-951ca",
-  storageBucket: "flashcards-951ca.appspot.com",
-  messagingSenderId: "267634257754",
-};
-
-admin.initializeApp(config);
+});
 
 const getAuthToken = (req, res, next) => {
+  if (req.body.headers) {
+    req.headers = req.body.headers;
+  }
   if (
     req.headers.authorization &&
     req.headers.authorization.split(" ")[0] === "Bearer"
@@ -24,17 +22,16 @@ const getAuthToken = (req, res, next) => {
 };
 
 const checkIfAuthenticated = (req, res, next) => {
+  // console.log(req);
   getAuthToken(req, res, async () => {
     try {
       const { authToken } = req;
+      // console.log(authToken);
       const userInfo = await admin.auth().verifyIdToken(authToken);
       req.authId = userInfo.uid;
-      console.log("Request auth ID");
-      console.log(req.authId);
       return next();
     } catch (e) {
-      console.log("Caught an error!!!");
-      console.log(e);
+      console.log("ERROR " + e);
       return res
         .status(401)
         .send({ error: "You are not authorized to make this request" });

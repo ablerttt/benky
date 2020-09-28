@@ -14,8 +14,11 @@ import Typography from "@material-ui/core/Typography";
 
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
+import { withFirebase } from "../../auth/Firebase";
 import { compose } from "recompose";
 import { withAuthorization } from "../../auth/Session";
+
+import firebase from "firebase/app";
 
 function checkValid(title, cards) {
   var terms = [];
@@ -56,10 +59,6 @@ class StudySetInsert extends React.PureComponent {
     };
   }
 
-  // shouldComponentUpdate = (nextProps, nextState) => {
-  //   return shallowCompare(this, nextProps, nextState);
-  // };
-
   handleChangeCardTerm = async (event, idx) => {
     const term = event.target.value;
     let cards = [...this.state.cards];
@@ -83,23 +82,6 @@ class StudySetInsert extends React.PureComponent {
     this.setState({ title });
   };
 
-  validateSet = async (title) => {
-    let valid = true;
-    await api
-      .checkTitleExists(title)
-      .then((res) => {
-        if (res.data.valid && res.data.success) {
-        } else {
-          valid = false;
-        }
-      })
-      .catch((error) => {
-        console.log("Error while validating set title: " + error);
-        valid = false;
-      });
-    return valid;
-  };
-
   trimWhiteSpace = () => {
     let { title, cards } = this.state;
     title = title.trim();
@@ -110,27 +92,78 @@ class StudySetInsert extends React.PureComponent {
     this.setState({ title: title, cards: cards });
   };
 
+  validateSet = async (title) => {
+    const { uid } = this.state;
+    let valid = true;
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then((idToken) => {
+        api
+          .checkTitleExists(title, uid, {
+            headers: { authorization: `Bearer ${idToken}` },
+          })
+          .then((res) => {
+            if (res.data.valid && res.data.success) {
+            } else {
+              valid = false;
+            }
+          })
+          .catch((error) => {
+            console.log("Error while validating set title: " + error);
+            valid = false;
+          });
+      });
+
+    return valid;
+  };
+
   handleInsertStudySet = async () => {
     this.trimWhiteSpace();
     let { title, cards } = this.state;
     let errors = checkValid(title, cards);
-    let validateResult = await this.validateSet(title);
-    if (!validateResult) {
-      errors.unshift("e");
-    }
+    let valid = true;
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then((idToken) => {
+        api
+          .checkTitleExists({
+            headers: {
+              title: title,
+              authorization: `Bearer ${idToken}`,
+            },
+          })
+          .then(async (res) => {
+            valid = res.data.valid && res.data.success;
 
-    if (errors.length > 0) {
-      this.setState({ showInvalidDialog: true, errors: errors });
-      return;
-    }
+            if (!valid) {
+              errors.unshift("e");
+            }
 
-    api
-      .insertStudySet(title, cards)
-      .then((res) => {
-        this.setState({
-          id: res.data.id,
-          showDialog: true,
-        });
+            if (errors.length > 0) {
+              console.log("there are errors. aborting.");
+              this.setState({ showInvalidDialog: true, errors: errors });
+              return;
+            }
+
+            console.log("there are no errors. continue with inserting.");
+
+            await api
+              .insertStudySet({
+                headers: {
+                  "Content-Type":
+                    // "application/x-www-form-urlencoded; charset=UTF-8",
+                    "application/json",
+                  cards: cards,
+                  title: title,
+                  authorization: `Bearer ${idToken}`,
+                },
+              })
+              .then((res) => {
+                this.setState({ id: res.data.id, showDialog: true });
+              });
+          });
       })
       .catch((e) => {
         console.log(e);
@@ -260,6 +293,7 @@ const condition = (authUser) => !!authUser;
 
 export default compose(
   withStyles(styles),
+  withFirebase,
   withAuthorization(condition)
 )(StudySetInsert);
 

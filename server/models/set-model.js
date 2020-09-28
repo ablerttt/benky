@@ -10,6 +10,7 @@ const StudySet = new Schema(
   {
     title: { type: String, required: true },
     cards: { type: [SetEntry], required: true },
+    uid: { type: String, required: true },
   },
   { timestamps: true }
 );

@@ -1,21 +1,18 @@
 import axios from "axios";
-// import { auth } from
-
 const api = axios.create({
   // baseURL: "https://benkyapi.herokuapp.com/api",
   baseURL: "http://localhost:3000/api",
 });
 
-export const insertStudySet = (title, cards) =>
-  api.post(`/set`, { title: title, cards: cards });
+export const insertStudySet = (params) => api.post(`/set`, params);
 export const getAllStudySets = (params) => api.get(`/setlist`, params);
 export const getStudySetById = (id) => api.get(`/set/${id}`);
-export const checkValidId = (id) => api.get(`/validset/${id}`);
+export const checkValidId = (id, uid) =>
+  api.get(`/validset/${id}`, { uid: uid });
 export const updateStudySetById = (id, title, cards) =>
   api.put(`/set/${id}`, { title, cards });
 export const deleteStudySetById = (id) => api.delete(`/set/${id}`);
-export const checkTitleExists = (title) =>
-  api.get(`/existingset`, { params: { title: title } });
+export const checkTitleExists = (params) => api.get(`/existingset`, params);
 
 // test result api functions
 export const insertTestResult = (id, title, date, questionSet) =>
