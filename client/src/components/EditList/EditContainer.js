@@ -13,6 +13,7 @@ import Card from "@material-ui/core/Card";
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
 import NotFoundPage from "../../pages/404";
+import firebase from "firebase/app";
 
 class EditContainer extends React.Component {
   constructor(props) {
@@ -76,28 +77,35 @@ class EditContainer extends React.Component {
   };
 
   componentDidMount = async () => {
-    await api
-      .getStudySetById(this.state.id)
-      .then((res) => {
-        var currentTime = new Date().getTime();
-        while (currentTime + 300 >= new Date().getTime()) {}
-        if (res.data.success && res.data.valid) {
-          var set = res.data.data;
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then((idToken) => {
+        api
+          .getStudySetById(this.state.id, {
+            headers: { authorization: `Bearer ${idToken}` },
+          })
+          .then((res) => {
+            console.log(res);
+            var currentTime = new Date().getTime();
+            while (currentTime + 300 >= new Date().getTime()) {}
+            if (res.data.success && res.data.valid) {
+              var set = res.data.data;
 
-          this.setState({
-            title: set.title,
-            oldtitle: set.title,
-            cards: set.cards,
-            render: true,
-            validSet: true,
+              this.setState({
+                title: set.title,
+                oldtitle: set.title,
+                cards: set.cards,
+                render: true,
+                validSet: true,
+              });
+            } else {
+              this.setState({ render: true, validSet: false });
+            }
           });
-        } else {
-          this.setState({ render: true, validSet: false });
-        }
       })
       .catch((e) => {
-        console.log(e);
-        this.setState({ render: true, validSet: false });
+        console.log("Error while getting study set.");
       });
   };
 
@@ -136,50 +144,102 @@ class EditContainer extends React.Component {
     this.setState({ title });
   };
 
-  validateSet = async (title) => {
+  validateTitle = (title) => {
     let valid = true;
+    const { id } = this.state;
     const oldtitle = this.state.oldtitle;
-    await api
-      .checkTitleExists(title)
-      .then((res) => {
-        console.log(res);
-        if (
-          (res.data.valid && res.data.success) ||
-          (res.data.success && !res.data.valid && title === oldtitle)
-        ) {
-          this.setState({ valid: true });
-        } else {
-          this.setState({ valid: false });
-        }
-      })
-      .catch((error) => {
-        console.log("Error while validating set title: " + error);
-        this.setState({ valid: false });
+
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then((idToken) => {
+        api.checkTitleExists({
+          headers: {
+            title: title,
+            authorization: `Bearer ${idToken}`,
+            orig_id: id,
+          },
+        });
+        //   .then((res) => {
+        //     console.log("checking if title exists ");
+        //     console.log(res.data);
+        //     if (res.data.valid && res.data.success) {
+        //       this.setState({ valid: true });
+        //     } else {
+        //       this.setState({ valid: false });
+        //       valid = false;
+        //     }
+        //   });
+        // return valid;
       });
-    return valid;
+    // .catch((error) => {
+    //   console.log("Error while validating set title: " + error);
+    //   this.setState({ valid: false });
+    // });
   };
 
   handleUpdateStudySet = async () => {
     this.trimWhiteSpace();
     let { id, title, cards } = this.state;
-    let errors = await this.checkValid(title, cards);
-    let validateResult = await this.validateSet(title);
-    if (!validateResult) {
-      errors.unshift("e");
-    }
+    let errors = this.checkValid(title, cards);
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then((idToken) => {
+        api
+          .checkTitleExists({
+            headers: {
+              title: title,
+              authorization: `Bearer ${idToken}`,
+              orig_id: id,
+            },
+          })
+          .then((res) => {
+            if (res.data.valid && res.data.success) {
+              this.setState({ valid: true });
+            } else {
+              this.setState({ valid: false });
+              errors.unshift("e");
+            }
 
-    if (errors.length > 0) {
-      this.setState({ showInvalidDialog: true, errors: errors });
-      return;
-    }
-    api
-      .updateStudySetById(id, title, cards)
-      .then((res) => {
-        this.setState({ showDialog: true });
+            if (errors.length > 0) {
+              this.setState({ showInvalidDialog: true, errors: errors });
+              return;
+            }
+
+            // api
+            //   .updateStudySetById(id, {
+            //     headers: {
+            //       title: title,
+            //       authorization: `Bearer ${idToken}`,
+            //       cards: cards,
+            //     },
+            //   })
+            //   .then((res) => {
+            //     this.setState({ showDialog: true });
+            //     return;
+            //   });
+
+            this.update(id, title, idToken, cards).then((res) => {
+              console.log(res);
+              this.setState({ showDialog: true });
+            });
+          });
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((error) => {
+        console.log("Failed!!!");
+        console.log(error);
       });
+  };
+
+  update = async (id, title, idToken, cards) => {
+    await api.updateStudySetById(id, {
+      headers: {
+        title: title,
+        authorization: `Bearer ${idToken}`,
+        cards: cards,
+      },
+    });
   };
 
   render() {

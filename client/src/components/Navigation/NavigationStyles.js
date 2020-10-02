@@ -13,6 +13,9 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(2),
     borderRadius: "3em",
   },
+  titleText: {
+    color: theme.palette.primary.light,
+  },
   appbar: {
     backgroundColor: "rgba(255, 255, 255, 0.0)",
   },

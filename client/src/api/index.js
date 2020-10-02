@@ -6,13 +6,13 @@ const api = axios.create({
 
 export const insertStudySet = (params) => api.post(`/set`, params);
 export const getAllStudySets = (params) => api.get(`/setlist`, params);
-export const getStudySetById = (id) => api.get(`/set/${id}`);
-export const checkValidId = (id, uid) =>
-  api.get(`/validset/${id}`, { uid: uid });
-export const updateStudySetById = (id, title, cards) =>
-  api.put(`/set/${id}`, { title, cards });
-export const deleteStudySetById = (id) => api.delete(`/set/${id}`);
 export const checkTitleExists = (params) => api.get(`/existingset`, params);
+export const getStudySetById = (id, params) => api.get(`/set/${id}`, params);
+
+// export const checkValidId = (id, uid) =>
+//   api.get(`/validset/${id}`, { uid: uid });
+export const updateStudySetById = (id, params) => api.put(`/set/${id}`, params);
+export const deleteStudySetById = (id, params) => api.delete(`/set/${id}`, params);
 
 // test result api functions
 export const insertTestResult = (id, title, date, questionSet) =>
@@ -32,7 +32,7 @@ const apis = {
   updateStudySetById,
   deleteStudySetById,
   getStudySetById,
-  checkValidId,
+  // checkValidId,
   checkTitleExists,
 
   insertTestResult,

@@ -17,14 +17,25 @@ const NavigationNoAuth = (props) => {
       <AppBar position="static" className={classes.appbar}>
         <Container maxWidth="md">
           <Toolbar style={{ padding: "0" }}>
-            <Typography
-              variant="h6"
-              component={Link}
-              to={ROUTES.LANDING}
+            <div
               className={classes.title}
+              style={{ marginLeft: "0", paddingLeft: "0" }}
             >
-              <strong>LOGO</strong>
-            </Typography>
+              <Button
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.0)",
+                  textTransform: "none",
+                  marginLeft: "0",
+                  paddingLeft: "0",
+                }}
+                component={Link}
+                to={ROUTES.LANDING}
+              >
+                <Typography variant="h5" className={classes.titleText}>
+                  <strong>benky</strong>
+                </Typography>
+              </Button>
+            </div>
             <Button
               variant="contained"
               className={`${classes.right} ${classes.highlightButton}`}

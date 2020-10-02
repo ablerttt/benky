@@ -12,6 +12,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
 import { withAuthorization } from "../../auth/Session";
 import { compose } from "recompose";
+import firebase from "firebase/app";
 
 class Test extends React.Component {
   constructor(props) {
@@ -26,24 +27,30 @@ class Test extends React.Component {
   }
 
   componentDidMount = async () => {
-    await api
-      .getStudySetById(this.state.id)
-      .then((res) => {
-        if (res.data.success && res.data.valid) {
-          this.setState({
-            valid: true,
-            title: res.data.data.title,
-            cards: res.data.data.cards,
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then((idToken) => {
+        api
+          .getStudySetById(this.state.id, {
+            headers: { authorization: `Bearer ${idToken}` },
+          })
+          .then((res) => {
+            if (res.data.success && res.data.valid) {
+              this.setState({
+                valid: true,
+                title: res.data.data.title,
+                cards: res.data.data.cards,
+              });
+            } else {
+              this.setState({ valid: false });
+            }
+          })
+          .catch((e) => {
+            console.log(e);
           });
-        } else {
-          this.setState({ valid: false });
-        }
-      })
-      .catch((e) => {
-        console.log(e);
+        this.setState({ checked: true });
       });
-
-    this.setState({ checked: true });
   };
 
   render() {

@@ -7,6 +7,7 @@ admin.initializeApp({
 });
 
 const getAuthToken = (req, res, next) => {
+  // console.log(req);
   if (req.body.headers) {
     req.headers = req.body.headers;
   }
@@ -26,7 +27,6 @@ const checkIfAuthenticated = (req, res, next) => {
   getAuthToken(req, res, async () => {
     try {
       const { authToken } = req;
-      // console.log(authToken);
       const userInfo = await admin.auth().verifyIdToken(authToken);
       req.authId = userInfo.uid;
       return next();

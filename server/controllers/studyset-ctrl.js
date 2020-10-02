@@ -1,19 +1,28 @@
 const StudySet = require("../models/set-model");
 
 checkTitleExists = (req, res) => {
+  console.log("Checking if title exists!!!");
   const title = req.headers.title;
+  const orig_id = req.headers.orig_id;
 
-  StudySet.findOne({ title: title, uid: req.authId }, (err, existingSet) => {
-    if (err) {
-      return res.status(400).json({ success: false, valid: false, error: err });
+  console.log("Checking if the title exists.");
+  StudySet.findOne(
+    { title: title, uid: req.authId, _id: { $ne: orig_id } },
+    (err, existingSet) => {
+      if (err) {
+        return res
+          .status(400)
+          .json({ success: false, valid: false, error: err });
+      }
+      console.log("Got a result of ");
+      console.log(existingSet);
+      if (existingSet) {
+        return res.status(200).json({ success: true, valid: false });
+      } else {
+        return res.status(200).json({ success: true, valid: true });
+      }
     }
-    console.log("Existing Set: " + existingSet);
-    if (existingSet) {
-      return res.status(200).json({ success: true, valid: false });
-    } else {
-      return res.status(200).json({ success: true, valid: true });
-    }
-  }).catch((error) => {
+  ).catch((error) => {
     console.log(error);
     return res.status(400).json({ success: false, valid: false, error: error });
   });
@@ -80,22 +89,27 @@ getAllStudySets = (req, res) => {
 };
 
 checkIdExists = async (req, res) => {
-  await StudySet.countDocuments({ _id: req.params.id }, (err, count) => {
-    if (count > 0) {
-      return res.status(200).json({ success: true, valid: true, count: count });
-    } else {
-      return res
-        .status(200)
-        .json({ success: true, valid: false, count: count });
+  await StudySet.countDocuments(
+    { _id: req.params.id, uid: req.authId },
+    (err, count) => {
+      if (count > 0) {
+        return res
+          .status(200)
+          .json({ success: true, valid: true, count: count });
+      } else {
+        return res
+          .status(200)
+          .json({ success: true, valid: false, count: count });
+      }
     }
-  }).catch((err) => {
+  ).catch((err) => {
     console.log(err);
     return res.status(400).json({ success: false, valid: false, error: err });
   });
 };
 
 getStudySetById = (req, res) => {
-  StudySet.findOne({ _id: req.params.id }, (err, studyset) => {
+  StudySet.findOne({ _id: req.params.id, uid: req.authId }, (err, studyset) => {
     if (err) {
       return res.status(400).json({ success: false, valid: false, error: err });
     }
@@ -113,6 +127,7 @@ getStudySetById = (req, res) => {
 
 updateStudySetById = async (req, res) => {
   const body = req.body;
+  console.log(body);
 
   if (!body) {
     return res.status(400).json({
@@ -121,7 +136,7 @@ updateStudySetById = async (req, res) => {
     });
   }
 
-  StudySet.findOne({ _id: req.params.id }, (err, studyset) => {
+  StudySet.findOne({ _id: req.params.id, uid: req.authId }, (err, studyset) => {
     if (err) {
       return res.status(404).json({
         err,
@@ -129,8 +144,8 @@ updateStudySetById = async (req, res) => {
       });
     }
 
-    studyset.title = body.title;
-    studyset.cards = body.cards;
+    studyset.title = body.headers.title;
+    studyset.cards = body.headers.cards;
     studyset
       .save()
       .then(() => {
@@ -142,13 +157,14 @@ updateStudySetById = async (req, res) => {
       })
       .catch((err) => {
         console.log("Did not update study set.");
+        console.log(err);
         return res.status(404).json({ success: false, error: err });
       });
   });
 };
 
 removeStudySetById = (req, res) => {
-  StudySet.findOneAndDelete({ _id: req.params.id }, (err) => {
+  StudySet.findOneAndDelete({ _id: req.params.id, uid: req.authId }, (err) => {
     if (err) {
       console.log(`Failed to find the study set to delete.`);
       return res.status(400).json({ success: false, error: err });

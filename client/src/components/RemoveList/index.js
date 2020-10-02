@@ -9,6 +9,7 @@ import api from "../../api";
 import styles from "../../constants/styles";
 import { withStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
+import firebase from "firebase/app";
 
 const RemoveList = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -25,9 +26,21 @@ const RemoveList = (props) => {
 
   const handleRemoveSetButton = () => {
     handleClose();
-    api.deleteStudySetById(props.id).then((res) => {
-      console.log(`Studyset deleted with response ${res}`);
-    });
+    firebase
+      .auth()
+      .currentUser.getIdToken()
+      .then((idToken) => {
+        api
+          .deleteStudySetById(props.id, {
+            headers: {
+              authorization: `Bearer ${idToken}`,
+            },
+          })
+          .then((res) => {
+            console.log(`Studyset deleted with response ${res}`);
+          });
+      });
+
     props.onRemoveSet(props.keyVal);
   };
 

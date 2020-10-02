@@ -15,10 +15,17 @@ router.get("/setlist", authMiddleware.checkIfAuthenticated, (req, res) => {
 router.get("/existingset", authMiddleware.checkIfAuthenticated, (req, res) => {
   StudySetCtrl.checkTitleExists(req, res);
 });
-router.get("/set/:id", StudySetCtrl.getStudySetById);
-router.get("/validset/:id", StudySetCtrl.checkIdExists);
-router.put("/set/:id", StudySetCtrl.updateStudySetById);
-router.delete("/set/:id", StudySetCtrl.removeStudySetById);
-router.get("/existingset", StudySetCtrl.checkTitleExists);
+router.get("/set/:id", authMiddleware.checkIfAuthenticated, (req, res) => {
+  StudySetCtrl.getStudySetById(req, res);
+});
+router.get("/validset/:id", authMiddleware.checkIfAuthenticated, (req, res) => {
+  StudySetCtrl.checkIdExists(req, res);
+});
+router.put("/set/:id", authMiddleware.checkIfAuthenticated, (req, res) => {
+  StudySetCtrl.updateStudySetById(req, res);
+});
+router.delete("/set/:id", authMiddleware.checkIfAuthenticated, (req, res) => {
+  StudySetCtrl.removeStudySetById(req, res);
+});
 
 module.exports = router;

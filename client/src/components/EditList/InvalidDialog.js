@@ -46,8 +46,13 @@ const ErrorCard = (props) => {
   }
 
   return (
-    <ListItem key={`error=${code[0]}`}>
-      <ListItemText primary={`${term}`} secondary={err} />
+    <ListItem key={`error-${code[0]}`}>
+      <ListItemText
+        component={"span"}
+        primary={`${term}`}
+        secondary={err}
+        key={`error-text-${code[0]}`}
+      />
     </ListItem>
   );
 };
@@ -57,7 +62,7 @@ const ListErrors = (props) => {
     <List dense>
       {props.errors.map((i, c) => {
         return (
-          <DialogContentText>
+          <DialogContentText key={c}>
             <ErrorCard
               code={i}
               c={c}

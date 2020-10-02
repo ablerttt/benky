@@ -10,6 +10,7 @@ import { css } from "@emotion/core";
 import { Link } from "react-router-dom";
 import { compose } from "recompose";
 import { withAuthorization } from "../../auth/Session";
+import firebase from "firebase/app";
 
 class PracticeSet extends React.Component {
   constructor(props) {
@@ -22,26 +23,33 @@ class PracticeSet extends React.Component {
   }
 
   componentDidMount = async () => {
-    await api
-      .getStudySetById(this.state.id)
-      .then((res) => {
-        var currentTime = new Date().getTime();
-        while (currentTime + 300 >= new Date().getTime()) {}
-        console.log(res);
-        if (res.data.success && res.data.data != null) {
-          this.setState({
-            valid: true,
-            title: res.data.data.title,
-            cards: res.data.data.cards,
-            checked: true,
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then((idToken) => {
+        api
+          .getStudySetById(this.state.id, {
+            headers: { authorization: `Bearer ${idToken}` },
+          })
+          .then((res) => {
+            var currentTime = new Date().getTime();
+            while (currentTime + 300 >= new Date().getTime()) {}
+            console.log(res);
+            if (res.data.success && res.data.data != null) {
+              this.setState({
+                valid: true,
+                title: res.data.data.title,
+                cards: res.data.data.cards,
+                checked: true,
+              });
+            } else {
+              this.setState({ valid: false, checked: true });
+            }
+          })
+          .catch((e) => {
+            console.log("Error is " + e);
+            this.setState({ valid: false, checked: true });
           });
-        } else {
-          this.setState({ valid: false, checked: true });
-        }
-      })
-      .catch((e) => {
-        console.log("Error is " + e);
-        this.setState({ valid: false, checked: true });
       });
   };
 
