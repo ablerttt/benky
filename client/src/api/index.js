@@ -9,22 +9,16 @@ export const getAllStudySets = (params) => api.get(`/setlist`, params);
 export const checkTitleExists = (params) => api.get(`/existingset`, params);
 export const getStudySetById = (id, params) => api.get(`/set/${id}`, params);
 
-// export const checkValidId = (id, uid) =>
-//   api.get(`/validset/${id}`, { uid: uid });
+export const checkValidId = (id, params) => api.get(`/validset/${id}`, params);
 export const updateStudySetById = (id, params) => api.put(`/set/${id}`, params);
-export const deleteStudySetById = (id, params) => api.delete(`/set/${id}`, params);
+export const deleteStudySetById = (id, params) =>
+  api.delete(`/set/${id}`, params);
 
 // test result api functions
-export const insertTestResult = (id, title, date, questionSet) =>
-  api.post(`/test`, {
-    setId: id,
-    title: title,
-    dateTaken: date,
-    questionSet: questionSet,
-  });
-export const getTestResults = () => api.get(`/testresults`);
-export const getTestResultById = (id) => api.get(`/test/${id}`);
-export const getTestResultTitles = () => api.get(`/testtitles`);
+export const insertTestResult = (params) => api.post(`/test`, params);
+export const getTestResults = (params) => api.get(`/testresults`, params);
+export const getTestResultById = (id, params) => api.get(`/test/${id}`, params);
+export const getTestResultTitles = (params) => api.get(`/testtitles`, params);
 
 const apis = {
   insertStudySet,
@@ -32,7 +26,7 @@ const apis = {
   updateStudySetById,
   deleteStudySetById,
   getStudySetById,
-  // checkValidId,
+  checkValidId,
   checkTitleExists,
 
   insertTestResult,

@@ -44,6 +44,7 @@ insertStudySet = (req, res) => {
   }
 
   const studySet = new StudySet(body);
+  studySet.uid = req.authId;
 
   if (!studySet) {
     console.log("Study set is not a study set.");

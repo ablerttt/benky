@@ -5,6 +5,7 @@ import TestResultContainer from "./TestResultContainer";
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
 import { withAuthorization } from "../../auth/Session";
+import firebase from "firebase/app";
 
 class TestResult extends React.Component {
   constructor(props) {
@@ -13,33 +14,45 @@ class TestResult extends React.Component {
   }
 
   componentDidMount() {
-    api
-      .getTestResultById(this.props.match.params.id)
-      .then((res) => {
-        if (res.data.success && res.data.valid) {
-          this.setState({
-            valid: true,
-            title: res.data.data.title,
-            questionSet: res.data.data.questionSet.map((m) => m),
-            dateTaken: res.data.data.dateTaken,
-            setId: res.data.data.setId,
-          });
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then((idToken) => {
+        api
+          .getTestResultById(this.props.match.params.id, {
+            headers: { authorization: `Bearer ${idToken}` },
+          })
+          .then((res) => {
+            if (res.data.success && res.data.valid) {
+              this.setState({
+                valid: true,
+                verified: true,
+                title: res.data.data.title,
+                questionSet: res.data.data.questionSet.map((m) => m),
+                dateTaken: res.data.data.dateTaken,
+                setId: res.data.data.setId,
+              });
 
-          api.checkValidId(res.data.data.setId).then((res2) => {
-            var currentTime = new Date().getTime();
-            while (currentTime + 300 >= new Date().getTime()) {}
-            if (!(res2.data.success && res2.data.valid)) {
-              this.setState({ gotoLink: false });
-            } else {
-              this.setState({ gotoLink: true });
+              api
+                .checkValidId(res.data.data.setId, {
+                  headers: { authorization: `Bearer ${idToken}` },
+                })
+                .then((res2) => {
+                  var currentTime = new Date().getTime();
+                  while (currentTime + 300 >= new Date().getTime()) {}
+                  if (!(res2.data.success && res2.data.valid)) {
+                    this.setState({ gotoLink: false });
+                  } else {
+                    this.setState({ gotoLink: true });
+                  }
+                  this.setState({ verified: true });
+                });
             }
-            this.setState({ verified: true });
+          })
+          .catch((e) => {
+            console.log(e);
+            this.setState({ valid: false, verified: true });
           });
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-        this.setState({ valid: false, verified: true });
       });
   }
 
@@ -70,7 +83,7 @@ class TestResult extends React.Component {
           gotoLink={gotoLink}
         />
       );
-    } else if (verified) {
+    } else if (verified && !valid) {
       renderContainer = <NotFoundPage />;
     }
 

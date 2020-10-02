@@ -41,15 +41,15 @@ class Test extends React.Component {
                 valid: true,
                 title: res.data.data.title,
                 cards: res.data.data.cards,
+                checked: true,
               });
             } else {
-              this.setState({ valid: false });
+              this.setState({ valid: false, checked: true });
             }
           })
           .catch((e) => {
             console.log(e);
           });
-        this.setState({ checked: true });
       });
   };
 
@@ -68,7 +68,7 @@ class Test extends React.Component {
     );
     const { classes } = this.props;
     const { valid, cards, title, checked, id } = this.state;
-    if (valid) {
+    if (valid && checked) {
       renderContainer = (
         <div>
           <Typography className={classes.intro} variant="h5">
@@ -80,9 +80,9 @@ class Test extends React.Component {
           )}
         </div>
       );
-    } else if (valid) {
+    } else if (valid && checked && cards.length == 0) {
       renderContainer = <EmptySet title={title} />;
-    } else if (!valid && checked) {
+    } else if (checked) {
       renderContainer = <NotFoundPage />;
     }
 

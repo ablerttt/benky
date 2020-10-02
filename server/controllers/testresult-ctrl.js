@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const TestEntry = require("../models/test-model");
 
 insertTestEntry = (req, res) => {
+  console.log("INSERT TEST ENTRY");
   const body = req.body;
 
   if (!body) {
@@ -14,10 +15,11 @@ insertTestEntry = (req, res) => {
   }
 
   let testEntry = new TestEntry();
-  testEntry.setId = body.setId;
-  testEntry.title = body.title;
-  testEntry.dateTaken = body.dateTaken;
-  testEntry.questionSet = body.questionSet;
+  testEntry.setId = body.headers.id;
+  testEntry.title = body.headers.title;
+  testEntry.dateTaken = body.headers.date;
+  testEntry.questionSet = body.headers.testresult;
+  testEntry.uid = req.authId;
 
   if (!testEntry) {
     console.log("Test Entry is not a test entry.");
@@ -46,7 +48,7 @@ insertTestEntry = (req, res) => {
 };
 
 getAllTestEntries = (req, res) => {
-  TestEntry.find({}, { questionSet: 0 })
+  TestEntry.find({ uid: req.authId }, { questionSet: 0 })
     .then((testEntries) => {
       if (!testEntries.length) {
         return res.status(200).json({ success: true, data: {} });
@@ -61,7 +63,9 @@ getAllTestEntries = (req, res) => {
 };
 
 getAllTestEntryTitles = (req, res) => {
-  TestEntry.find({}, { title: 1, dateTaken: 1 })
+  console.log(req.body);
+  console.log("GETTING TITLES");
+  TestEntry.find({ uid: req.authId }, { title: 1, dateTaken: 1 })
     .then((testEntries) => {
       if (!testEntries.length) {
         return res.status(200).json({ success: true, data: {}, empty: true });
@@ -78,19 +82,25 @@ getAllTestEntryTitles = (req, res) => {
 };
 
 getTestEntryById = (req, res) => {
-  TestEntry.findById(req.params.id, (err, testEntry) => {
-    if (err) {
-      return res.status(400).json({ success: false, valid: false, error: err });
-    }
+  console.log(req);
+  TestEntry.findOne(
+    { _id: req.params.id, uid: req.authId },
+    (err, testEntry) => {
+      if (err) {
+        return res
+          .status(400)
+          .json({ success: false, valid: false, error: err });
+      }
 
-    if (!testEntry) {
-      return res.status(400).json({ success: true, valid: false });
-    }
+      if (!testEntry) {
+        return res.status(400).json({ success: true, valid: false });
+      }
 
-    return res
-      .status(200)
-      .json({ success: true, valid: true, data: testEntry });
-  }).catch((err) => {
+      return res
+        .status(200)
+        .json({ success: true, valid: true, data: testEntry });
+    }
+  ).catch((err) => {
     console.log(err);
     return res.status(400).json({ success: false, valid: false, error: err });
   });

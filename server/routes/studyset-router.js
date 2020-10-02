@@ -1,9 +1,8 @@
 const express = require("express");
+const router = express.Router();
 var authMiddleware = require("../middleware/auth-middleware");
 
 const StudySetCtrl = require("../controllers/studyset-ctrl");
-
-const router = express.Router();
 
 // router.post("/set", StudySetCtrl.insertStudySet);
 router.post("/set", authMiddleware.checkIfAuthenticated, (req, res) => {
