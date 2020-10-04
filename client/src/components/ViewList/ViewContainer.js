@@ -87,7 +87,11 @@ class ViewContainer extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Container component="main" maxWidth="lg">
+      <Container
+        component="main"
+        maxWidth="lg"
+        style={{ margin: "0", padding: "0" }}
+      >
         <Grid
           container
           justify="space-between"

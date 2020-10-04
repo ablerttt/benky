@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import * as ROUTES from "../../constants/routes";
 import TextField from "@material-ui/core/TextField";
+// import { useHistory } from "react-router-dom";
 
 const SignUpPage = (props) => {
   const { classes } = props;
@@ -37,6 +38,7 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = () => {
+    // const { history } = this.props;
     const { username, email, passwordOne, passwordTwo } = this.state;
 
     // event.preventDefault();
@@ -75,6 +77,13 @@ class SignUpFormBase extends Component {
       })
       .then(() => {
         this.setState({ ...INITIAL_STATE });
+        // const history = useHistory();
+        // const handleOnClick = React.useCallback(
+        //   () => history.push(ROUTES.HOME),
+        //   [history]
+        // );
+
+        // history.push(ROUTES.HOME, [history]);
         this.props.history.push(ROUTES.HOME);
       })
       .catch((error) => {

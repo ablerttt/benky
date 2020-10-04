@@ -13,7 +13,7 @@ import Card from "@material-ui/core/Card";
 
 const HomePage = (props) => {
   const { classes } = props;
-  const options = ["Create a new set.", "Review.", "View test results."];
+  const options = ["Create", "Practice", "Test Results"];
   const links = [ROUTES.NEW_LIST, ROUTES.SHOW_LIST, ROUTES.TEST_LIST];
   const descriptions = [
     "Apply your knowledge of material to a new set.",

@@ -80,7 +80,7 @@ class Test extends React.Component {
           )}
         </div>
       );
-    } else if (valid && checked && cards.length == 0) {
+    } else if (valid && checked && cards.length === 0) {
       renderContainer = <EmptySet title={title} />;
     } else if (checked) {
       renderContainer = <NotFoundPage />;

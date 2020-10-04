@@ -39,7 +39,7 @@ const CreateDialog = (props) => {
         </Button>
         <Button
           component={Link}
-          to={`/p/${id}`}
+          to={`/sets`}
           className={classes.primaryDarkButton}
           variant="contained"
         >

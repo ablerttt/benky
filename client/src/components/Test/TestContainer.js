@@ -33,6 +33,7 @@ class TestContainer extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     window.addEventListener("keydown", this.logKeyDown);
   }
 
@@ -107,7 +108,7 @@ class TestContainer extends React.Component {
 
               if (existing.indexOf(title) >= 0) {
                 var newTitle = "";
-                for (let i = 0; i < Number.MAX_SAFE_INTEGER; i++) {
+                for (let i = 2; i < Number.MAX_SAFE_INTEGER; i++) {
                   var tempTitle = `${title} (${i})`;
                   console.log(
                     "testing for " +

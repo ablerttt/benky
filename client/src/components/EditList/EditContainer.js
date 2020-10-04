@@ -145,9 +145,7 @@ class EditContainer extends React.Component {
   };
 
   validateTitle = (title) => {
-    let valid = true;
     const { id } = this.state;
-    const oldtitle = this.state.oldtitle;
 
     firebase
       .auth()
@@ -160,22 +158,7 @@ class EditContainer extends React.Component {
             orig_id: id,
           },
         });
-        //   .then((res) => {
-        //     console.log("checking if title exists ");
-        //     console.log(res.data);
-        //     if (res.data.valid && res.data.success) {
-        //       this.setState({ valid: true });
-        //     } else {
-        //       this.setState({ valid: false });
-        //       valid = false;
-        //     }
-        //   });
-        // return valid;
       });
-    // .catch((error) => {
-    //   console.log("Error while validating set title: " + error);
-    //   this.setState({ valid: false });
-    // });
   };
 
   handleUpdateStudySet = async () => {

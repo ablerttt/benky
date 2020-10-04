@@ -5,6 +5,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/core";
 import NoTests from "../../pages/NoTests";
 import { withAuthorization } from "../../auth/Session";
+import firebase from "firebase/app";
 
 class TestSet extends React.Component {
   constructor(props) {
@@ -16,15 +17,24 @@ class TestSet extends React.Component {
   }
 
   componentDidMount = async () => {
-    await api.getTestResultTitles().then((res) => {
-      var currentTime = new Date().getTime();
-      while (currentTime + 300 >= new Date().getTime()) {}
-      this.setState({
-        results: res.data.data,
-        empty: res.data.empty,
-        mounted: true,
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then((idToken) => {
+        api
+          .getTestResultTitles({
+            headers: { authorization: `Bearer ${idToken}` },
+          })
+          .then((res) => {
+            var currentTime = new Date().getTime();
+            while (currentTime + 300 >= new Date().getTime()) {}
+            this.setState({
+              results: res.data.data,
+              empty: res.data.empty,
+              mounted: true,
+            });
+          });
       });
-    });
   };
 
   render() {

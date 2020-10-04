@@ -59,7 +59,7 @@ class DeleteAccount extends React.Component {
         <br />
         {error && <p>{error}</p>}
         <Dialog open={showDialog} onClose={this.handleCancel}>
-          <DialogTitle id="alert-dialog-title">
+          <DialogTitle id="alert-dialog-title" className={classes.dialog}>
             {"Delete your account permanatly?"}
           </DialogTitle>
           <DialogContent>

@@ -347,6 +347,11 @@ const styles = (theme) => ({
   dialog: {
     backgroundColor: theme.palette.highlight.main,
   },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9,
+    marginTop: "30",
+  },
 });
 
 export default styles;
