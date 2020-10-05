@@ -8,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import * as ROUTES from "../../constants/routes";
 import TextField from "@material-ui/core/TextField";
-// import { useHistory } from "react-router-dom";
 
 const SignUpPage = (props) => {
   const { classes } = props;
@@ -23,7 +22,6 @@ const SignUpPage = (props) => {
 };
 
 const INITIAL_STATE = {
-  username: "",
   email: "",
   passwordOne: "",
   passwordTwo: "",
@@ -38,17 +36,9 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = () => {
-    // const { history } = this.props;
-    const { username, email, passwordOne, passwordTwo } = this.state;
+    const { email, passwordOne, passwordTwo } = this.state;
 
-    // event.preventDefault();
     this.setState({ error: "" });
-
-    if (username === "") {
-      this.setState({ error: { message: "Empty username field." } });
-      console.log("empty username");
-      return;
-    }
 
     if (email === "") {
       this.setState({ error: { message: "Empty email field." } });
@@ -70,26 +60,17 @@ class SignUpFormBase extends Component {
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then((authUser) => {
-        return this.props.firebase
-          .user(authUser.user.uid)
-          .set({ username, email });
-      })
       .then(() => {
-        this.setState({ ...INITIAL_STATE });
-        // const history = useHistory();
-        // const handleOnClick = React.useCallback(
-        //   () => history.push(ROUTES.HOME),
-        //   [history]
-        // );
-
-        // history.push(ROUTES.HOME, [history]);
-        this.props.history.push(ROUTES.HOME);
+        this.props.firebase
+          .doSignInWithEmailAndPassword(email, passwordOne)
+          .then(() => {
+            this.props.history.push(ROUTES.HOME);
+            this.props.history.go(0);
+          });
       })
       .catch((error) => {
         this.setState({ error });
       });
-    // event.preventDefault();
   };
 
   onChange = (event) => {
@@ -99,25 +80,10 @@ class SignUpFormBase extends Component {
   };
 
   render() {
-    const { username, email, passwordOne, passwordTwo, error } = this.state;
+    const { email, passwordOne, passwordTwo, error } = this.state;
     const { classes } = this.props;
     return (
       <div>
-        <TextField
-          autoFocus
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          variant="filled"
-          label="Username"
-          className={classes.logInText}
-          InputProps={{
-            style: {
-              backgroundColor: "rgba(255, 255, 255, 0.8)",
-              color: "black",
-            },
-          }}
-        />
         <br />
         <TextField
           name="email"

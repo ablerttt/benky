@@ -23,7 +23,6 @@ import { withAuthentification } from "../../auth/Session";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 const theme = createMuiTheme({
-  // shadows: ["none"],
   typography: {
     fontFamily: [
       "-apple-system",

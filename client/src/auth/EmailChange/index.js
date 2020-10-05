@@ -10,40 +10,34 @@ import Typography from "@material-ui/core/Typography";
 class EmailChange extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { error: "", success: "", oldEmail: "", newEmail: "" };
+    this.state = {
+      error: "",
+      success: "",
+      newEmail: "",
+      currEmail: this.props.firebase.getUserEmail(),
+    };
   }
 
   onSubmit = async (e) => {
     e.preventDefault();
     this.setState({ error: "", success: "" });
-    const oldEmail = document.getElementById("oldEmail").value;
     const newEmail = document.getElementById("newEmail").value;
-    const correctOldEmail = this.props.firebase.doVerifyEmail(oldEmail);
-    if (!correctOldEmail) {
-      this.setState({
-        error:
-          "Old email address provided does not match with this user's email address.",
-      });
-      return;
-    } else {
-      await this.props.firebase
-        .doUpdateEmail(newEmail)
-        .then((res) => {
-          console.log("RES");
-          console.log(res);
-          this.setState({
-            erorr: "",
-            success: "Email successfully updated!",
-            oldEmail: "",
-            newEmail: "",
-          });
-        })
-        .catch((e) => {
-          console.log("ERR");
-          console.log(e);
-          this.setState({ error: e.message, success: "" });
+    await this.props.firebase
+      .doUpdateEmail(newEmail)
+      .then((res) => {
+        console.log("RES");
+        console.log(res);
+        this.setState({
+          erorr: "",
+          success: "Email successfully updated!",
+          newEmail: "",
         });
-    }
+      })
+      .catch((e) => {
+        console.log("ERR");
+        console.log(e);
+        this.setState({ error: e.message, success: "" });
+      });
   };
 
   onChange = (event) => {
@@ -54,8 +48,8 @@ class EmailChange extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { error, success, oldEmail, newEmail } = this.state;
-    const isInvalid = oldEmail === "" || newEmail === "";
+    const { error, success, newEmail, currEmail } = this.state;
+    const isInvalid = newEmail === "";
     return (
       <div>
         <Typography>
@@ -63,25 +57,11 @@ class EmailChange extends React.Component {
           password, you'll receive any emails from this email instead.
         </Typography>
         <br />
+        <Typography>
+          Your current email is <strong>{currEmail}</strong>
+        </Typography>
+        <br />
         <form onSubmit={this.onSubmit} style={{ margin: "auto" }}>
-          <TextField
-            id="oldEmail"
-            name="oldEmail"
-            label="Old Email Address"
-            onChange={this.onChange}
-            value={oldEmail}
-            InputProps={{
-              style: {
-                color: "white",
-              },
-            }}
-            InputLabelProps={{
-              style: {
-                color: "grey",
-              },
-            }}
-          />
-          <br />
           <TextField
             id="newEmail"
             name="newEmail"

@@ -67,6 +67,8 @@ class Firebase {
 
   getUserID = () => this.auth.currentUser.uid;
 
+  getUserEmail = () => this.auth.currentUser.email;
+
   getUserToken = () => this.auth.currentUser.getIdToken();
 
   user = (uid) => this.db.ref(`users/${uid}`);

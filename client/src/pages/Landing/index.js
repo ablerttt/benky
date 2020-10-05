@@ -6,11 +6,11 @@ import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Link from "@material-ui/core/Link";
 const Landing = (props) => {
-  // const { classes } = props;
+  const iconPath = process.env.PUBLIC_URL + "/assets/";
   const preventDefault = (event) => event.preventDefault();
   return (
     <div>
-      <Box height="80vh">
+      <Box height="90vh">
         <Paper
           style={{
             position: "relative",
@@ -40,11 +40,75 @@ const Landing = (props) => {
           </div>
           <div style={{ margin: "auto" }}>
             <img
-              src="/practice.png"
-              width="400px"
-              height="300px"
+              src={`${iconPath}create.jpg`}
               alt="practice sample"
+              height="180px"
             />
+          </div>
+        </Paper>
+      </Box>
+      <Box height="100vh" width="100%">
+        <Paper
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "row",
+            alignContent: "center",
+            justifyContent: "center",
+            height: "100%",
+            margin: "auto",
+            verticalAlign: "middle",
+            backgroundColor: "rgba(0,0,0,0.0)",
+          }}
+        >
+          <div
+            style={{
+              margin: "auto",
+              flexDirection: "row",
+              alignContent: "center",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography variant="h4">
+              <strong>How it works.</strong>
+            </Typography>
+            <br />
+            <Typography>
+              1. Input a set using your newfound knowledge.
+            </Typography>
+            <Typography>
+              2. Practice using the interactive flashcard UI to gague
+              understanding
+            </Typography>
+            <Typography>
+              3. Test yourself and check for improvement!!!
+            </Typography>
+            <br />
+            <div style={{ display: "inline-block" }}>
+              <img
+                src={`${iconPath}create.jpg`}
+                alt="practice sample"
+                style={{
+                  borderRadius: "1em",
+                  borderBlockColor: "white",
+                  borderBlockWidth: "5px",
+                }}
+                height="180px"
+              />
+              <img
+                src={`${iconPath}practice.jpg`}
+                alt="practice sample"
+                height="180px"
+                // width="30%"
+              />
+              <img
+                src={`${iconPath}testresult.jpg`}
+                alt="practice sample"
+                height="180px"
+                // width="30%"
+              />
+            </div>
           </div>
         </Paper>
       </Box>
@@ -78,6 +142,7 @@ const Landing = (props) => {
               <Link
                 href="mailto:alberthan2011@gmail.com"
                 onClick={preventDefault}
+                style={{ textDecoration: "none" }}
               >
                 Email our team.
               </Link>

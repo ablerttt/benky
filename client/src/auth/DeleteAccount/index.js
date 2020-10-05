@@ -32,6 +32,7 @@ class DeleteAccount extends React.Component {
       });
 
     this.props.history.push("/");
+    this.props.history.go(0);
   };
 
   handleCancel = () => {
