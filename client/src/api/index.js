@@ -1,7 +1,11 @@
 import axios from "axios";
+
+const baseURL =
+  process.env.NODE_ENV === "production"
+    ? "https://benkyapi.herokuapp.com/api"
+    : "http://localhost:5000/api";
 const api = axios.create({
-  // baseURL: "https://benkyapi.herokuapp.com/api",
-  baseURL: "http://localhost:3000/api",
+  baseURL: baseURL,
 });
 
 export const insertStudySet = (params) => api.post(`/set`, params);

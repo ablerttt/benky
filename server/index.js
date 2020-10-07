@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 app.use("/api", setRouter);
 app.use("/api", testRouter);
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 
 app.listen(port);
 

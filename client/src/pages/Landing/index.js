@@ -103,7 +103,7 @@ const Landing = (props) => {
                 // width="30%"
               />
               <img
-                src={`${iconPath}testresult.jpg`}
+                src={`${iconPath}testresults.jpg`}
                 alt="practice sample"
                 height="180px"
                 // width="30%"
