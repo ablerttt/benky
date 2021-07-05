@@ -7,10 +7,6 @@ A studying tool designed to help students in need.
 As students get increasingly stressed, productivity sites and apps have been on the rise. Developers are scrambling to create effective productivity applications with a minimal, refreshing design to attract users. To compensate for the heavy amount of learning that is experienced in the classroom, flashcards have been a popular method of reviewing content learned in class.
 However, flashcards are expensive and wasteful. They may be used once, and then stored and forgotten about. **benky** serves as an online platform for students to be able to study without needing to spend the money and paper for an actual flashcard.
 
-### Link
-
-Check it out at [this link](http://benky.herokuapp.com/)!!
-
 ### Technologies Used
 
 #### Frontend
